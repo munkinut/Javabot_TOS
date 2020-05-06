@@ -1,0 +1,55 @@
+// google.bsh - google script for JavaBot
+// note to me - this version is in the src tree
+//
+// invoked using !<botnick> google <params>
+
+Vector params = scriptResource.getParams();
+
+Socket sock;
+BufferedReader in;
+PrintWriter out;
+String buffer = null;
+
+StringBuffer query = new StringBuffer();
+String param;
+
+for (int i = 0; i < params.size(); i++) {
+    param = (String)params.get(i);
+    query.append(param);
+    query.append("+");
+}
+query.deleteCharAt(query.length()-1);
+
+try {
+    sock = new Socket("www.google.com", 80);
+    in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+    out = new PrintWriter(sock.getOutputStream());
+    out.println("GET /search?q=" + query + "&btnI=I'm+feeling+lucky HTTP/1.0\n\n");
+    out.flush();
+
+    buffer = in.readLine();
+    try {
+        while(buffer != null) {
+            buffer = in.readLine();
+            if (buffer.startsWith("Location:")) {
+                buffer = buffer.substring(10, buffer.length());
+                String nick = scriptResource.getNick();
+		if (buffer.startsWith("http://")) {
+                    scriptResource.msgChannel(nick + " : google result : " + buffer);
+		} else {
+                    scriptResource.msgChannel(nick + " : google result : no result");
+		}
+                break;
+            }
+        }
+    }
+    catch (NullPointerException e) {
+        e.printStackTrace();
+    }
+}
+catch (UnknownHostException e) {
+    e.printStackTrace();
+}
+catch (IOException e) {
+    e.printStackTrace();
+}

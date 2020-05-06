@@ -1,0 +1,7 @@
+// version.bsh - version script for JavaBot
+// note to me - this version is in the src tree
+//
+// invoked using !<botnick> version
+
+message = "JavaBot Version 0.9";
+scriptResource.msgChannel(message);

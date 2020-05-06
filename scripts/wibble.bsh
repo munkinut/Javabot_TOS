@@ -1,0 +1,28 @@
+// wibble.bsh - example BeanShell script for JavaBot
+// note to me - this version is in the src tree
+// 
+// for more info on BeanShell scripting, go to :
+//
+// http://www.beanshell.org
+//
+// a scriptResource provides the essential JavaBot API
+// it's public methods are :
+//
+// getChannel() - returns the current JavaBot channel
+// getNick() - returns the nick that invoked the script
+// getHostmask() - returns the hostmask that invoked the script
+// getParams() - returns a Vector of parameters that were passed
+// msgNick(String message) - sends a privmsg to the nick that invoked the script
+// msgChannel(String message) - sends a msg to the channel that invoked the script
+//
+// examples :
+// 
+// nick = scriptResource.getNick();
+// msgNick("hello " + nick);
+// channel = scriptResource.getChannel();
+// msgChannel("nice to be here in " + channel);
+//
+// inspiring stuff eh ;)
+//
+nick = scriptResource.getNick();
+scriptResource.msgChannel("hi " + nick + ".  wibble wibble :)");

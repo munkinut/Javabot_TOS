@@ -1,0 +1,164 @@
+JavaBot User Guide (c) Warren Milburn 2001
+
+Introduction
+
+Quick Start (assumes that you have a compiled bot and are in the compiled directory)
+
+1) Run InitUsersXML to create a default userfile containing an entry for the bot owner.
+
+    java org.javabot.user.InitUsersXML <username> <password>
+
+    Eg. > java org.javabot.user.InitUsersXML wibble wobble
+
+    Will create a userfile called newusers.xml
+    with the username "wibble" and password "wobble".
+
+    This file needs to be renamed to users.xml and placed in the config directory
+    (org/javabot/config).
+
+    This user has their bot owner flag set to true and can then add more flags for 
+    themselves and create more users once the bot is running.
+
+2) Edit the javabot.properties file (org/javabot/config/javabot.properties)
+
+    This contains directives for the server and port, channel and the bots name.
+    Please ensure you specify the channel name in lowercase.
+    The file also contains switches for various options such as autovoice and flood protection.
+
+3) Run JavaBot.
+
+    Eg. > java org.javabot.gui.javabot
+
+4) Start JavaBot.
+
+    Click the "Connect" button or choose "Connect" from the "File" menu.
+
+5) Once connected JavaBot will enter the channel on the network you specified 
+   in the javabot.properties file and set some default flags.
+
+6) You may then enter the channel on which the bot is sitting.
+   It is obviously best to send the bot to a channel on which it can gain ops.
+
+7) Authenticate yourself with the bot
+
+    /msg <botname> auth <username> <password>
+
+    where <botname> is the name of your JavaBot, <username> is the username 
+    you set up previously, and <password> is the password you set up 
+    previously.
+
+    Eg. /msg javabot auth wibble wobble
+
+8) You will be met with a default greet message which you can change later.
+
+9) That's it!
+
+10) Okay so you want it to do more things?  Read the command list below :))
+
+
+Command list
+
+auth    -   authenticates a user with the bot
+
+    /msg <bot> auth <username> <password>
+
+pass    -   allows a user to change their password
+
+    /msg <bot> pass <oldpass> <newpass>
+
+greet   -   allows a user to change their greet (user requires +f (friend) flag)
+
+    /msg <bot> greet <greet>
+
+adduser -   allows an owner to add a new user to the bot (requires +n flag)
+
+    /msg <bot> adduser <username>
+
+deluser -   allows an owner to delete a user from the bot (requires +n flag)
+
+    /msg <bot> deluser <username>
+
+users - allows an op to list the bot users
+
+    /msg <bot> users
+
+addfriend   -   allows an op to add a friend flag to an existing user (requires +o)
+
+    /msg <bot> addfriend <username>
+
+addvoice    -   allows an op to add a voice flag to an existing user (requires +o)
+
+    /msg <bot> addvoice <username>
+
+addop   -   allows an op to add an op flag to an existing user (requires +m)
+
+    /msg <bot> addop <username>
+
+addmaster   -   allows an owner to add a master flag to an existing user (requires +n)
+
+    /msg <bot> addmaster <username>
+
+delfriend   -   allows an op to delete a friend flag from an existing user (requires +o)
+
+    /msg <bot> delfriend <username>
+
+delvoice    -   allows an op to delete a voice flag from an existing user (requires +o)
+
+    /msg <bot> delvoice <username>
+
+delop   -   allows a master to delete an op flag from an existing user (requires +m)
+
+    /msg <bot> delop <username>
+
+delmaster   -   allows an owner to delete a master flag from an existing user (requires +n)
+
+    /msg <bot> delmaster <username>
+
+flags   -   allows a user with the correct privileges to set or unset flags on an existing user
+
+    /msg <bot> flags <username> <+|-[fvom]>
+
+userfile    -   allows an owner to reload the userfile (after manual changes have been made)
+
+    /msg <bot> userfile
+
+kick    -   allows an op to instruct the bot to kick someone from the channel
+
+    /msg <bot> kick <nick> <channel>
+
+ban -   allows an op to instruct the bot to ban someone from the channel
+
+    /msg <bot> ban <banmask> <channel>
+
+kickban -   allows an op to instruct the bot to kick and ban someone from the channel
+
+    /msg <bot> kickban <nick> <banmask> <channel>
+
+invite  -   allows an op to request an invitation to a locked channel
+
+    /msg <bot> invite <nick> <channel>
+
+addban - allows an op to add a perm ban in the bot
+
+    /msg <bot> addban <banmask> <channel>
+
+    Eg. /msg javabot addban *!*myident@*.mydomain.org #cheesy
+
+delban - allows an op to delete a perm ban in the bot
+
+    /msg <bot> delban <banmask> <channel> #cheesy
+
+    Eg. /msg javabot delban *!*myident@*.mydomain.org
+
+bans - allows an op to list the current banmasks in the bot
+
+    /msg <bot> bans
+
+!voiceme    -   allows a user with +v flag to get voice from the bot (where autovoice is disabled)
+!opme   -   allows a user with +o flag to get ops from the bot
+!help   -   triggers the bot to recite help on available commands
+!version    -   triggers the bot to recite its version information
+!date   -    triggers the bot to recite the current date
+!lc -   allows a user with +o flag to lock the channel (sets channel mode to +mi)
+!uc -   allows a user with +o flag to unlock the channel (sets channel mode to -mi)
+

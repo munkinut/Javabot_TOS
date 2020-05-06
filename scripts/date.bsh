@@ -1,0 +1,8 @@
+// date.bsh - date script for JavaBot
+// note to me - this version is in the src tree
+//
+// invoked using !<botnick> date
+
+message = new Date().toString();
+scriptResource.msgChannel(message);
+

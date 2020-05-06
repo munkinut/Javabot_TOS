@@ -1,0 +1,85 @@
+JavaBot ToDoList.txt
+
+Warren Milburn
+
+Add banfile management to the console
+
+Install docs
+
+Developer docs
+
+Refactor existing code to
+
+ - increase efficiency
+ - reduce redundant code
+
+Check for successful join b4 executing commands
+
+Check for outbound established b4 trying to use 
+ - investigate null pointer exception when connection closed.
+
+Regain nick
+
+Split detection
+ - link into the Join flood protect so wars don't start after a rejoin
+
+Cycle for server
+
+Partyline
+ - and a new name for the partyline (conference or something)
+
+Look at a mechanism to allow bots to share
+ - peer to peer - bots share with each other changes they make to the userfile.  if a bot is offline 
+ - and comes back online it can check with the other bots what changes have been made and catch up 
+ - with them
+ - maybe use an observer pattern for bots to register interest in events like userfile changes
+
+------------------------------------------------------------------
+Done
+
+xxxxx - do message parsing
+xxxxx    - create a MessageFactory which returns an instance of MessageInterface
+xxxxx    - determined by the contents of a responseLine
+xxxxx - provide feedback on all commands
+xxxxx Make !userfile a PRIVMSG command
+xxxxx Decide what needs to be a public !<word> command and what needs to be privmsg
+xxxxx Decide what needs a pass and what doesn't
+xxxxx - Greet probably doesn't need a pass
+xxxxx User docs
+xxxxx Think about how to create a default first time owner
+xxxxx - and corresponding userfile
+xxxxx Cycle for ops
+xxxxx Look at synchronised access to the userfile
+xxxxx Kick / Ban / KickBan commands
+xxxxx Allow bot to invite users to a +i channel
+xxxxx Get the bot to /quit before terminating (may need to fiddle with how outbound is created in inbound.java)
+xxxxx - Dynamic channel limit  **** this can be done using the join and part handlers
+xxxxx                          **** maybe count the number of joins upto each multiple of 5 b4 changing limit
+xxxxx                          **** maybe needs a counter
+xxxxx                          **** needs to be switchable
+xxxxx Packaging
+xxxxx Swing Interface
+xxxxx Consider giving each ChannelUser its own Timer, which gets cancelled
+xxxxx  - when a ChannelUser is removed
+xxxxx ChannelManager to take care of all channel related tasks.
+xxxxx  - leaving inbound to take care of inbound message handling
+xxxxx Swing icon buttons for Connect / Disconnect
+xxxxx Switch to a toggle button for connect / disconnect
+xxxxx Protection code  -- ChannelManager to track nicks and watch activity
+xxxxx                 -- SecurityManager to alert on floods etc
+xxxxx
+xxxxx - Flood protection
+xxxxx    - Colour (need to find out more about this)
+xxxxx    - Msg (done)
+xxxxx    - Channel text (done)
+xxxxx    - Join (done)
+xxxxx    - DCC (need an ignore list)
+xxxxx    - CTCP (need an ignore list)
+xxxxx Ignore list
+xxxxx PropertyManager
+xxxxx Add configuration to the console
+xxxxx Ban list
+xxxxx Functions to allow ops, masters and owners to list users
+xxxxx Add userfile management to the console
+xxxxx BeanShell scripting
+
