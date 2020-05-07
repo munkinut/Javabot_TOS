@@ -530,6 +530,7 @@ public class UserUI extends javax.swing.JFrame {
                            userTree.getLastSelectedPathComponent();
         
         if (node != null) {
+            //noinspection StatementWithEmptyBody
             if (node.isLeaf() && !node.isRoot()) {
                 userUIConfigurator.loadUser(node);
                 botnickTextField.setText(userUIConfigurator.getNodeNick());

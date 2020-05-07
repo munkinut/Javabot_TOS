@@ -39,6 +39,7 @@ public abstract class RandomGenerator {
         random = new Random(new Date().getTime());
     }
     
+    @SuppressWarnings("SameParameterValue")
     protected String generateCode(int chars) {
         char[] pass = new char[chars];
         int index;

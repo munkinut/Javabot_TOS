@@ -89,12 +89,10 @@ public class InitUsersXML {
         catch (java.io.FileNotFoundException fnfe) {
             System.err.println("Could not find file : " + userfile);
             // System.exit(1);
-            success = false;
         }
         catch (java.io.IOException ioeStore) {
             System.err.println("Could not load or close file : " + userfile);
             // System.exit(1);
-            success = false;
         }
         return success;
     }

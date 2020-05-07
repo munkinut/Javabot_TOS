@@ -29,16 +29,16 @@ public class LocalJBServer implements JBotnetInterface {
         clients = new java.util.Vector();
     }
 
-    public String getTime() throws Exception {
+    public String getTime() {
         java.util.Date d = new java.util.Date();
         return d.toString();
     }
     
-    public boolean authenticate(String botnick, String key) throws Exception {
+    public boolean authenticate(String botnick, String key) {
         return true;
     }
     
-    public void register(JBotnetInterface client) throws Exception {
+    public void register(JBotnetInterface client) {
         clients.add(client);
         System.out.println("Client registered");
     }

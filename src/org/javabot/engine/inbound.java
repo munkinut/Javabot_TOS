@@ -212,7 +212,7 @@ public class inbound extends Thread {
                     
                 }
             }
-            catch (java.io.IOException ioe){
+            catch (java.io.IOException ignored){
             }
         }
     }
@@ -505,13 +505,13 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleGreetCmd(String nickFrom, String hostmask, Vector params) {
-        String greet = "";
+        StringBuilder greet = new StringBuilder();
         for (int i=1; i < params.size(); i++) {
-            greet = greet + params.elementAt(i) + " ";
+            greet.append(params.elementAt(i)).append(" ");
         }
-        greet = greet.trim();
+        greet = new StringBuilder(greet.toString().trim());
         if (um.userIsFriend(hostmask)) {
-            if (um.greet(hostmask, greet)) {
+            if (um.greet(hostmask, greet.toString())) {
                 IRCCommands.privmsg(nickFrom, "Greet changed to '"+ greet + "'", outbound);
             }
         }
@@ -613,6 +613,7 @@ public class inbound extends Thread {
      * @param nickFrom Originating nick
      * @param hostmask Originating hostmask
      */    
+    @SuppressWarnings("BusyWait")
     private void handleUsersCmd(String nickFrom, String hostmask) {
         if (um.userIsOp(hostmask)) {
             Vector users = um.getUsers();
@@ -634,7 +635,7 @@ public class inbound extends Thread {
                     try {
                         sleep(1000);
                     }
-                    catch (InterruptedException ie) {
+                    catch (InterruptedException ignored) {
                     }
                 }
             }
@@ -851,6 +852,7 @@ public class inbound extends Thread {
      * @param nickFrom Originating nick
      * @param hostmask Originating hostmask
      */    
+    @SuppressWarnings("BusyWait")
     private void handleBansCmd(String nickFrom, String hostmask) {
         if (um.userIsOp(hostmask)) {
             Vector bans = bm.getBans();
@@ -870,7 +872,7 @@ public class inbound extends Thread {
                     try {
                         sleep(1000);
                     }
-                    catch (InterruptedException ie) {
+                    catch (InterruptedException ignored) {
                     }
                 }
             }

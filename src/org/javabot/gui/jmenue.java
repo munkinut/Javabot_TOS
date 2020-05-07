@@ -21,6 +21,8 @@
 
 package org.javabot.gui;
 
+import java.awt.*;
+
 public class jmenue extends javax.swing.JFrame {
     
     private final JavaBotActivator jba;
@@ -125,7 +127,7 @@ public class jmenue extends javax.swing.JFrame {
           consoleOutput.setEditable(false);
           consoleOutput.setColumns(80);
           consoleOutput.setRows(20);
-          consoleOutput.setFont(new java.awt.Font("Lucida Console", 0, 12));
+          consoleOutput.setFont(new java.awt.Font("Lucida Console", Font.PLAIN, 12));
           consoleScrollPane.setViewportView(consoleOutput);
           
           getContentPane().add(consoleScrollPane, java.awt.BorderLayout.CENTER);

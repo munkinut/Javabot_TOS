@@ -21,8 +21,6 @@
 
 package org.javabot.server;
 
-import java.rmi.*;
-
 public class JBServer extends java.rmi.server.UnicastRemoteObject implements JBSRemoteInterface {
     
     JBotnetInterface localServer;

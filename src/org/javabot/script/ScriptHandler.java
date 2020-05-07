@@ -64,17 +64,16 @@ public class ScriptHandler {
         String fs = File.separator;
         String currentPath = System.getProperty("user.dir");
         //String currentPath = "d:\\projects\\javabot\\compiled";
-        StringBuffer path = new StringBuffer(currentPath);
-        path.append(fs);
-        path.append("org");
-        path.append(fs);
-        path.append("javabot");
-        path.append(fs);
-        path.append("scripts");
-        path.append(fs);
-        path.append(command);
-        path.append(".bsh");
-        return path.toString();
+        String path = currentPath + fs +
+                "org" +
+                fs +
+                "javabot" +
+                fs +
+                "scripts" +
+                fs +
+                command +
+                ".bsh";
+        return path;
     }
 
     private Vector parseParams(Vector cmd) {

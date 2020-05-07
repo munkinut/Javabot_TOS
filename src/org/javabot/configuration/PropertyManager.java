@@ -579,7 +579,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -828,6 +828,7 @@ public class PropertyManager {
         }
         if (properties.containsKey("ChannelModes")) {
             channelModes = properties.getProperty("ChannelModes");
+            //noinspection StatementWithEmptyBody
             if (channelModes.equals("")) {
                 //we dont necessarily care if there are no modes so don't whine about it
                 //success = this.failProperties("Properties file contains a blank entry for ChannelModes");

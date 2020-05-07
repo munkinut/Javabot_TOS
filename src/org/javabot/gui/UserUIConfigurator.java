@@ -34,8 +34,8 @@ public class UserUIConfigurator {
     
     public void createNodes(javax.swing.tree.DefaultMutableTreeNode top) {
         java.util.Vector users = um.getUsers();
-        javax.swing.tree.DefaultMutableTreeNode userNode = null;
-        org.javabot.user.User user = null;
+        javax.swing.tree.DefaultMutableTreeNode userNode;
+        org.javabot.user.User user;
         for (int i = 0; i < users.size(); i++) {
             user = (org.javabot.user.User)users.elementAt(i);
             userNode = new javax.swing.tree.DefaultMutableTreeNode(user);

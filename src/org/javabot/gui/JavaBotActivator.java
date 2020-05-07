@@ -86,6 +86,7 @@ public class JavaBotActivator {
     }
     
     public boolean exit() {
+        //noinspection StatementWithEmptyBody
         if (this.disconnect()) {
             // tell us we disconnected ok
         }

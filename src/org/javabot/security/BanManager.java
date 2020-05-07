@@ -77,7 +77,7 @@ public class BanManager {
                     break;
                 }
             }
-            catch (gnu.regexp.REException grr) {
+            catch (gnu.regexp.REException ignored) {
             }
         }
         return matches;
@@ -88,7 +88,7 @@ public class BanManager {
             RE nickReg = new RE("\\*");
             hostmask = nickReg.substituteAll(hostmask, "\\S*");
         }
-        catch (gnu.regexp.REException reex) {
+        catch (gnu.regexp.REException ignored) {
         }
         return hostmask;
     }

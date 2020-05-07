@@ -229,7 +229,7 @@ public class UserManager {
     
     private User getUser(String hostmask) {
         User returnUser = null;
-        User user = null;
+        User user;
         Iterator i = users.iterator();
         while (i.hasNext()) {
             user = (User)i.next();
@@ -246,7 +246,7 @@ public class UserManager {
     
     public User getUserByBotnick(String botnick) {
         User returnUser = null;
-        User user = null;
+        User user;
         Iterator i = users.iterator();
         while (i.hasNext()) {
             user = (User)i.next();
@@ -259,7 +259,7 @@ public class UserManager {
     
     public boolean userExists(String hostmask) {
         boolean success = false;
-        User user = null;
+        User user;
         Iterator i = users.iterator();
         while (i.hasNext()) {
             user = (User)i.next();
@@ -273,7 +273,7 @@ public class UserManager {
         
     public boolean userBotnickExists(String botnick) {
         boolean success = false;
-        User user = null;
+        User user;
         Iterator i = users.iterator();
         while (i.hasNext()) {
             user = (User)i.next();
