@@ -40,19 +40,19 @@ public class jmenue extends javax.swing.JFrame {
      */
     private void initComponents() {//GEN-BEGIN:initComponents
             connectionMenuBar = new javax.swing.JMenuBar();
-            fileMenu = new javax.swing.JMenu();
+        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
             connectMenuItem = new javax.swing.JMenuItem();
             disconnectMenuItem = new javax.swing.JMenuItem();
-            exitMenuItem = new javax.swing.JMenuItem();
-            aboutMenu = new javax.swing.JMenu();
-            javaBotMenuItem = new javax.swing.JMenuItem();
-            configMenu = new javax.swing.JMenu();
+        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JMenu aboutMenu = new javax.swing.JMenu();
+        javax.swing.JMenuItem javaBotMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JMenu configMenu = new javax.swing.JMenu();
             javaBotSettingsMenuItem = new javax.swing.JMenuItem();
-            userManagerMenuItem = new javax.swing.JMenuItem();
-            consoleScrollPane = new javax.swing.JScrollPane();
+        javax.swing.JMenuItem userManagerMenuItem = new javax.swing.JMenuItem();
+        javax.swing.JScrollPane consoleScrollPane = new javax.swing.JScrollPane();
             consoleOutput = new javax.swing.JTextArea();
-            consoleInput = new javax.swing.JTextField();
-            mainToolBar = new javax.swing.JToolBar();
+        javax.swing.JTextField consoleInput = new javax.swing.JTextField();
+        javax.swing.JToolBar mainToolBar = new javax.swing.JToolBar();
             conDisconButton = new javax.swing.JToggleButton();
             
             fileMenu.setText("File");
@@ -225,19 +225,10 @@ public class jmenue extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar connectionMenuBar;
-    private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem connectMenuItem;
     private javax.swing.JMenuItem disconnectMenuItem;
-    private javax.swing.JMenuItem exitMenuItem;
-    private javax.swing.JMenu aboutMenu;
-    private javax.swing.JMenuItem javaBotMenuItem;
-    private javax.swing.JMenu configMenu;
     private javax.swing.JMenuItem javaBotSettingsMenuItem;
-    private javax.swing.JMenuItem userManagerMenuItem;
-    private javax.swing.JScrollPane consoleScrollPane;
     private javax.swing.JTextArea consoleOutput;
-    private javax.swing.JTextField consoleInput;
-    private javax.swing.JToolBar mainToolBar;
     private javax.swing.JToggleButton conDisconButton;
     // End of variables declaration//GEN-END:variables
 

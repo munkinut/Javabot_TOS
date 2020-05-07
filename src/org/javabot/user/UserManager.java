@@ -25,9 +25,7 @@ import java.util.Vector;
 import java.util.Iterator;
 
 public class UserManager extends java.lang.Object {
-    
-    private final boolean debug = false;
-    
+
     private final String userfile;
     private Vector users;
 
@@ -35,6 +33,7 @@ public class UserManager extends java.lang.Object {
         String fs = java.io.File.separator;
         String currentPath = System.getProperty("user.dir");
         this.userfile = currentPath + fs + "org" + fs + "javabot" + fs + "config" + fs + "users.xml";
+        boolean debug = false;
         if (debug) System.out.println("[UM] : userfile = " + userfile);
         users = this.loadUsers();
         if (debug) {

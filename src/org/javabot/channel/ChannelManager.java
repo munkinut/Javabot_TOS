@@ -47,11 +47,7 @@ public class ChannelManager extends Object implements org.javabot.util.MyObserve
     /** A timer for tracking timed events.
      */    
     private final java.util.Timer timer;
-    
-    /** A handler for the main properties file.
-     */    
-    private final org.javabot.configuration.PropertyManager pm;
-    
+
     /** The number of users in channel.
      */    
     private int namesCount;
@@ -71,7 +67,9 @@ public class ChannelManager extends Object implements org.javabot.util.MyObserve
         this.outbound = outbound;
         this.channelUsers = new Hashtable();
         this.timer = new java.util.Timer(true);
-        this.pm = org.javabot.configuration.PropertyManager.getInstance();
+        /** A handler for the main properties file.
+         */
+        org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
         this.channel = pm.getChannel();
         this.initialModes = pm.getChannelModes();
         ChannelManager.joinRatio = pm.getJoinRatio();

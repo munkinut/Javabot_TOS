@@ -34,15 +34,10 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     private final Vector observers;
 
     private final boolean debug = false;
-    
-    private final int skimRate = 60*1000*5;  // 5 minutes
-    private final int ignoreTimeout = 60*1000; // 1 minute
-    
+
     private final java.util.Hashtable flooders;
     private final Vector ignoreList;
     private final java.util.Timer timer;
-    
-    private final org.javabot.configuration.PropertyManager pm;
 
     public static String privmsgRatio;
     public static String chanmsgRatio;
@@ -53,7 +48,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     /** Creates new SecurityManager */
     public SecurityManager() {
         if (debug) System.out.println("[SM] : Security Manager created");
-        pm = org.javabot.configuration.PropertyManager.getInstance();
+        org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
         SecurityManager.privmsgRatio = pm.getPrivmsgRatio();
         SecurityManager.chanmsgRatio = pm.getChanmsgRatio();
         SecurityManager.ctcpRatio = pm.getCtcpRatio();
@@ -65,7 +60,9 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
         timer = new java.util.Timer(true);
         org.javabot.task.SkimmerTask st = new org.javabot.task.SkimmerTask();
         st.registerInterest(this);
-        timer.scheduleAtFixedRate(st, this.skimRate, this.skimRate);  // skim the flooders every 5 mins
+        // 5 minutes
+        int skimRate = 60 * 1000 * 5;
+        timer.scheduleAtFixedRate(st, skimRate, skimRate);  // skim the flooders every 5 mins
     }
     
     public void addFlooder(String hostmask) {
@@ -85,7 +82,9 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
         this.ignoreList.add(hostmask);
         org.javabot.task.IgnoreTask it = new org.javabot.task.IgnoreTask(hostmask);
         it.registerInterest(this);
-        timer.schedule(it, this.ignoreTimeout);  // 60 seconds
+        // 1 minute
+        int ignoreTimeout = 60 * 1000;
+        timer.schedule(it, ignoreTimeout);  // 60 seconds
     }
     
     public void removeIgnore(String hostmask) {

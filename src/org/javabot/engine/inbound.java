@@ -34,10 +34,6 @@ public class inbound extends Thread {
     /** Indicates connection status
      */    
     private boolean connected = false;
-    
-    /** Timer for timed events
-     */    
-    private final java.util.Timer timer;
 
     /** Bots real name
      */    
@@ -48,16 +44,10 @@ public class inbound extends Thread {
     /** Channel bot will manage
      */    
     private final String channel;
-    /** Channel modes
-     */    
-    private final String channelModes;
-    
+
     /** Autovoice flag
      */    
     private final boolean autovoice;
-    /** Flood protection flag
-     */    
-    private final boolean flood;
     /** Opme flag
      */    
     private final boolean opme;
@@ -87,9 +77,6 @@ public class inbound extends Thread {
     /** Manages the channel
      */    
     private org.javabot.channel.ChannelManager cm;
-    /** Manages the properties file
-     */    
-    private final org.javabot.configuration.PropertyManager pm;
     /** Manages bot security
      */    
     private final org.javabot.security.SecurityManager sm;
@@ -110,14 +97,22 @@ public class inbound extends Thread {
     public inbound(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
         this.ircsocket = ircsocket;
         this.consoleOutput = consoleOutput;
-        this.pm = org.javabot.configuration.PropertyManager.getInstance();
-        this.timer = new java.util.Timer(true);
+        /** Manages the properties file
+         */
+        org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
+        /** Timer for timed events
+         */
+        java.util.Timer timer = new java.util.Timer(true);
         this.name = pm.getName();
         this.nick = pm.getNickname();
         this.channel = pm.getChannel();
-        this.channelModes = pm.getChannelModes();
+        /** Channel modes
+         */
+        String channelModes = pm.getChannelModes();
         this.autovoice = pm.getAutovoice();
-        this.flood = pm.getFloodProtection();
+        /** Flood protection flag
+         */
+        boolean flood = pm.getFloodProtection();
         this.opme = pm.getOpme();
         this.autogreet = pm.getAutogreet();
         this.dynamicLimit = pm.getDynamicLimit();

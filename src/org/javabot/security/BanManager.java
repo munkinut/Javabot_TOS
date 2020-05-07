@@ -25,9 +25,7 @@ import java.util.Vector;
 import gnu.regexp.*;
 
 public class BanManager extends java.lang.Object {
-    
-    private final boolean debug = false;
-    
+
     private final String banfile;
     private Vector bans;
 
@@ -35,6 +33,7 @@ public class BanManager extends java.lang.Object {
         String fs = java.io.File.separator;
         String currentPath = System.getProperty("user.dir");
         this.banfile = currentPath + fs + "org" + fs + "javabot" + fs + "config" + fs + "bans.xml";
+        boolean debug = false;
         if (debug) System.out.println("[BM] : banfile = " + banfile);
         bans = this.loadBans();
         if (debug) {
