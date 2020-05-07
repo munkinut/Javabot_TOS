@@ -31,12 +31,12 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     public static final int IGNORE = 2;
     public static final int SKIM_FLOODERS = 3;
 
-    private final Vector observers;
+    private final Vector<MyObserver> observers;
 
     private final boolean debug = false;
 
-    private final java.util.Hashtable flooders;
-    private final Vector ignoreList;
+    private final java.util.Hashtable<String, FloodCounter> flooders;
+    private final Vector<String> ignoreList;
     private final java.util.Timer timer;
 
     public static String privmsgRatio;
@@ -54,9 +54,9 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
         SecurityManager.ctcpRatio = pm.getCtcpRatio();
         SecurityManager.colourRatio = pm.getColourRatio();
         SecurityManager.dccRatio = pm.getDccRatio();
-        this.flooders = new java.util.Hashtable();
-        this.ignoreList = new Vector();
-        this.observers = new Vector();
+        this.flooders = new java.util.Hashtable<>();
+        this.ignoreList = new Vector<>();
+        this.observers = new Vector<>();
         timer = new java.util.Timer(true);
         org.javabot.task.SkimmerTask st = new org.javabot.task.SkimmerTask();
         st.registerInterest(this);
@@ -121,46 +121,50 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     public int getMaxHits(int floodType) {
         if (debug) System.out.println("[SM] : getMaxHits() for floodType " + floodType);
         int maxHits = 0;
-        if (floodType == FloodCounter.PRIVMSG) {
-            maxHits = Integer.parseInt(SecurityManager.privmsgRatio.substring(0, SecurityManager.privmsgRatio.indexOf(":")));
-            if (debug) System.out.println("[SM] : getMaxHits() maxHits for privmsg = " + maxHits);
-        }
-        else if (floodType == FloodCounter.CHANMSG) {
-            maxHits = Integer.parseInt(SecurityManager.chanmsgRatio.substring(0, SecurityManager.chanmsgRatio.indexOf(":")));
-            if (debug) System.out.println("[SM] : getMaxHits() maxHits for chanmsg = " + maxHits);
-        }
-        else if (floodType == FloodCounter.CTCP) {
-            maxHits = Integer.parseInt(SecurityManager.ctcpRatio.substring(0, SecurityManager.ctcpRatio.indexOf(":")));
-            if (debug) System.out.println("[SM] : getMaxHits() maxHits for ctcp = " + maxHits);
-        }
-        else if (floodType == FloodCounter.COLOUR) {
-            maxHits = Integer.parseInt(SecurityManager.colourRatio.substring(0, SecurityManager.colourRatio.indexOf(":")));
-            if (debug) System.out.println("[SM] : getMaxHits() maxHits for colour = " + maxHits);
-        }
-        else if (floodType == FloodCounter.DCC) {
-            maxHits = Integer.parseInt(SecurityManager.dccRatio.substring(0, SecurityManager.dccRatio.indexOf(":")));
-            if (debug) System.out.println("[SM] : getMaxHits() maxHits for dcc = " + maxHits);
-        }
-        else if (floodType == FloodCounter.JOIN) {
-            // maxHits = Integer.parseInt(SecurityManager.joinRatio.substring(0, SecurityManager.joinRatio.indexOf(":")));
-            if (debug) System.out.println("[SM] : getMaxHits() maxHits for join = " + maxHits);
+        switch (floodType) {
+            case FloodCounter.PRIVMSG:
+                maxHits = Integer.parseInt(SecurityManager.privmsgRatio.substring(0, SecurityManager.privmsgRatio.indexOf(":")));
+                if (debug) System.out.println("[SM] : getMaxHits() maxHits for privmsg = " + maxHits);
+                break;
+            case FloodCounter.CHANMSG:
+                maxHits = Integer.parseInt(SecurityManager.chanmsgRatio.substring(0, SecurityManager.chanmsgRatio.indexOf(":")));
+                if (debug) System.out.println("[SM] : getMaxHits() maxHits for chanmsg = " + maxHits);
+                break;
+            case FloodCounter.CTCP:
+                maxHits = Integer.parseInt(SecurityManager.ctcpRatio.substring(0, SecurityManager.ctcpRatio.indexOf(":")));
+                if (debug) System.out.println("[SM] : getMaxHits() maxHits for ctcp = " + maxHits);
+                break;
+            case FloodCounter.COLOUR:
+                maxHits = Integer.parseInt(SecurityManager.colourRatio.substring(0, SecurityManager.colourRatio.indexOf(":")));
+                if (debug) System.out.println("[SM] : getMaxHits() maxHits for colour = " + maxHits);
+                break;
+            case FloodCounter.DCC:
+                maxHits = Integer.parseInt(SecurityManager.dccRatio.substring(0, SecurityManager.dccRatio.indexOf(":")));
+                if (debug) System.out.println("[SM] : getMaxHits() maxHits for dcc = " + maxHits);
+                break;
+            case FloodCounter.JOIN:
+                // maxHits = Integer.parseInt(SecurityManager.joinRatio.substring(0, SecurityManager.joinRatio.indexOf(":")));
+                if (debug) System.out.println("[SM] : getMaxHits() maxHits for join = " + maxHits);
+                break;
         }
         return maxHits;
     }
 
     private void takeAction(int floodType, String hostmask) {
         if (debug) System.out.println("[SM] : takeAction() for floodType = " + floodType + " against user " + hostmask);
-        if (floodType == FloodCounter.BAN) {
-            if (debug) System.out.println("[SM] : takeAction() multiple flood ... banning");
-            this.ban(floodType, hostmask);
-        }
-        else if (floodType == FloodCounter.PRIVMSG) {
-            if (debug) System.out.println("[SM] : takeAction() privmsg flood ... ignoring");
-            this.addIgnore(hostmask);
-        }
-        else if (floodType == FloodCounter.CHANMSG) {
-            if (debug) System.out.println("[SM] : takeAction() chanmsg flood ... kicking");
-            this.kick(floodType, hostmask);
+        switch (floodType) {
+            case FloodCounter.BAN:
+                if (debug) System.out.println("[SM] : takeAction() multiple flood ... banning");
+                this.ban(floodType, hostmask);
+                break;
+            case FloodCounter.PRIVMSG:
+                if (debug) System.out.println("[SM] : takeAction() privmsg flood ... ignoring");
+                this.addIgnore(hostmask);
+                break;
+            case FloodCounter.CHANMSG:
+                if (debug) System.out.println("[SM] : takeAction() chanmsg flood ... kicking");
+                this.kick(floodType, hostmask);
+                break;
         }
     }
     

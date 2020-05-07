@@ -21,10 +21,14 @@
 
 package org.javabot.gui;
 
+import org.javabot.user.User;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
 public class UserUIConfigurator {
     
     private final org.javabot.user.UserManager um;
-    private org.javabot.user.User currentNode;
+    private User currentNode;
     
     /** Creates new UserUIConfigurator */
     public UserUIConfigurator() {
@@ -32,13 +36,13 @@ public class UserUIConfigurator {
         currentNode = null;
     }
     
-    public void createNodes(javax.swing.tree.DefaultMutableTreeNode top) {
-        java.util.Vector users = um.getUsers();
-        javax.swing.tree.DefaultMutableTreeNode userNode;
-        org.javabot.user.User user;
+    public void createNodes(DefaultMutableTreeNode top) {
+        java.util.Vector<User> users = um.getUsers();
+        DefaultMutableTreeNode userNode;
+        User user;
         for (int i = 0; i < users.size(); i++) {
-            user = (org.javabot.user.User)users.elementAt(i);
-            userNode = new javax.swing.tree.DefaultMutableTreeNode(user);
+            user = users.elementAt(i);
+            userNode = new DefaultMutableTreeNode(user);
             top.add(userNode);
         }
     }
@@ -51,12 +55,12 @@ public class UserUIConfigurator {
         return um.delUser(botnick);
     }
     
-    public org.javabot.user.User getUser(String botnick) {
+    public User getUser(String botnick) {
         return um.getUserByBotnick(botnick);
     }
     
-    public void loadUser(javax.swing.tree.DefaultMutableTreeNode node) {
-        currentNode = (org.javabot.user.User)node.getUserObject();
+    public void loadUser(DefaultMutableTreeNode node) {
+        currentNode = (User)node.getUserObject();
     }
     
     public void reloadUsers() {

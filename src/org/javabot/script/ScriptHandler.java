@@ -36,10 +36,10 @@ public class ScriptHandler {
         this.outbound = outbound;
     }
     
-    public void handlePublicCmd(String channel, String nick, String hostmask, Vector cmd) {
+    public void handlePublicCmd(String channel, String nick, String hostmask, Vector<String> cmd) {
         if (!cmd.isEmpty()) {
-            String command = (String)cmd.get(0);
-            Vector params = this.parseParams(cmd);
+            String command = cmd.get(0);
+            Vector<String> params = this.parseParams(cmd);
             String script = this.pathToScript(command);
             ScriptResource scriptResource = new ScriptResource(
                 outbound, channel, nick, hostmask, params);
@@ -76,7 +76,7 @@ public class ScriptHandler {
         return path;
     }
 
-    private Vector parseParams(Vector cmd) {
+    private Vector<String> parseParams(Vector cmd) {
         Vector v = new Vector();
         if (cmd.size() > 1) {
             v.addAll(cmd.subList(1,cmd.size()));

@@ -29,10 +29,10 @@ public class Flags {
     public static final String OWNER = "n";
     public static final String VOICE = "v";
     
-    private final java.util.Hashtable flags;
+    private final java.util.Hashtable<String, Boolean> flags;
 
     public Flags() {
-        flags = new java.util.Hashtable();
+        flags = new java.util.Hashtable<>();
         flags.put(Flags.FRIEND, Boolean.FALSE);
         flags.put(Flags.OP, Boolean.FALSE);
         flags.put(Flags.MASTER, Boolean.FALSE);
@@ -41,7 +41,7 @@ public class Flags {
     }
     
     public Flags(boolean friend, boolean op, boolean master, boolean owner, boolean voice) {
-        flags = new java.util.Hashtable();
+        flags = new java.util.Hashtable<>();
         flags.put(Flags.FRIEND, friend);
         flags.put(Flags.OP, op);
         flags.put(Flags.MASTER, master);
@@ -51,7 +51,7 @@ public class Flags {
     
     public boolean get(String flag) {
         if (flags.containsKey(flag)) {
-            return (Boolean) flags.get(flag);
+            return flags.get(flag);
         }
         else return false;
     }

@@ -29,8 +29,8 @@ import java.util.*;
  */
 public class Pager {
 
-    private final Vector toPage;
-    private final Hashtable pages;
+    private final Vector<Object> toPage;
+    private final Hashtable<Integer, Vector> pages;
     private int pageIndex;
 
 /** Constructs a Pager.
@@ -64,7 +64,7 @@ public class Pager {
  * @return The next page of objects.
  */    
     public Vector next() {
-        Vector v = (Vector)pages.get(pageIndex);
+        Vector v = (Vector) pages.get(pageIndex);
         pageIndex++;
         return v;
     }
@@ -103,14 +103,14 @@ public class Pager {
  * @param x Index of the page to return.
  * @return A Hashtable of Vectors, keyed by page number.
  */    
-    public Hashtable pageBy(int x) {
+    public Hashtable<Integer, Vector> pageBy(int x) {
 
         int pageCount = 0;
-        Vector v;
-        Hashtable ht = new Hashtable();
+        Vector<Object> v;
+        Hashtable<Integer, Vector> ht = new Hashtable<>();
         Enumeration e = toPage.elements();
         while (e.hasMoreElements()) {
-            v = new Vector();
+            v = new Vector<Object>();
             for (int i = 0; i < x; i++) {
                 if (e.hasMoreElements()) {
                     Object o = e.nextElement();

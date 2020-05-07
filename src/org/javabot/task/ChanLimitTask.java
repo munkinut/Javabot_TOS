@@ -23,23 +23,26 @@
 
 package org.javabot.task;
 
+import org.javabot.util.MyObserver;
+
+import java.util.Vector;
+
 public class ChanLimitTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
     
-    private final java.util.Vector observers;
+    private final Vector<MyObserver> observers;
 
     /** Creates new ChanLimitTask */
     public ChanLimitTask() {
         super();
-        observers = new java.util.Vector();
+        observers = new java.util.Vector<>();
     }
     
     public void run() {
-        for (int i = 0; i < observers.size(); i++) {
-            ((org.javabot.util.MyObserver)(observers.elementAt(i))).notifyEvent(org.javabot.security.SecurityManager.CHAN_LIMIT);
-        }
+        for (int i = 0; i < observers.size(); i++)
+            observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.CHAN_LIMIT);
     }
     
-    public void registerInterest(org.javabot.util.MyObserver observer) {
+    public void registerInterest(MyObserver observer) {
         observers.add(observer);
     }
 

@@ -34,7 +34,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     private final boolean debug = false;
     /** Channel users keyed by hostmask.
      */    
-    private Hashtable channelUsers;
+    private Hashtable<String, ChannelUser> channelUsers;
     /** The channel to manage.
      */    
     private String channel;
@@ -65,7 +65,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     public ChannelManager(java.io.DataOutputStream outbound) {
         if (debug) System.out.println("[CM] : Channel Manager created");
         this.outbound = outbound;
-        this.channelUsers = new Hashtable();
+        this.channelUsers = new Hashtable<String, ChannelUser>();
         this.timer = new java.util.Timer(true);
         /** A handler for the main properties file.
          */
@@ -143,7 +143,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     /** Get the collection of channel users.
      * @return The collection of channel users.  This is a Hashtable keyed by hostmask.
      */    
-    public Hashtable getChannelUsers() {
+    public Hashtable<String, ChannelUser> getChannelUsers() {
         if (debug) System.out.println("[CM] : getChannelUsers() returns \n\n" + channelUsers);
         return this.channelUsers;
     }
@@ -157,7 +157,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
         ChannelUser channelUser = null;
         if (channelUsers.containsKey(hostmask)) {
             if (debug) System.out.println("[CM] : getChannelUser() channelUsers contains " + hostmask);
-            channelUser = (ChannelUser)channelUsers.get(hostmask);
+            channelUser = channelUsers.get(hostmask);
         }
         return channelUser;
     }
@@ -182,7 +182,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
         }
         else {
             if (debug) System.out.println("[CM] : addChannelUser() channelUsers already contains " + hostmask);
-            ChannelUser user = (ChannelUser)this.channelUsers.get(hostmask);
+            ChannelUser user = this.channelUsers.get(hostmask);
             if (!user.getNick().equals(nick)) {
                 if (debug) System.out.println("[CM] : addChannelUser() nick does not match for " + hostmask + " ... changing to " + nick);
                 user.setNick(nick);
@@ -198,7 +198,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
         if (debug) System.out.println("[CM] : changeChannelUserNick() hostmask = " + hostmask + ", nick = " + nick);
         if (channelUsers.containsKey(hostmask)) {
             if (debug) System.out.println("[CM] : changeChannelUserNick() channelUsers contains " + hostmask);
-            ChannelUser user = (ChannelUser)channelUsers.get(hostmask);
+            ChannelUser user = channelUsers.get(hostmask);
             user.setNick(nick);
         }
     }
@@ -207,7 +207,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param hostmask Hostmask of channel user to ignore.
      */    
     public void ignoreUser(String hostmask) {
-        ChannelUser channelUser = (ChannelUser)channelUsers.get(hostmask);
+        ChannelUser channelUser = channelUsers.get(hostmask);
         channelUser.setIgnore(true);
     }
     
@@ -215,7 +215,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param hostmask Hostmask of channel user to stop ignoring.
      */    
     public void unignoreUser(String hostmask) {
-        ChannelUser channelUser = (ChannelUser)channelUsers.get(hostmask);
+        ChannelUser channelUser = channelUsers.get(hostmask);
         channelUser.setIgnore(false);
     }
     
@@ -226,7 +226,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
         if (debug) System.out.println("[CM] : removeChannelUser() hostmask = " + hostmask);
         if (channelUsers.containsKey(hostmask)) {
             if (debug) System.out.println("[CM] : removeChannelUser() channelUsers contains " + hostmask + " ... removing");
-            ChannelUser user = (ChannelUser)this.channelUsers.remove(hostmask);
+            ChannelUser user = this.channelUsers.remove(hostmask);
         }
     }
     
@@ -240,10 +240,10 @@ public class ChannelManager implements org.javabot.util.MyObserver {
         String hostmask;
         while (e.hasMoreElements()) {
             hostmask = (String)e.nextElement();
-            user = (ChannelUser)channelUsers.get(hostmask);
+            user = channelUsers.get(hostmask);
             if (user.getNick().equals(nick)) {
                 if (debug) System.out.println("[CM] : removeChannelUserByNick() channelUsers contains " + nick + " ... removing");
-                ChannelUser channelUser = (ChannelUser)channelUsers.remove(hostmask);
+                ChannelUser channelUser = channelUsers.remove(hostmask);
                 break;
             }
         }
@@ -258,7 +258,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
         String hostmask;
         while (e.hasMoreElements()) {
             hostmask = (String)e.nextElement();
-            user = (ChannelUser)channelUsers.remove(hostmask);
+            user = channelUsers.remove(hostmask);
         }
     }
     

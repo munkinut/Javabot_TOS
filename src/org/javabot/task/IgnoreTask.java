@@ -23,24 +23,25 @@
 
 package org.javabot.task;
 
+import org.javabot.util.MyObserver;
+
 public class IgnoreTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
     
-    private final java.util.Vector observers;
+    private final java.util.Vector<MyObserver> observers;
     private final String hostmask;
 
     public IgnoreTask(String hostmask) {
         super();
-        observers = new java.util.Vector();
+        observers = new java.util.Vector<>();
         this.hostmask = hostmask;
     }
     
     public void run() {
-        for (int i = 0; i < observers.size(); i++) {
-            ((org.javabot.util.MyObserver)(observers.elementAt(i))).notifyEvent(org.javabot.security.SecurityManager.IGNORE,0,hostmask);
-        }
+        for (int i = 0; i < observers.size(); i++)
+            observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.IGNORE, 0, hostmask);
     }
     
-    public void registerInterest(org.javabot.util.MyObserver observer) {
+    public void registerInterest(MyObserver observer) {
         observers.add(observer);
     }
 

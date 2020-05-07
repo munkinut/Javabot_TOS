@@ -23,15 +23,21 @@
 
 package org.javabot.task;
 
-public class FloodTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
+import org.javabot.util.MyObservable;
+import org.javabot.util.MyObserver;
+
+import java.util.TimerTask;
+import java.util.Vector;
+
+public class FloodTask extends TimerTask implements MyObservable {
     
-    private final java.util.Vector observers;
+    private final Vector<MyObserver> observers;
     private final int floodType;
 
     /** Creates new ChanLimitTask */
     public FloodTask(int floodType) {
         super();
-        observers = new java.util.Vector();
+        observers = new Vector<>();
         this.floodType = floodType;
     }
     
@@ -40,12 +46,11 @@ public class FloodTask extends java.util.TimerTask implements org.javabot.util.M
     }
     
     public void run() {
-        for (int i = 0; i < observers.size(); i++) {
-            ((org.javabot.util.MyObserver)(observers.elementAt(i))).notifyEvent(org.javabot.security.SecurityManager.FLOOD, this.floodType);
-        }
+        for (int i = 0; i < observers.size(); i++)
+            observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.FLOOD, this.floodType);
     }
     
-    public void registerInterest(org.javabot.util.MyObserver observer) {
+    public void registerInterest(MyObserver observer) {
         observers.add(observer);
     }
 
