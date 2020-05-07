@@ -23,9 +23,9 @@ package org.javabot.util;
 
 public interface MyObserver {
     
-    public void notifyEvent(int event);
-    public void notifyEvent(int event, int type);
-    public void notifyEvent(int event, int type, String message);
+    void notifyEvent(int event);
+    void notifyEvent(int event, int type);
+    void notifyEvent(int event, int type, String message);
     
 }
 

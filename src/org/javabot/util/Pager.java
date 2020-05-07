@@ -29,8 +29,8 @@ import java.util.*;
  */
 public class Pager {
 
-    private Vector toPage;
-    private Hashtable pages;
+    private final Vector toPage;
+    private final Hashtable pages;
     private int pageIndex;
 
 /** Constructs a Pager.

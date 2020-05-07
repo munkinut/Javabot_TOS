@@ -25,8 +25,8 @@ package org.javabot.task;
 
 public class IgnoreTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
     
-    private java.util.Vector observers;
-    private String hostmask;
+    private final java.util.Vector observers;
+    private final String hostmask;
 
     public IgnoreTask(String hostmask) {
         super();

@@ -24,8 +24,8 @@ package org.javabot.user;
 public class InitUsersXML extends java.lang.Object {
 
     private java.util.Vector users;
-    private User defaultUser;
-    private String userfile;
+    private final User defaultUser;
+    private final String userfile;
     
     /** Creates new InitUsersXML */
     public InitUsersXML() {
@@ -99,7 +99,7 @@ public class InitUsersXML extends java.lang.Object {
         return success;
     }
     
-    public static void main(String args []) {
+    public static void main(String[] args) {
         if (args.length != 2) {
             InitUsersXML.usage();
         }

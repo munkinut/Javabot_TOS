@@ -26,9 +26,9 @@ import gnu.regexp.*;
 
 public class BanManager extends java.lang.Object {
     
-    private boolean debug = false;
+    private final boolean debug = false;
     
-    private String banfile;
+    private final String banfile;
     private Vector bans;
 
     public BanManager() {

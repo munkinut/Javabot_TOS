@@ -23,25 +23,25 @@ package org.javabot.message;
 
 public interface MessageInterface {
     
-    public int getMessageType();
-    public String getNick();
-    public void setNick(String nick);
-    public String getHostmask();
-    public void setHostmask(String hostmask);
-    public String getChannel();
-    public void setChannel(String channel);
-    public String getCmd();
-    public void setCmd(String cmd);
-    public String getParams();
-    public void setParams(String params);
-    public String getMsgTo();
-    public void setMsgTo(String msgTo);
-    public String getChannelType();
-    public void setChannelType(String channelType);
-    public String getServer();
-    public void setServer(String server);
-    public String getNames();
-    public void setNames(String names);
+    int getMessageType();
+    String getNick();
+    void setNick(String nick);
+    String getHostmask();
+    void setHostmask(String hostmask);
+    String getChannel();
+    void setChannel(String channel);
+    String getCmd();
+    void setCmd(String cmd);
+    String getParams();
+    void setParams(String params);
+    String getMsgTo();
+    void setMsgTo(String msgTo);
+    String getChannelType();
+    void setChannelType(String channelType);
+    String getServer();
+    void setServer(String server);
+    String getNames();
+    void setNames(String names);
 
 }
 

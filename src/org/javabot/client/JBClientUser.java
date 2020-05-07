@@ -32,7 +32,7 @@ public class JBClientUser {
     /** Creates an RMI client connection and registers itself with the server.
      * @param args Command line parameters.
      */    
-    public static void main (String args[]) {
+    public static void main (String[] args) {
         try {
             org.javabot.server.JBotnetInterface client = new JBRMIClient("localhost", 1099);
             String time = client.getTime();

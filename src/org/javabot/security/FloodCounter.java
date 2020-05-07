@@ -26,7 +26,7 @@ import org.javabot.security.SecurityManager;
 
 public class FloodCounter extends java.lang.Object implements org.javabot.util.MyObserver {
     
-    private boolean debug = false;
+    private final boolean debug = false;
     
     public static final int BAN = 0;
     public final static int PRIVMSG = 1;
@@ -45,8 +45,8 @@ public class FloodCounter extends java.lang.Object implements org.javabot.util.M
     
     private int floods;
     
-    private java.util.Timer timer;
-    private java.util.Vector floodTasks;
+    private final java.util.Timer timer;
+    private final java.util.Vector floodTasks;
 
     /** Creates new FloodCounter */
     public FloodCounter() {

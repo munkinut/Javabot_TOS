@@ -26,8 +26,8 @@ import java.util.Date;
 
 public abstract class RandomGenerator {
     
-    private Random random;
-    private char[] select = {'A','B','C','D','E','F','G','H','J','K','L',
+    private final Random random;
+    private final char[] select = {'A','B','C','D','E','F','G','H','J','K','L',
     'M','N','P','Q','R','S','T','U','V','W','X',
     'Y','Z',
     'a','b','c','d','e','f','g','h','i','j','k',

@@ -23,12 +23,12 @@ package org.javabot.gui;
 
 public class JavaBotActivator extends java.lang.Object {
     
-    private boolean debug = false;
+    private final boolean debug = false;
 
     private boolean connected;
-    private javax.swing.JTextArea consoleOutput;
+    private final javax.swing.JTextArea consoleOutput;
     private java.net.Socket ircsocket;
-    private org.javabot.configuration.PropertyManager propertyManager;
+    private final org.javabot.configuration.PropertyManager propertyManager;
     private org.javabot.engine.inbound in;
 
     /** Creates new JavaBotActivator */

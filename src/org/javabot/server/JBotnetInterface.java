@@ -23,8 +23,8 @@ package org.javabot.server;
 
 public interface JBotnetInterface extends java.rmi.Remote {
 
-    public boolean authenticate(String botnick, String key) throws Exception;
-    public String getTime() throws Exception;
-    public void register(JBotnetInterface client) throws Exception;
+    boolean authenticate(String botnick, String key) throws Exception;
+    String getTime() throws Exception;
+    void register(JBotnetInterface client) throws Exception;
 }
 

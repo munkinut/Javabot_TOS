@@ -27,11 +27,11 @@ import java.util.*;
 
 public class ScriptResource {
 
-    private DataOutputStream outbound;
-    private String channel;
-    private String nick;
-    private String hostmask;
-    private Vector params;
+    private final DataOutputStream outbound;
+    private final String channel;
+    private final String nick;
+    private final String hostmask;
+    private final Vector params;
 
     /** Creates new ScriptResource */
     public ScriptResource(

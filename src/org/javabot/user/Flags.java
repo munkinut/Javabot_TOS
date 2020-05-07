@@ -29,7 +29,7 @@ public class Flags extends java.lang.Object {
     public static final String OWNER = "n";
     public static final String VOICE = "v";
     
-    private java.util.Hashtable flags;
+    private final java.util.Hashtable flags;
 
     public Flags() {
         flags = new java.util.Hashtable();

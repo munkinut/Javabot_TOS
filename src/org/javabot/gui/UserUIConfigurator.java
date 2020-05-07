@@ -23,7 +23,7 @@ package org.javabot.gui;
 
 public class UserUIConfigurator {
     
-    private org.javabot.user.UserManager um;
+    private final org.javabot.user.UserManager um;
     private org.javabot.user.User currentNode;
     
     /** Creates new UserUIConfigurator */

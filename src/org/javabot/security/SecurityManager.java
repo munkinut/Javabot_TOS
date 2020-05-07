@@ -31,18 +31,18 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     public static final int IGNORE = 2;
     public static final int SKIM_FLOODERS = 3;
 
-    private Vector observers;
+    private final Vector observers;
 
-    private boolean debug = false;
+    private final boolean debug = false;
     
-    private int skimRate = 60*1000*5;  // 5 minutes
-    private int ignoreTimeout = 60*1000; // 1 minute
+    private final int skimRate = 60*1000*5;  // 5 minutes
+    private final int ignoreTimeout = 60*1000; // 1 minute
     
-    private java.util.Hashtable flooders;
-    private Vector ignoreList;
-    private java.util.Timer timer;
+    private final java.util.Hashtable flooders;
+    private final Vector ignoreList;
+    private final java.util.Timer timer;
     
-    private org.javabot.configuration.PropertyManager pm;
+    private final org.javabot.configuration.PropertyManager pm;
 
     public static String privmsgRatio;
     public static String chanmsgRatio;

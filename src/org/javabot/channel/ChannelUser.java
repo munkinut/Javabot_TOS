@@ -27,7 +27,7 @@ public class ChannelUser {
     
     /** Debug flag.
      */    
-    private boolean debug = false;
+    private final boolean debug = false;
     
     /** User nickname.
      */    

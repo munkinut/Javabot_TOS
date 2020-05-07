@@ -25,7 +25,7 @@ import java.rmi.*;
 
 public interface JBSRemoteInterface extends Remote {
 
-    public boolean authenticate(String botnick, String key) throws Exception, RemoteException;
-    public String getTime() throws Exception, RemoteException;
-    public void register(JBotnetInterface client) throws Exception, RemoteException;
+    boolean authenticate(String botnick, String key) throws Exception;
+    String getTime() throws Exception;
+    void register(JBotnetInterface client) throws Exception;
 }

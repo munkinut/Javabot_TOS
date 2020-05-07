@@ -23,7 +23,7 @@ package org.javabot.gui;
 
 public class jmenue extends javax.swing.JFrame {
     
-    private JavaBotActivator jba;
+    private final JavaBotActivator jba;
 
     /** Creates new form jmenue */
     public jmenue() {
@@ -215,7 +215,7 @@ public class jmenue extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     @SuppressWarnings("deprecation")
-    public static void main (String args[]) {
+    public static void main (String[] args) {
         new jmenue ().show ();
     }
     

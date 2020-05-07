@@ -35,7 +35,7 @@ public class PropertyManager {
     
     /** Properties object for the bot
      */    
-    private java.util.Properties properties;
+    private final java.util.Properties properties;
     /** The singleton instance
      */    
     private static PropertyManager propertyManager;
@@ -71,7 +71,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -89,7 +89,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -106,7 +106,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -124,7 +124,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -141,7 +141,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -159,7 +159,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -176,7 +176,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -194,7 +194,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -211,7 +211,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -229,7 +229,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -246,7 +246,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -264,7 +264,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -281,7 +281,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -299,7 +299,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -316,7 +316,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -334,7 +334,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -351,7 +351,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -369,7 +369,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -386,7 +386,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -404,7 +404,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -421,7 +421,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -439,7 +439,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -456,7 +456,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -474,7 +474,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -491,7 +491,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -509,7 +509,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -526,7 +526,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -544,7 +544,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -561,7 +561,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -596,7 +596,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -614,7 +614,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -631,7 +631,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -649,7 +649,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -666,7 +666,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -684,7 +684,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         busy = true;
@@ -704,7 +704,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         if (debug) System.out.println("[PM] - writeProperties() - NOT BUSY ... writing");
@@ -745,7 +745,7 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (java.lang.InterruptedException ignored) {
             }
         }
         if (debug) System.out.println("[PM] - readProperties() - NOT BUSY ... reading");

@@ -707,7 +707,7 @@ public class ConfigUI extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     @SuppressWarnings("deprecation")
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         new ConfigUI().show();
     }
 

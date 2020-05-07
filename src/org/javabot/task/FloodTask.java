@@ -25,8 +25,8 @@ package org.javabot.task;
 
 public class FloodTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
     
-    private java.util.Vector observers;
-    private int floodType;
+    private final java.util.Vector observers;
+    private final int floodType;
 
     /** Creates new ChanLimitTask */
     public FloodTask(int floodType) {

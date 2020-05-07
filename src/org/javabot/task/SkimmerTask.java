@@ -25,7 +25,7 @@ package org.javabot.task;
 
 public class SkimmerTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
     
-    private java.util.Vector observers;
+    private final java.util.Vector observers;
 
     /** Creates new ChanLimitTask */
     public SkimmerTask() {

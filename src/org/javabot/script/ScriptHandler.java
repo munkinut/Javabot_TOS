@@ -27,8 +27,8 @@ import java.util.*;
 
 public class ScriptHandler {
     
-    private Interpreter interpreter;
-    private DataOutputStream outbound;
+    private final Interpreter interpreter;
+    private final DataOutputStream outbound;
 
     /** Creates new ScriptHandler */
     public ScriptHandler(DataOutputStream outbound) {

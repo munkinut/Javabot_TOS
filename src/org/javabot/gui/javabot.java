@@ -23,7 +23,7 @@ package org.javabot.gui;
 
 public class javabot{
     
-    public static void main(String args[]){
+    public static void main(String[] args){
         
         jmenue.main(new String [0]);
         

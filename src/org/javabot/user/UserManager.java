@@ -26,9 +26,9 @@ import java.util.Iterator;
 
 public class UserManager extends java.lang.Object {
     
-    private boolean debug = false;
+    private final boolean debug = false;
     
-    private String userfile;
+    private final String userfile;
     private Vector users;
 
     public UserManager() {

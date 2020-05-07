@@ -27,20 +27,20 @@ public class JBServer extends java.rmi.server.UnicastRemoteObject implements JBS
     
     JBotnetInterface localServer;
 
-    public JBServer(int port) throws Exception, RemoteException {
+    public JBServer(int port) throws Exception {
         super(port);
         localServer = new LocalJBServer();
     }
 
-    public String getTime() throws Exception, RemoteException {
+    public String getTime() throws Exception {
         return localServer.getTime();
     }
     
-    public boolean authenticate(String botnick, String key) throws Exception, RemoteException {
+    public boolean authenticate(String botnick, String key) throws Exception {
         return localServer.authenticate(botnick, key);
     }
     
-    public void register(JBotnetInterface client) throws Exception, RemoteException {
+    public void register(JBotnetInterface client) throws Exception {
         localServer.register(client);
     }
     

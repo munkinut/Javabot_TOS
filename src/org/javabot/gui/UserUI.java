@@ -23,7 +23,7 @@ package org.javabot.gui;
 
 public class UserUI extends javax.swing.JFrame {
     
-    private UserUIConfigurator userUIConfigurator;
+    private final UserUIConfigurator userUIConfigurator;
     
     /** Creates new form UserUI */
     public UserUI() {
@@ -383,12 +383,7 @@ public class UserUI extends javax.swing.JFrame {
                 userTree.setSelectionPath(treePath);
                 javax.swing.tree.DefaultMutableTreeNode treeNode = (javax.swing.tree.DefaultMutableTreeNode)treePath.getLastPathComponent();
                 if (treeNode != null) {
-                    if (treeNode.isLeaf() && !treeNode.isRoot()) {
-                        removeUserMenuItem.setEnabled(true);
-                    }
-                    else {
-                        removeUserMenuItem.setEnabled(false);
-                    }
+                    removeUserMenuItem.setEnabled(treeNode.isLeaf() && !treeNode.isRoot());
                     userTreePopupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
                 }
             }
@@ -569,7 +564,7 @@ public class UserUI extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     @SuppressWarnings("deprecation")
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         new UserUI().show();
     }
 

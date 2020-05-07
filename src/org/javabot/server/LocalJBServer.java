@@ -23,7 +23,7 @@ package org.javabot.server;
 
 public class LocalJBServer implements JBotnetInterface {
     
-    private java.util.Vector clients;
+    private final java.util.Vector clients;
 
     public LocalJBServer() {
         clients = new java.util.Vector();

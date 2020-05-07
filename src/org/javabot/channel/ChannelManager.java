@@ -31,7 +31,7 @@ public class ChannelManager extends Object implements org.javabot.util.MyObserve
     
     /** Debug flag.
      */    
-    private boolean debug = false;
+    private final boolean debug = false;
     /** Channel users keyed by hostmask.
      */    
     private Hashtable channelUsers;
@@ -43,14 +43,14 @@ public class ChannelManager extends Object implements org.javabot.util.MyObserve
     private String initialModes;
     /** The outbound stream to the server.
      */    
-    private java.io.DataOutputStream outbound;
+    private final java.io.DataOutputStream outbound;
     /** A timer for tracking timed events.
      */    
-    private java.util.Timer timer;
+    private final java.util.Timer timer;
     
     /** A handler for the main properties file.
      */    
-    private org.javabot.configuration.PropertyManager pm;
+    private final org.javabot.configuration.PropertyManager pm;
     
     /** The number of users in channel.
      */    

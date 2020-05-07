@@ -29,7 +29,7 @@ public class inbound extends Thread {
     
     /** Debug flag
      */    
-    private boolean debug = false;
+    private final boolean debug = false;
 
     /** Indicates connection status
      */    
@@ -37,40 +37,40 @@ public class inbound extends Thread {
     
     /** Timer for timed events
      */    
-    private java.util.Timer timer;
+    private final java.util.Timer timer;
 
     /** Bots real name
      */    
-    private String name;
+    private final String name;
     /** Bots nickname
      */    
-    private String nick;
+    private final String nick;
     /** Channel bot will manage
      */    
-    private String channel;
+    private final String channel;
     /** Channel modes
      */    
-    private String channelModes;
+    private final String channelModes;
     
     /** Autovoice flag
      */    
-    private boolean autovoice;
+    private final boolean autovoice;
     /** Flood protection flag
      */    
-    private boolean flood;
+    private final boolean flood;
     /** Opme flag
      */    
-    private boolean opme;
+    private final boolean opme;
     /** Autogreet flag
      */    
-    private boolean autogreet;
+    private final boolean autogreet;
     /** Dynamic limit flag
      */    
-    private boolean dynamicLimit;
+    private final boolean dynamicLimit;
     
     /** Network socket to the server
      */    
-    private java.net.Socket ircsocket;
+    private final java.net.Socket ircsocket;
     /** Output stream to the server
      */    
     private java.io.DataOutputStream outbound;
@@ -79,26 +79,26 @@ public class inbound extends Thread {
     private java.io.BufferedReader inbound;
     /** Console for output messages
      */    
-    private javax.swing.JTextArea consoleOutput;
+    private final javax.swing.JTextArea consoleOutput;
 
     /** Manages bot users
      */    
-    private org.javabot.user.UserManager um;
+    private final org.javabot.user.UserManager um;
     /** Manages the channel
      */    
     private org.javabot.channel.ChannelManager cm;
     /** Manages the properties file
      */    
-    private org.javabot.configuration.PropertyManager pm;
+    private final org.javabot.configuration.PropertyManager pm;
     /** Manages bot security
      */    
-    private org.javabot.security.SecurityManager sm;
+    private final org.javabot.security.SecurityManager sm;
     /** Manages the ban file
      */    
-    private org.javabot.security.BanManager bm;
+    private final org.javabot.security.BanManager bm;
     /** Parses message strings into message objects
      */    
-    private org.javabot.message.MessageFactory mf;
+    private final org.javabot.message.MessageFactory mf;
     /** Handles script commands
      */
     private org.javabot.script.ScriptHandler sh;
@@ -512,7 +512,7 @@ public class inbound extends Thread {
     private void handleGreetCmd(String nickFrom, String hostmask, Vector params) {
         String greet = "";
         for (int i=1; i < params.size(); i++) {
-            greet = greet + (String)params.elementAt(i) + " ";
+            greet = greet + params.elementAt(i) + " ";
         }
         greet = greet.trim();
         if (um.userIsFriend(hostmask)) {

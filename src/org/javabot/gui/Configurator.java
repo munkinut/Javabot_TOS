@@ -23,7 +23,7 @@ package org.javabot.gui;
 
 public class Configurator {
     
-    private org.javabot.configuration.PropertyManager pm;
+    private final org.javabot.configuration.PropertyManager pm;
     
     private String server;
     private int port;

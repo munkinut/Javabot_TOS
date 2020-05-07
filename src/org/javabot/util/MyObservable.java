@@ -23,7 +23,7 @@ package org.javabot.util;
 
 public interface MyObservable {
     
-    public void registerInterest(MyObserver observer);
+    void registerInterest(MyObserver observer);
 
 }
 
