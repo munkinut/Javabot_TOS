@@ -28,12 +28,13 @@ public class BanManager {
 
     private final String banfile;
     private Vector bans;
+    private boolean debug = true;
 
     public BanManager() {
         String fs = java.io.File.separator;
         String currentPath = System.getProperty("user.dir");
-        this.banfile = currentPath + fs + "org" + fs + "javabot" + fs + "config" + fs + "bans.xml";
-        boolean debug = false;
+        if (debug) System.out.println("[BM] : user.dir = " + currentPath);
+        this.banfile = currentPath + fs + "config" + fs + "bans.xml";
         if (debug) System.out.println("[BM] : banfile = " + banfile);
         bans = this.loadBans();
         if (debug) {

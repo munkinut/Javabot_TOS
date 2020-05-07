@@ -28,12 +28,13 @@ public class UserManager {
 
     private final String userfile;
     private Vector users;
+    private boolean debug = true;
 
     public UserManager() {
         String fs = java.io.File.separator;
         String currentPath = System.getProperty("user.dir");
-        this.userfile = currentPath + fs + "org" + fs + "javabot" + fs + "config" + fs + "users.xml";
-        boolean debug = false;
+        if (debug) System.out.println("[UM] : user.dir = " + currentPath);
+        this.userfile = currentPath + fs + "config" + fs + "users.xml";
         if (debug) System.out.println("[UM] : userfile = " + userfile);
         users = this.loadUsers();
         if (debug) {

@@ -1,7 +1,7 @@
 <java.util.Vector>
   <org.javabot.user.User
-   nick="jdhdyds"
-   password="jdasic"
+   nick="javamunk"
+   password="javamunk"
    hostmask="~~~~uk"
    greet="askaskjas in da hoose .. Oo Oo!">
     <org.javabot.user.Flags obj-name="flags">

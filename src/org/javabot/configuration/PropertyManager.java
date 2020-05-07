@@ -27,7 +27,7 @@ public class PropertyManager {
 
     /** Debug switch
      */    
-    private final boolean debug = false;
+    private final boolean debug = true;
     
     /** Busy flag to aid in thread synchronization
      */    
@@ -712,7 +712,8 @@ public class PropertyManager {
         try {
             String fs = java.io.File.separator;
             String currentPath = System.getProperty("user.dir");
-            String javabotProperties = currentPath + fs + "org" + fs + "javabot" + fs + "config" + fs + "javabot.properties";
+            if (debug) System.out.println("[PM] : USER.DIR:" + currentPath);
+            String javabotProperties = currentPath + fs + "config" + fs + "javabot.properties";
             if (debug) System.out.println("[PM] : javabotProperties = " + javabotProperties);
             java.io.FileOutputStream out = new java.io.FileOutputStream(javabotProperties);
             properties.store(out, null);
@@ -753,7 +754,8 @@ public class PropertyManager {
         try {
             String fs = java.io.File.separator;
             String currentPath = System.getProperty("user.dir");
-            String javabotProperties = currentPath + fs + "org" + fs + "javabot" + fs + "config" + fs + "javabot.properties";
+            if (debug) System.out.println("[PM] : USER.DIR:" + currentPath);
+            String javabotProperties = currentPath + fs + "config" + fs + "javabot.properties";
             if (debug) System.out.println("[PM] : javabotProperties = " + javabotProperties);
             java.io.FileInputStream in = new java.io.FileInputStream(javabotProperties);
             properties.load(in);
