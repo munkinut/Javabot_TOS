@@ -407,8 +407,9 @@ public class UserUI extends javax.swing.JFrame {
         this.doPopupHandle(evt);
     }//GEN-LAST:event_userTreeMousePressed
 
+    @SuppressWarnings("deprecation")
     private boolean isRightClick(java.awt.event.MouseEvent evt) {
-        return (evt.getModifiers() & java.awt.event.InputEvent.BUTTON3_MASK) == java.awt.event.InputEvent.BUTTON3_MASK;
+        return (evt.getModifiersEx() & java.awt.event.InputEvent.BUTTON3_MASK) == java.awt.event.InputEvent.BUTTON3_MASK;
     }
     private void greetTextFieldInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_greetTextFieldInputMethodTextChanged
         // Add your handling code here:
@@ -567,6 +568,7 @@ public class UserUI extends javax.swing.JFrame {
     /**
     * @param args the command line arguments
     */
+    @SuppressWarnings("deprecation")
     public static void main(String args[]) {
         new UserUI().show();
     }

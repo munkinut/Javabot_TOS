@@ -23,8 +23,8 @@ package org.javabot.gui;
 
 public class ConfigUI extends javax.swing.JFrame {
     
-    private boolean debug = false;
-    private org.javabot.gui.Configurator cf;
+    private final boolean debug = false;
+    private final org.javabot.gui.Configurator cf;
 
     /** Creates new form Configurator */
     public ConfigUI() {
@@ -126,11 +126,7 @@ public class ConfigUI extends javax.swing.JFrame {
             serverLabel.setText("Server");
             optionsPanel.add(serverLabel);
             
-            serverTextField.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    serverTextFieldActionPerformed(evt);
-                }
-            });
+            serverTextField.addActionListener(this::serverTextFieldActionPerformed);
             
             serverTextField.addFocusListener(new java.awt.event.FocusAdapter() {
                 public void focusLost(java.awt.event.FocusEvent evt) {
@@ -143,11 +139,7 @@ public class ConfigUI extends javax.swing.JFrame {
             portLabel.setText("Port");
             optionsPanel.add(portLabel);
             
-            portTextField.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    portTextFieldActionPerformed(evt);
-                }
-            });
+            portTextField.addActionListener(this::portTextFieldActionPerformed);
             
             portTextField.addFocusListener(new java.awt.event.FocusAdapter() {
                 public void focusLost(java.awt.event.FocusEvent evt) {
@@ -182,11 +174,7 @@ public class ConfigUI extends javax.swing.JFrame {
             channelLabel.setText("Channel");
             optionsPanel.add(channelLabel);
             
-            channelTextField.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    channelTextFieldActionPerformed(evt);
-                }
-            });
+            channelTextField.addActionListener(this::channelTextFieldActionPerformed);
             
             channelTextField.addFocusListener(new java.awt.event.FocusAdapter() {
                 public void focusLost(java.awt.event.FocusEvent evt) {
@@ -212,20 +200,12 @@ public class ConfigUI extends javax.swing.JFrame {
           modesPanel.setLayout(new java.awt.GridLayout(6, 1));
             
             autovoiceCheckBox.setText("Autovoice");
-            autovoiceCheckBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    autovoiceCheckBoxActionPerformed(evt);
-                }
-            });
+            autovoiceCheckBox.addActionListener(this::autovoiceCheckBoxActionPerformed);
             
             modesPanel.add(autovoiceCheckBox);
             
             autogreetCheckBox.setText("Autogreet");
-            autogreetCheckBox.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    autogreetCheckBoxActionPerformed(evt);
-                }
-            });
+            autogreetCheckBox.addActionListener(this::autogreetCheckBoxActionPerformed);
             
             modesPanel.add(autogreetCheckBox);
             
@@ -726,6 +706,7 @@ public class ConfigUI extends javax.swing.JFrame {
     /**
     * @param args the command line arguments
     */
+    @SuppressWarnings("deprecation")
     public static void main(String args[]) {
         new ConfigUI().show();
     }

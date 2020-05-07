@@ -149,11 +149,13 @@ public class jmenue extends javax.swing.JFrame {
         
     }//GEN-END:initComponents
 
+    @SuppressWarnings("deprecation")
     private void userManagerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagerMenuItemActionPerformed
         // Add your handling code here:
         new UserUI().show();
     }//GEN-LAST:event_userManagerMenuItemActionPerformed
 
+    @SuppressWarnings("deprecation")
     private void javaBotSettingsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_javaBotSettingsMenuItemActionPerformed
         new ConfigUI().show();
     }//GEN-LAST:event_javaBotSettingsMenuItemActionPerformed
@@ -175,6 +177,7 @@ public class jmenue extends javax.swing.JFrame {
       }
   }//GEN-LAST:event_conDisconButtonActionPerformed
 
+  @SuppressWarnings("deprecation")
   private void javaBotMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_javaBotMenuItemActionPerformed
      new AboutDialog (new javax.swing.JFrame (), true).show ();
   }//GEN-LAST:event_javaBotMenuItemActionPerformed
@@ -211,6 +214,7 @@ public class jmenue extends javax.swing.JFrame {
     /**
     * @param args the command line arguments
     */
+    @SuppressWarnings("deprecation")
     public static void main (String args[]) {
         new jmenue ().show ();
     }

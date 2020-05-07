@@ -22,7 +22,6 @@
 package org.javabot.client;
 
 import java.rmi.*;
-import java.rmi.registry.*;
 import org.javabot.server.JBotnetInterface;
 
 /** JavaBot RMI client.
@@ -35,7 +34,8 @@ public class JBRMIClient implements JBotnetInterface {
      * @param host Hostname of server.
      * @param port Port of server.
      * @throws Exception Any connection related exception.
-     */    
+     */
+    @SuppressWarnings("deprecation")
     public JBRMIClient(String host, int port) throws Exception {
         String remoteURL = "rmi://" + host + ":" + port + "/JBServer";
         remote = (org.javabot.server.JBSRemoteInterface)Naming.lookup(remoteURL);

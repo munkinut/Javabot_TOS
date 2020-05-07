@@ -64,7 +64,7 @@ public class Pager {
  * @return The next page of objects.
  */    
     public Vector next() {
-        Vector v = (Vector)pages.get(new Integer(pageIndex));
+        Vector v = (Vector)pages.get(pageIndex);
         pageIndex++;
         return v;
     }
@@ -85,7 +85,7 @@ public class Pager {
  */    
     public Vector previous() {
         pageIndex--;
-        Vector v = (Vector)pages.get(new Integer(pageIndex));
+        Vector v = (Vector)pages.get(pageIndex);
         return v;
     }
     
@@ -118,7 +118,7 @@ public class Pager {
                     v.add(o);
                 }
             }
-            ht.put(new Integer(pageCount), v);
+            ht.put(pageCount, v);
             pageCount++;
         }
         return ht;
@@ -143,7 +143,7 @@ public class Pager {
  * @return A Vector of objects representing a particular page.
  */    
     public Vector getPage(int x) {
-        Integer key = new Integer(x);
+        Integer key = x;
         Vector v = (Vector)pages.get(key);
         return v;
     }

@@ -27,7 +27,7 @@ public class PropertyManager {
 
     /** Debug switch
      */    
-    private boolean debug = false;
+    private final boolean debug = false;
     
     /** Busy flag to aid in thread synchronization
      */    
@@ -495,7 +495,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        boolean autovoice = new Boolean(properties.getProperty("Autovoice")).booleanValue();
+        boolean autovoice = Boolean.parseBoolean(properties.getProperty("Autovoice"));
         busy = false;
         notifyAll();
         return autovoice;
@@ -513,7 +513,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        properties.setProperty("Autovoice", new Boolean(autovoice).toString());
+        properties.setProperty("Autovoice", Boolean.toString(autovoice));
         busy = false;
         notifyAll();
     }
@@ -530,7 +530,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        boolean autogreet = new Boolean(properties.getProperty("Autogreet")).booleanValue();
+        boolean autogreet = Boolean.parseBoolean(properties.getProperty("Autogreet"));
         busy = false;
         notifyAll();
         return autogreet;
@@ -548,7 +548,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        properties.setProperty("Autogreet", new Boolean(autogreet).toString());
+        properties.setProperty("Autogreet", Boolean.toString(autogreet));
         busy = false;
         notifyAll();
     }
@@ -565,7 +565,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        boolean floodprotection = new Boolean(properties.getProperty("Floodprotection")).booleanValue();
+        boolean floodprotection = Boolean.parseBoolean(properties.getProperty("Floodprotection"));
         busy = false;
         notifyAll();
         return floodprotection;
@@ -583,7 +583,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        properties.setProperty("Floodprotection", new Boolean(floodprotection).toString());
+        properties.setProperty("Floodprotection", Boolean.toString(floodprotection));
         busy = false;
         notifyAll();
     }
@@ -600,7 +600,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        boolean opme = new Boolean(properties.getProperty("Opme")).booleanValue();
+        boolean opme = Boolean.parseBoolean(properties.getProperty("Opme"));
         busy = false;
         notifyAll();
         return opme;
@@ -618,7 +618,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        properties.setProperty("Opme", new Boolean(opme).toString());
+        properties.setProperty("Opme", Boolean.toString(opme));
         busy = false;
         notifyAll();
     }
@@ -635,7 +635,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        boolean cycleforops = new Boolean(properties.getProperty("CycleForOps")).booleanValue();
+        boolean cycleforops = Boolean.parseBoolean(properties.getProperty("CycleForOps"));
         busy = false;
         notifyAll();
         return cycleforops;
@@ -653,7 +653,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        properties.setProperty("CycleForOps", new Boolean(cycleforops).toString());
+        properties.setProperty("CycleForOps", Boolean.toString(cycleforops));
         busy = false;
         notifyAll();
     }
@@ -670,7 +670,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        boolean dynamiclimit = new Boolean(properties.getProperty("DynamicLimit")).booleanValue();
+        boolean dynamiclimit = Boolean.parseBoolean(properties.getProperty("DynamicLimit"));
         busy = false;
         notifyAll();
         return dynamiclimit;
@@ -688,7 +688,7 @@ public class PropertyManager {
             }
         }
         busy = true;
-        properties.setProperty("DynamicLimit", new Boolean(dynamiclimit).toString());
+        properties.setProperty("DynamicLimit", Boolean.toString(dynamiclimit));
         busy = false;
         notifyAll();
     }
@@ -839,42 +839,42 @@ public class PropertyManager {
             //System.exit(1);
         }
         if (properties.containsKey("Autovoice")) {
-            autovoice = new Boolean(properties.getProperty("Autovoice")).booleanValue();
+            autovoice = Boolean.parseBoolean(properties.getProperty("Autovoice"));
         }
         else {
             success = this.failProperties("Properties file does not contain Autovoice.");
             //System.exit(1);
         }
         if (properties.containsKey("Autogreet")) {
-            autovoice = new Boolean(properties.getProperty("Autogreet")).booleanValue();
+            autovoice = Boolean.parseBoolean(properties.getProperty("Autogreet"));
         }
         else {
             success = this.failProperties("Properties file does not contain Autogreet.");
             //System.exit(1);
         }
         if (properties.containsKey("Floodprotection")) {
-            flood = new Boolean(properties.getProperty("Floodprotection")).booleanValue();
+            flood = Boolean.parseBoolean(properties.getProperty("Floodprotection"));
         }
         else {
             success = this.failProperties("Properties file does not contain Floodprotection.");
             //System.exit(1);
         }
         if (properties.containsKey("Opme")) {
-            opme = new Boolean(properties.getProperty("Opme")).booleanValue();
+            opme = Boolean.parseBoolean(properties.getProperty("Opme"));
         }
         else {
             success = this.failProperties("Properties file does not contain Opme.");
             //System.exit(1);
         }
         if (properties.containsKey("CycleForOps")) {
-            cycleForOps = new Boolean(properties.getProperty("CycleForOps")).booleanValue();
+            cycleForOps = Boolean.parseBoolean(properties.getProperty("CycleForOps"));
         }
         else {
             success = this.failProperties("Properties file does not contain CycleForOps.");
             //System.exit(1);
         }
         if (properties.containsKey("DynamicLimit")) {
-            dynamicLimit = new Boolean(properties.getProperty("DynamicLimit")).booleanValue();
+            dynamicLimit = Boolean.parseBoolean(properties.getProperty("DynamicLimit"));
         }
         else {
             success = this.failProperties("Properties file does not contain DynamicLimit.");
