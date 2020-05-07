@@ -24,7 +24,7 @@ package org.javabot.security;
 import org.javabot.task.FloodTask;
 import org.javabot.security.SecurityManager;
 
-public class FloodCounter extends java.lang.Object implements org.javabot.util.MyObserver {
+public class FloodCounter implements org.javabot.util.MyObserver {
     
     private final boolean debug = false;
     

@@ -21,7 +21,7 @@
 
 package org.javabot.user;
 
-public class InitUsersXML extends java.lang.Object {
+public class InitUsersXML {
 
     private java.util.Vector users;
     private final User defaultUser;

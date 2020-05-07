@@ -210,8 +210,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     
     public void notifyEvent(int event, int type, String message) {
         if (event == org.javabot.security.SecurityManager.IGNORE) {
-            String hostmask = message;
-            this.removeIgnore(hostmask);
+            this.removeIgnore(message);
         }
     }
     

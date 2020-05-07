@@ -21,7 +21,7 @@
 
 package org.javabot.message;
 
-public class PrivmsgMessage extends Object implements MessageInterface {
+public class PrivmsgMessage implements MessageInterface {
     
     private String nick;
     private String hostmask;

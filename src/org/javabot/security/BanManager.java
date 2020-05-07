@@ -24,7 +24,7 @@ package org.javabot.security;
 import java.util.Vector;
 import gnu.regexp.*;
 
-public class BanManager extends java.lang.Object {
+public class BanManager {
 
     private final String banfile;
     private Vector bans;

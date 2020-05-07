@@ -21,7 +21,7 @@
 
 package org.javabot.user;
 
-public class User extends java.lang.Object {
+public class User {
     
     private static final String DEFAULT_PASSWORD = "bibble";
     

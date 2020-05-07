@@ -85,8 +85,7 @@ public class Pager {
  */    
     public Vector previous() {
         pageIndex--;
-        Vector v = (Vector)pages.get(pageIndex);
-        return v;
+        return (Vector)pages.get(pageIndex);
     }
     
 /** Determines the presence of a previous page.
@@ -144,8 +143,7 @@ public class Pager {
  */    
     public Vector getPage(int x) {
         Integer key = x;
-        Vector v = (Vector)pages.get(key);
-        return v;
+        return (Vector)pages.get(key);
     }
     
 /** Returns an enumeration of pages.

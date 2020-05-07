@@ -21,7 +21,7 @@
 
 package org.javabot.message;
 
-public class PingMessage extends Object implements MessageInterface {
+public class PingMessage implements MessageInterface {
     
     private String params;
 

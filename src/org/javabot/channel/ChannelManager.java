@@ -27,7 +27,7 @@ import java.util.Hashtable;
 
 /** Provides channel management functionality.
  */
-public class ChannelManager extends Object implements org.javabot.util.MyObserver {
+public class ChannelManager implements org.javabot.util.MyObserver {
     
     /** Debug flag.
      */    
@@ -421,14 +421,13 @@ public class ChannelManager extends Object implements org.javabot.util.MyObserve
      */    
     public void notifyEvent(int event,int type,String message) {
         if (event == org.javabot.security.SecurityManager.FLOOD) {
-            String hostmask = message;
-            ChannelUser channelUser = this.getChannelUser(hostmask);
+            ChannelUser channelUser = this.getChannelUser(message);
             String nickTo;
             if (type == org.javabot.security.FloodCounter.CHANMSG) {
                 this.kickUser(channelUser);
             }
             else if (type == org.javabot.security.FloodCounter.BAN) {
-                this.banUser(hostmask);
+                this.banUser(message);
                 this.kickUser(channelUser);
             }
         }

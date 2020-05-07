@@ -24,7 +24,7 @@ package org.javabot.user;
 import java.util.Vector;
 import java.util.Iterator;
 
-public class UserManager extends java.lang.Object {
+public class UserManager {
 
     private final String userfile;
     private Vector users;

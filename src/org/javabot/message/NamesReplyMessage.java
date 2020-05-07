@@ -21,7 +21,7 @@
 
 package org.javabot.message;
 
-public class NamesReplyMessage extends Object implements MessageInterface {
+public class NamesReplyMessage implements MessageInterface {
     
     private String server;
     private String msgTo;

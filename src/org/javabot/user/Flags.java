@@ -21,7 +21,7 @@
 
 package org.javabot.user;
 
-public class Flags extends java.lang.Object {
+public class Flags {
 
     public static final String FRIEND = "f";
     public static final String OP = "o";

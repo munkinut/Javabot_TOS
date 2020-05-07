@@ -21,7 +21,7 @@
 
 package org.javabot.message;
 
-public class MessageFactory extends Object {
+public class MessageFactory {
 
     // Constants describing different message types
     // From RFC2812
@@ -133,7 +133,6 @@ public class MessageFactory extends Object {
         }
         else {
             // we have a servername
-            String server = prefix;
             String msg = inbound.substring(inbound.indexOf(" ")+1);
             if (msg.startsWith("" + MessageFactory.RPL_NAMREPLY + " ")) {
                 // 353 RPL_NAMREPLY
@@ -159,7 +158,7 @@ public class MessageFactory extends Object {
                     msgTo = theRest.substring(theRest.indexOf(" ")+1, theRest.indexOf(" @ "));
                     channel = theRest.substring(theRest.indexOf(" @ ")+3);
                 }
-                returnMessage = this.createNamesReplyMessage(server, msgTo, channelType, channel, names);
+                returnMessage = this.createNamesReplyMessage(prefix, msgTo, channelType, channel, names);
             }
         }
         return returnMessage;

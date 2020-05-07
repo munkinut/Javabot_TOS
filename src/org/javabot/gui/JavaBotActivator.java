@@ -21,7 +21,7 @@
 
 package org.javabot.gui;
 
-public class JavaBotActivator extends java.lang.Object {
+public class JavaBotActivator {
     
     private final boolean debug = false;
 
