@@ -29,7 +29,7 @@ public class TestStoreUsers {
             jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             //specify the location and name of xml file to be created
-            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\JAXB_Test\\out\\users.xml");
+            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\out\\users.xml");
 
             // Writing to XML file
             jaxbMarshaller.marshal(users, XMLfile);
