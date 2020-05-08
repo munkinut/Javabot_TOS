@@ -31,7 +31,7 @@ public class ScriptResource {
     private final String channel;
     private final String nick;
     private final String hostmask;
-    private final Vector<String> params;
+    private final ArrayList<String> params;
 
     /** Creates new ScriptResource */
     public ScriptResource(
@@ -39,7 +39,7 @@ public class ScriptResource {
         String channel,
         String nick,
         String hostmask,
-        Vector<String> params) {
+        ArrayList<String> params) {
             
             this.outbound = outbound;
             this.channel = channel;
@@ -60,7 +60,7 @@ public class ScriptResource {
         return this.hostmask;
     }
     
-    public Vector getParams() {
+    public ArrayList getParams() {
         return this.params;
     }
     

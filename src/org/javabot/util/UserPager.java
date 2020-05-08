@@ -1,5 +1,5 @@
 /*
- * Pager.java - pages Vectors into pages of smaller Vectors
+ * Pager.java - pages ArrayLists into pages of smaller ArrayLists
  *
  * Copyright (C) 2001 by Warren Milburn
  *
@@ -21,23 +21,25 @@
 
 package org.javabot.util;
 
+import org.javabot.user.User;
+
 import java.util.*;
 
-/** Takes a vector of objects and splits it into a set of smaller vectors (pages).
+/** Takes a ArrayList of objects and splits it into a set of smaller ArrayLists (pages).
  * @author W Milburn
  * @version 0.1
  */
-public class Pager {
+public class UserPager {
 
-    private final Vector<Object> toPage;
-    private final Hashtable<Integer, Vector> pages;
+    private ArrayList<User> toPage = new ArrayList<>();
+    private Hashtable<Integer, ArrayList> pages = new Hashtable<>();
     private int pageIndex;
 
 /** Constructs a Pager.
- * @param v Vector of objects you want to page.
+ * @param v ArrayList of objects you want to page.
  * @param x Number of objects you require per page.
  */    
-    public Pager(Vector v, int x) {
+    public UserPager(ArrayList<User> v, int x) {
         toPage = v;
         pages = this.pageBy(x);
         pageIndex = 0;
@@ -45,13 +47,13 @@ public class Pager {
     
 /** Constructs a Pager.
  */    
-    public Pager() {
+    public UserPager() {
         toPage = null;
         pages = null;
     }
-    
-/** Returns the size of the Vector to page.
- * @return Size of Vector to page.
+
+    /** Returns the size of the ArrayList to page.
+ * @return Size of ArrayList to page.
  */    
     public int numberOfResults() {
         if (toPage != null) {
@@ -63,8 +65,8 @@ public class Pager {
 /** Returns the next page of objects.
  * @return The next page of objects.
  */    
-    public Vector next() {
-        Vector v = (Vector) pages.get(pageIndex);
+    public ArrayList next() {
+        ArrayList v = (ArrayList) pages.get(pageIndex);
         pageIndex++;
         return v;
     }
@@ -83,9 +85,9 @@ public class Pager {
 /** Returns the previous page of objects.
  * @return The previous page of objects.
  */    
-    public Vector previous() {
+    public ArrayList previous() {
         pageIndex--;
-        return (Vector)pages.get(pageIndex);
+        return (ArrayList)pages.get(pageIndex);
     }
     
 /** Determines the presence of a previous page.
@@ -99,24 +101,20 @@ public class Pager {
         return b;
     }
     
-/** Pages the pre-loaded vector of objects into a hash of pages keyed by page number, and containing x objects per page.
+/** Pages the pre-loaded ArrayList of objects into a hash of pages keyed by page number, and containing x objects per page.
  * @param x Index of the page to return.
- * @return A Hashtable of Vectors, keyed by page number.
+ * @return A Hashtable of ArrayLists, keyed by page number.
  */    
-    public Hashtable<Integer, Vector> pageBy(int x) {
+    public Hashtable<Integer, ArrayList> pageBy(int x) {
 
         int pageCount = 0;
-        Vector<Object> v;
-        Hashtable<Integer, Vector> ht = new Hashtable<>();
-        Enumeration e = toPage.elements();
-        while (e.hasMoreElements()) {
-            v = new Vector<Object>();
-            for (int i = 0; i < x; i++) {
-                if (e.hasMoreElements()) {
-                    Object o = e.nextElement();
-                    v.add(o);
-                }
-            }
+        ArrayList<Object> v;
+        Hashtable<Integer, ArrayList> ht = new Hashtable<>();
+        Iterator e = toPage.iterator();
+        while (e.hasNext()) {
+            User user = (User)e.next();
+            v = new ArrayList<Object>();
+            v.add(user);
             ht.put(pageCount, v);
             pageCount++;
         }
@@ -131,7 +129,7 @@ public class Pager {
     }
     
 /** Returns a hash of all the pages, keyed by page number
- * @return A Hashtable of Vectors indexed by page number.
+ * @return A Hashtable of ArrayLists indexed by page number.
  */    
     public Hashtable getAllPages() {
         return pages;
@@ -139,11 +137,11 @@ public class Pager {
     
 /** Returns a page, by page number.
  * @param x Index of page to return.
- * @return A Vector of objects representing a particular page.
+ * @return A ArrayList of objects representing a particular page.
  */    
-    public Vector getPage(int x) {
+    public ArrayList getPage(int x) {
         Integer key = x;
-        return (Vector)pages.get(key);
+        return (ArrayList)pages.get(key);
     }
     
 /** Returns an enumeration of pages.

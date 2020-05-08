@@ -22,8 +22,10 @@
 package org.javabot.gui;
 
 import org.javabot.user.User;
+import org.javabot.user.Users;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.ArrayList;
 
 public class UserUIConfigurator {
     
@@ -37,11 +39,12 @@ public class UserUIConfigurator {
     }
     
     public void createNodes(DefaultMutableTreeNode top) {
-        java.util.Vector<User> users = um.getUsers();
+        Users users = um.getUsers();
+        ArrayList<User> userList = users.getUsers();
         DefaultMutableTreeNode userNode;
         User user;
-        for (int i = 0; i < users.size(); i++) {
-            user = users.elementAt(i);
+        for (User value : userList) {
+            user = value;
             userNode = new DefaultMutableTreeNode(user);
             top.add(userNode);
         }

@@ -21,13 +21,15 @@
 
 package org.javabot.security;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import gnu.regexp.*;
 
 public class BanManager {
 
     private final String banfile;
-    private Vector bans;
+    private ArrayList bans;
     private boolean debug = true;
 
     public BanManager() {
@@ -69,8 +71,9 @@ public class BanManager {
         boolean matches = false;
         String banmask;
         RE exp;
-        for (int i = 0; i < bans.size(); i++) {
-            banmask = (String)bans.elementAt(i);
+        Iterator i = bans.iterator();
+        while (i.hasNext()) {
+            banmask = (String)i.next();
             try {
                 exp = new RE(this.regThis(banmask));
                 if (exp.isMatch(hostmask)) {
@@ -94,7 +97,7 @@ public class BanManager {
         return hostmask;
     }
 
-    public Vector getBans() {
+    public ArrayList getBans() {
         return this.bans;
     }
     
@@ -112,12 +115,12 @@ public class BanManager {
         this.storeBans();
     }
 
-    private synchronized Vector loadBans() {
-        Vector bans = new Vector();
+    private synchronized ArrayList loadBans() {
+        ArrayList bans = new ArrayList();
         try {
             java.io.FileInputStream in = new java.io.FileInputStream(banfile);
-            JSX.ObjIn usersIn = new JSX.ObjIn(in);
-            bans = (Vector)usersIn.readObject();
+            //JSX.ObjIn usersIn = new JSX.ObjIn(in);
+            //bans = (ArrayList)usersIn.readObject();
             in.close();
         }
         catch (java.io.FileNotFoundException fnfe) {
@@ -126,17 +129,17 @@ public class BanManager {
         catch (java.io.IOException ioeLoad) {
             System.err.println("Could not load or close file : " + banfile);
         }
-        catch (java.lang.ClassNotFoundException cnfe) {
-            System.err.println("Could not load object from file: " + banfile);
-        }
+        //catch (java.lang.ClassNotFoundException cnfe) {
+        //    System.err.println("Could not load object from file: " + banfile);
+        //}
         return bans;
     }
 
     private synchronized void storeBans() {
         try {
             java.io.FileOutputStream out = new java.io.FileOutputStream(banfile);
-            JSX.ObjOut usersOut = new JSX.ObjOut(false, out);
-            usersOut.writeObject(bans);
+            //JSX.ObjOut usersOut = new JSX.ObjOut(false, out);
+            //usersOut.writeObject(bans);
             out.close();
         }
         catch (java.io.FileNotFoundException fnfe) {

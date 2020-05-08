@@ -21,6 +21,11 @@
 
 package org.javabot.user;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(namespace = "net.munki.jaxb.Users")
+@XmlType(propOrder = { "nick", "password", "hostmask", "greet", "flags"})
 public class User {
     
     private static final String DEFAULT_PASSWORD = "bibble";
@@ -28,16 +33,16 @@ public class User {
     private String nick;
     private String password;
     private String hostmask;
-    private Flags flags;
     private String greet;
+    private Flags flags;
 
-    public User() {
-        nick = "";
-        password = "";
-        flags = new Flags(false, false, false, false, false);
-        hostmask = "";
-        greet = "";
-    }
+//    public User() {
+//        nick = "";
+//        password = "";
+//        flags = new Flags(false, false, false, false, false);
+//        hostmask = "";
+//        greet = "";
+//    }
     
     public User(String nick) {
         this.nick = nick;
@@ -55,14 +60,15 @@ public class User {
         greet = "Wooo hooo ... welcome " + nick;
     }
     
-    public User(String nick, String password, String hostmask, Flags flags, String greet) {
+    public User(String nick, String password, String hostmask, String greet, Flags flags) {
         this.nick = nick;
         this.password = password;
         this.hostmask = hostmask;
-        this.flags = flags;
         this.greet = greet;
+        this.flags = flags;
     }
-    
+
+
     public String getNick() {
         return this.nick;
     }

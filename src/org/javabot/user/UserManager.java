@@ -21,13 +21,18 @@
 
 package org.javabot.user;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.Iterator;
 
 public class UserManager {
 
     private final String userfile;
-    private Vector users;
+    private Users users;
     private boolean debug = true;
 
     public UserManager() {
@@ -38,13 +43,15 @@ public class UserManager {
         if (debug) System.out.println("[UM] : userfile = " + userfile);
         users = this.loadUsers();
         if (debug) {
-            for (int i = 0; i < users.size(); i++) {
-                User user = (User)users.get(i);
+
+            ArrayList<User> userList = users.getUsers();
+            for(User user:userList) {
                 System.out.println(user.getNick());
                 System.out.println(user.getPassword());
                 System.out.println(user.getHostmask());
                 System.out.println(user.getGreet());
             }
+
         }
     }
     
@@ -86,36 +93,36 @@ public class UserManager {
     }
     
     public boolean addUser(String botnick) {
-        boolean success = false;
-        if (!this.userBotnickExists(botnick)) {
-            User user = new User(botnick);
-            users.add(user);
-            this.saveUsers();
-            success = true;
-        }
-        return success;
+        //boolean success = false;
+        //if (!this.userBotnickExists(botnick)) {
+        //    User user = new User(botnick);
+        //    users.add(user);
+        //    this.saveUsers();
+        //    success = true;
+        //}
+        return true;
     }
     
     public boolean addUser(String botnick, String password) {
-        boolean success = false;
-        if (!this.userBotnickExists(botnick)) {
-            User user = new User(botnick, password);
-            users.add(user);
-            this.saveUsers();
-            success = true;
-        }
-        return success;
+        //boolean success = false;
+        //if (!this.userBotnickExists(botnick)) {
+        //    User user = new User(botnick, password);
+        //    users.add(user);
+        //    this.saveUsers();
+        //    success = true;
+        //}
+        return true;
     }
     
     public boolean delUser(String botnick) {
-        boolean success = false;
-        if (this.userBotnickExists(botnick)) {
-            User user = this.getUserByBotnick(botnick);
-            users.remove(user);
-            this.saveUsers();
-            success = true;
-        }
-        return success;
+        //boolean success = false;
+        //if (this.userBotnickExists(botnick)) {
+        //    User user = this.getUserByBotnick(botnick);
+        //    users.remove(user);
+        //    this.saveUsers();
+        //    success = true;
+        //}
+        return true;
     }
 
     public boolean addOp(String botnick) {
@@ -230,10 +237,10 @@ public class UserManager {
     
     private User getUser(String hostmask) {
         User returnUser = null;
-        User user;
-        Iterator i = users.iterator();
+
+        Iterator i = users.getUsers().iterator();
         while (i.hasNext()) {
-            user = (User)i.next();
+            User user = (User)i.next();
             if (user.getHostmask().equals(hostmask)) {
                 returnUser = user;
             }
@@ -241,16 +248,15 @@ public class UserManager {
         return returnUser;
     }
     
-    public Vector getUsers() {
+    public Users getUsers() {
         return this.users;
     }
     
     public User getUserByBotnick(String botnick) {
         User returnUser = null;
-        User user;
-        Iterator i = users.iterator();
+        Iterator i = users.getUsers().iterator();
         while (i.hasNext()) {
-            user = (User)i.next();
+            User user = (User)i.next();
             if (user.getNick().equals(botnick)) {
                 returnUser = user;
             }
@@ -260,11 +266,12 @@ public class UserManager {
     
     public boolean userExists(String hostmask) {
         boolean success = false;
-        User user;
-        Iterator i = users.iterator();
+        User returnUser = null;
+
+        Iterator i = users.getUsers().iterator();
         while (i.hasNext()) {
-            user = (User)i.next();
-            if ((user.getHostmask()).equals(hostmask)) {
+            User user = (User)i.next();
+            if (user.getHostmask().equals(hostmask)) {
                 success = true;
                 break;
             }
@@ -274,11 +281,11 @@ public class UserManager {
         
     public boolean userBotnickExists(String botnick) {
         boolean success = false;
-        User user;
-        Iterator i = users.iterator();
+        User returnUser = null;
+        Iterator i = users.getUsers().iterator();
         while (i.hasNext()) {
-            user = (User)i.next();
-            if ((user.getNick()).equals(botnick)) {
+            User user = (User)i.next();
+            if (user.getNick().equals(botnick)) {
                 success = true;
                 break;
             }
@@ -356,44 +363,63 @@ public class UserManager {
     public void reloadUsers() {
         this.users = this.loadUsers();
     }
-    
+
     public void saveUsers() {
-        this.storeUsers();
+        this.storeUsers(users);
     }
 
-    private synchronized Vector loadUsers() {
-        Vector users = new Vector();
+    private synchronized Users loadUsers() {
+        Users users = null;
         try {
-            java.io.FileInputStream in = new java.io.FileInputStream(userfile);
-            JSX.ObjIn usersIn = new JSX.ObjIn(in);
-            users = (Vector)usersIn.readObject();
-            in.close();
-        }
-        catch (java.io.FileNotFoundException fnfe) {
-            System.err.println("Could not find file : " + userfile);
-        }
-        catch (java.io.IOException ioeLoad) {
-            System.err.println("Could not load or close file : " + userfile);
-        }
-        catch (java.lang.ClassNotFoundException cnfe) {
-            System.err.println("Could not load object from file: " + userfile);
+            // create JAXB context and initializing Marshaller
+            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+            // specify the location and name of xml file to be read
+            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\JAXB_Test\\out\\users.xml");
+
+            // this will create Java object - country from the XML file
+            users = (Users) jaxbUnmarshaller.unmarshal(XMLfile);
+
+            ArrayList<User> userList = users.getUsers();
+            for(User user:userList) {
+                System.out.println("User: " + user.getNick() + " aged " + user.getHostmask());
+            }
+
+        } catch (JAXBException e) {
+            // some exception occured
+            e.printStackTrace();
         }
         return users;
     }
 
-    private synchronized void storeUsers() {
+
+    private synchronized void storeUsers(Users users) {
+
         try {
-            java.io.FileOutputStream out = new java.io.FileOutputStream(userfile);
-            JSX.ObjOut usersOut = new JSX.ObjOut(false, out);
-            usersOut.writeObject(users);
-            out.close();
+
+            // create JAXB context and initializing Marshal
+            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+            javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // for getting nice formatted output
+            jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+            //specify the location and name of xml file to be created
+            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\JAXB_Test\\out\\users.xml");
+
+            // Writing to XML file
+            jaxbMarshaller.marshal(users, XMLfile);
+            // Writing to console
+            jaxbMarshaller.marshal(users, System.out);
+
+        } catch (JAXBException e) {
+            // some exception occured
+            e.printStackTrace();
         }
-        catch (java.io.FileNotFoundException fnfe) {
-            System.err.println("Could not find file : " + userfile);
-        }
-        catch (java.io.IOException ioeLoad) {
-            System.err.println("Could not store or close file : " + userfile);
-        }
+
+
     }
 
 }

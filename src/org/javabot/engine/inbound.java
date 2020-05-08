@@ -22,14 +22,16 @@ package org.javabot.engine;
 
 import org.javabot.configuration.PropertyManager;
 import org.javabot.user.User;
-import org.javabot.util.Pager;
+import org.javabot.user.Users;
+import org.javabot.util.BanPager;
+import org.javabot.util.UserPager;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.util.Timer;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 /** Inbound message handler
@@ -348,9 +350,9 @@ public class inbound extends Thread {
         
         if (!sm.isIgnored(hostmask)) {
             
-            Vector<String> params = this.parseCommand(privmsgMessage.getParams());
+            ArrayList<String> params = this.parseCommand(privmsgMessage.getParams());
             if (!params.isEmpty()) {
-                String command = (String)params.elementAt(0);
+                String command = (String)params.get(0);
                 if (command.startsWith("!")) {
                     this.handlePublicCmd(command, nickFrom, msgTo, hostmask, params);
                 }
@@ -368,7 +370,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handlePrivateCmd(String command, String nickFrom, String msgTo, String hostmask, Vector<String> params) {
+    private void handlePrivateCmd(String command, String nickFrom, String msgTo, String hostmask, ArrayList<String> params) {
         if ((command.equals("auth")) && (params.size() == 3) && (msgTo.equals(nick))) {
             this.handleAuthCmd(nickFrom, hostmask, params);
         }
@@ -456,7 +458,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handlePublicCmd(String command, String nickFrom, String msgTo, String hostmask, Vector<String> params) {
+    private void handlePublicCmd(String command, String nickFrom, String msgTo, String hostmask, ArrayList<String> params) {
         if ((command.equals("!opme")) && (params.size() == 1) && (msgTo.equals(channel))) {
             this.handlePubOpMeCmd(nickFrom, hostmask);
         }
@@ -470,7 +472,7 @@ public class inbound extends Thread {
             this.handlePubUcCmd(hostmask);
         }
         else if ((command.equals("!" + nick)) && (params.size() >=2) && (msgTo.equals(channel))) {
-            Vector<String> cmdParams = this.parseParams(params);
+            ArrayList<String> cmdParams = this.parseParams(params);
             this.handlePubScriptCmd(channel, nickFrom, hostmask, cmdParams);
         }
     }
@@ -480,9 +482,9 @@ public class inbound extends Thread {
      * @param hostmask The originating hostmask
      * @param params Command parameters
      */    
-    private void handleAuthCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
-        String botpass = params.elementAt(2);
+    private void handleAuthCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
+        String botpass = params.get(2);
         if (um.auth(botnick, hostmask, botpass)) {
             IRCCommands.privmsg(nickFrom, "User " + botnick + " authorised", outbound);
             if (autovoice && um.userIsVoice(hostmask)) IRCCommands.autovoice(channel, nickFrom, outbound);
@@ -500,9 +502,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handlePassCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String oldpass = params.elementAt(1);
-        String newpass = params.elementAt(2);
+    private void handlePassCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String oldpass = params.get(1);
+        String newpass = params.get(2);
         if (um.pass(hostmask, oldpass, newpass)) {
             IRCCommands.privmsg(nickFrom, "Password changed for "+nickFrom+" ("+hostmask+")", outbound);
         }
@@ -513,10 +515,10 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleGreetCmd(String nickFrom, String hostmask, Vector<String> params) {
+    private void handleGreetCmd(String nickFrom, String hostmask, ArrayList<String> params) {
         StringBuilder greet = new StringBuilder();
         for (int i=1; i < params.size(); i++) {
-            greet.append(params.elementAt(i)).append(" ");
+            greet.append(params.get(i)).append(" ");
         }
         greet = new StringBuilder(greet.toString().trim());
         if (um.userIsFriend(hostmask)) {
@@ -531,9 +533,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleFlagsCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
-        String flags = params.elementAt(2);
+    private void handleFlagsCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
+        String flags = params.get(2);
         char changer = flags.charAt(0);
         if ((changer == '+' || changer == '-') && flags.length() > 1) {
             for (int i = 1;i < flags.length(); i++) {
@@ -595,8 +597,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleAddUserCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleAddUserCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.addUser(botnick)) {
                 IRCCommands.privmsg(nickFrom, "User "+botnick+ " added", outbound);
@@ -609,8 +611,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleDelUserCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleDelUserCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.delUser(botnick)) {
                 IRCCommands.privmsg(nickFrom, "User "+botnick+ " deleted", outbound);
@@ -625,19 +627,19 @@ public class inbound extends Thread {
     @SuppressWarnings("BusyWait")
     private void handleUsersCmd(String nickFrom, String hostmask) {
         if (um.userIsOp(hostmask)) {
-            Vector<User> users = um.getUsers();
-            if (users.isEmpty()) {
+            Users users = um.getUsers();
+            if (users.getUsers().isEmpty()) {
                 IRCCommands.privmsg(nickFrom, "User list empty", outbound);
             }
             else {
-                Pager pager = new Pager(users,2);
-                Vector userPage;
+                UserPager pager = new UserPager(users.getUsers(),2);
+                ArrayList userPage;
                 User user;
                 String msg;
                 while (pager.hasNext()) {
                     userPage = pager.next();
                     for (int i = 0; i < userPage.size(); i++) {
-                        user = (User)userPage.elementAt(i);
+                        user = (User)userPage.get(i);
                         msg = user.getNick() + " : " + user.getHostmask();
                         IRCCommands.privmsg(nickFrom, msg, outbound);
                     }
@@ -656,8 +658,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleAddFriendCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleAddFriendCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.addFriend(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Friend flag added for "+botnick, outbound);
@@ -670,8 +672,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleAddVoiceCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleAddVoiceCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.addVoice(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Voice flag added for "+botnick, outbound);
@@ -684,8 +686,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleAddOpCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleAddOpCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsMaster(hostmask)) {
             if (um.addOp(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Op flag added for "+botnick, outbound);
@@ -698,8 +700,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleAddMasterCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleAddMasterCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.addMaster(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Master flag added for "+botnick, outbound);
@@ -712,8 +714,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleDelFriendCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleDelFriendCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.delFriend(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Friend flag deleted for "+botnick, outbound);
@@ -726,8 +728,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleDelVoiceCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleDelVoiceCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.delVoice(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Voice flag deleted for "+botnick, outbound);
@@ -740,8 +742,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleDelOpCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleDelOpCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsMaster(hostmask)) {
             if (um.delOp(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Op flag deleted for "+botnick, outbound);
@@ -754,8 +756,8 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleDelMasterCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String botnick = params.elementAt(1);
+    private void handleDelMasterCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.delMaster(botnick)) {
                 IRCCommands.privmsg(nickFrom, "Master flag deleted for "+botnick, outbound);
@@ -767,9 +769,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleKickCmd(String hostmask, Vector<String> params) {
-        String nickToKick = params.elementAt(1);
-        String chan = params.elementAt(2);
+    private void handleKickCmd(String hostmask, ArrayList<String> params) {
+        String nickToKick = params.get(1);
+        String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             IRCCommands.kick(chan, nickToKick, outbound);
         }
@@ -779,9 +781,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleBanCmd(String hostmask, Vector<String> params) {
-        String banMask = params.elementAt(1);
-        String chan = params.elementAt(2);
+    private void handleBanCmd(String hostmask, ArrayList<String> params) {
+        String banMask = params.get(1);
+        String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             IRCCommands.ban(chan, banMask, outbound);
         }
@@ -791,10 +793,10 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleKickBanCmd(String hostmask, Vector<String> params) {
-        String nickToKick = params.elementAt(1);
-        String banMask = params.elementAt(2);
-        String chan = params.elementAt(3);
+    private void handleKickBanCmd(String hostmask, ArrayList<String> params) {
+        String nickToKick = params.get(1);
+        String banMask = params.get(2);
+        String chan = params.get(3);
         if (um.userIsOp(hostmask)) {
             IRCCommands.ban(chan, banMask, outbound);
             IRCCommands.kick(chan, nickToKick, outbound);
@@ -806,9 +808,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleAddBanCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String banMask = params.elementAt(1);
-        String chan = params.elementAt(2);
+    private void handleAddBanCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String banMask = params.get(1);
+        String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             if (bm.addBan(banMask)) {
                 IRCCommands.ban(chan, hostmask, outbound);
@@ -823,9 +825,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleDelBanCmd(String nickFrom, String hostmask, Vector<String> params) {
-        String banMask = params.elementAt(1);
-        String chan = params.elementAt(2);
+    private void handleDelBanCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        String banMask = params.get(1);
+        String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             if (bm.delBan(banMask)) {
                 IRCCommands.unban(chan, banMask, outbound);
@@ -838,9 +840,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleInviteCmd(String hostmask, Vector<String> params) {
-        String nickname = params.elementAt(1);
-        String chan = params.elementAt(2);
+    private void handleInviteCmd(String hostmask, ArrayList<String> params) {
+        String nickname = params.get(1);
+        String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             IRCCommands.invite(chan, nickname, outbound);
         }
@@ -864,18 +866,18 @@ public class inbound extends Thread {
     @SuppressWarnings("BusyWait")
     private void handleBansCmd(String nickFrom, String hostmask) {
         if (um.userIsOp(hostmask)) {
-            Vector<String> bans = bm.getBans();
+            ArrayList<String> bans = bm.getBans();
             if (bans.isEmpty()) {
                 IRCCommands.privmsg(nickFrom, "Banlist empty", outbound);
             }
             else {
-                Pager pager = new Pager(bans,2);
-                Vector<String> banPage;
+                BanPager pager = new BanPager(bans,2);
+                ArrayList<String> banPage;
                 String msg;
                 while (pager.hasNext()) {
                     banPage = pager.next();
                     for (int i = 0; i < banPage.size(); i++) {
-                        msg = banPage.elementAt(i);
+                        msg = banPage.get(i);
                         IRCCommands.privmsg(nickFrom, msg, outbound);
                     }
                     try {
@@ -892,9 +894,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handleUnbanCmd(String hostmask, Vector<String> params) {
-        String banMask = (String)params.elementAt(1);
-        String chan = (String)params.elementAt(2);
+    private void handleUnbanCmd(String hostmask, ArrayList<String> params) {
+        String banMask = (String)params.get(1);
+        String chan = (String)params.get(2);
         if (um.userIsOp(hostmask)) {
             IRCCommands.unban(chan, banMask, outbound);
         }
@@ -964,17 +966,17 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      * @param params Command parameters
      */    
-    private void handlePubScriptCmd(String channel, String nick, String hostmask, Vector<String> params) {
+    private void handlePubScriptCmd(String channel, String nick, String hostmask, ArrayList<String> params) {
         // script commands are handled by the ScriptHandler
         sh.handlePublicCmd(channel, nick, hostmask, params);
     }
 
     /** Parses the command parameters from a message
      * @param params Command parameter string
-     * @return Vector of command parameters
+     * @return ArrayList of command parameters
      */    
-    private Vector parseCommand(String params) {
-        Vector<String> v = new Vector<>();
+    private ArrayList parseCommand(String params) {
+        ArrayList<String> v = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(params, " ");
         String token;
         while (st.hasMoreTokens()) {
@@ -984,13 +986,13 @@ public class inbound extends Thread {
         return v;
     }
 
-    /** Parse the parameters out of a Vector of command
+    /** Parse the parameters out of a ArrayList of command
      * and parameters
-     * @param cmd Vector of command and parameters
-     * @return Vector containing just parameters
+     * @param cmd ArrayList of command and parameters
+     * @return ArrayList containing just parameters
      */    
-    private Vector parseParams(Vector cmd) {
-        Vector<String> v = new Vector();
+    private ArrayList parseParams(ArrayList cmd) {
+        ArrayList<String> v = new ArrayList();
         if (cmd.size() > 1) {
             v.addAll(cmd.subList(1,cmd.size()));
         }
