@@ -3,7 +3,7 @@
    nick="javamunk"
    password="javamunk"
    hostmask="~~~~uk"
-   greet="askaskjas in da hoose .. Oo Oo!">
+   greet="javamunk in da hoose .. Oo Oo!">
     <org.javabot.user.Flags obj-name="flags">
       <java.util.Hashtable obj-name="flags">
         <java.lang.String valueOf="m"/>
