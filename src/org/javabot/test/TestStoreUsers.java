@@ -1,4 +1,8 @@
-package org.javabot.user;
+package org.javabot.test;
+
+import org.javabot.user.Flags;
+import org.javabot.user.User;
+import org.javabot.user.Users;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
