@@ -19,9 +19,8 @@ public class Users {
 
     // XmLElementWrapper generates a wrapper element around XML representation
     // XmlElement sets the name of the entities in collection
-    @XmlElement(name = "users")
+    @XmlElement(name = "user")
     public boolean setUsers(ArrayList<User> users) {
-
         this.users = users;
         return true;
     }
