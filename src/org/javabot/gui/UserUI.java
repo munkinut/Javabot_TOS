@@ -244,7 +244,7 @@ public class UserUI extends javax.swing.JFrame {
                 
                 jTabbedPane1.addTab("Info", userInfo);
               
-              userFlags.setLayout(new java.awt.GridLayout(5, 1));
+              //userFlags.setLayout(new java.awt.GridLayout(5, 1));
                 
                 friendCheckBox.setText("Friend");
                 friendCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -459,31 +459,31 @@ public class UserUI extends javax.swing.JFrame {
 
     private void ownerCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ownerCheckBoxActionPerformed
         // Add your handling code here:
-        userUIConfigurator.setNodeOwner(ownerCheckBox.isSelected());
+        //userUIConfigurator.setNodeOwner(ownerCheckBox.isSelected());
         applyButton.setEnabled(true);
     }//GEN-LAST:event_ownerCheckBoxActionPerformed
 
     private void masterCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masterCheckBoxActionPerformed
         // Add your handling code here:
-        userUIConfigurator.setNodeMaster(masterCheckBox.isSelected());
+        //userUIConfigurator.setNodeMaster(masterCheckBox.isSelected());
         applyButton.setEnabled(true);
     }//GEN-LAST:event_masterCheckBoxActionPerformed
 
     private void opCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opCheckBoxActionPerformed
         // Add your handling code here:
-        userUIConfigurator.setNodeOp(opCheckBox.isSelected());
+        //userUIConfigurator.setNodeOp(opCheckBox.isSelected());
         applyButton.setEnabled(true);
     }//GEN-LAST:event_opCheckBoxActionPerformed
 
     private void voiceCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voiceCheckBoxActionPerformed
         // Add your handling code here:
-        userUIConfigurator.setNodeVoice(voiceCheckBox.isSelected());
+        //userUIConfigurator.setNodeVoice(voiceCheckBox.isSelected());
         applyButton.setEnabled(true);
     }//GEN-LAST:event_voiceCheckBoxActionPerformed
 
     private void friendCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friendCheckBoxActionPerformed
         // Add your handling code here:
-        userUIConfigurator.setNodeFriend(friendCheckBox.isSelected());
+        //userUIConfigurator.setNodeFriend(friendCheckBox.isSelected());
         applyButton.setEnabled(true);
     }//GEN-LAST:event_friendCheckBoxActionPerformed
 

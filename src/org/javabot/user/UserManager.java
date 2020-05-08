@@ -129,7 +129,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setOp(true);
+            //user.setOp(true);
             this.saveUsers();
             success = true;
         }
@@ -140,7 +140,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setOp(false);
+            //user.setOp(false);
             this.saveUsers();
             success = true;
         }
@@ -151,7 +151,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setFriend(false);
+            //user.setFriend(false);
             this.saveUsers();
             success = true;
         }
@@ -162,7 +162,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setVoice(false);
+            //user.setVoice(false);
             this.saveUsers();
             success = true;
         }
@@ -173,7 +173,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setMaster(false);
+            //user.setMaster(false);
             this.saveUsers();
             success = true;
         }
@@ -184,7 +184,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setOwner(false);
+            //user.setOwner(false);
             this.saveUsers();
             success = true;
         }
@@ -195,7 +195,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setVoice(true);
+            //user.setVoice(true);
             this.saveUsers();
             success = true;
         }
@@ -206,7 +206,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setMaster(true);
+            //user.setMaster(true);
             this.saveUsers();
             success = true;
         }
@@ -217,7 +217,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setFriend(true);
+            //user.setFriend(true);
             this.saveUsers();
             success = true;
         }
@@ -228,7 +228,7 @@ public class UserManager {
         boolean success = false;
         User user = this.getUserByBotnick(botnick);
         if (user != null) {
-            user.setOwner(true);
+            //user.setOwner(true);
             this.saveUsers();
             success = true;
         }
@@ -328,33 +328,33 @@ public class UserManager {
         User user = this.getUser(hostmask);
         if (user != null) {
             if (flag.equals(Flags.FRIEND)) {
-                if (user.isFriend()) {
-                    success = true;
-                }
+                //if (user.isFriend()) {
+                //    success = true;
+                //}
             }
             else
             if (flag.equals(Flags.OP)) {
-                if (user.isOp()) {
-                    success = true;
-                }
+                //if (user.isOp()) {
+                //    success = true;
+                //}
             }
             else
             if (flag.equals(Flags.MASTER)) {
-                if (user.isMaster()) {
-                    success = true;
-                }
+                //if (user.isMaster()) {
+                //    success = true;
+                //}
             }
             else
             if (flag.equals(Flags.OWNER)) {
-                if (user.isOwner()) {
-                    success = true;
-                }
+                //if (user.isOwner()) {
+                //    success = true;
+                //}
             }
             else
             if (flag.equals(Flags.VOICE)) {
-                if (user.isVoice()) {
-                    success = true;
-                }
+                //if (user.isVoice()) {
+                //    success = true;
+                //}
             }
         }
         return success;

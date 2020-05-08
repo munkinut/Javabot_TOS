@@ -91,23 +91,29 @@ public class UserUIConfigurator {
     }
     
     public boolean getNodeFriend() {
-        return currentNode.isFriend();
+        //return currentNode.isFriend();
+        return true;
     }
 
     public boolean getNodeVoice() {
-        return currentNode.isVoice();
+        //return currentNode.isVoice();
+        return true;
     }
 
     public boolean getNodeOp() {
-        return currentNode.isOp();
+        //return currentNode.isOp();
+        return true;
     }
 
     public boolean getNodeMaster() {
-        return currentNode.isMaster();
+        //return currentNode.isMaster();
+        return true;
     }
 
     public boolean getNodeOwner() {
-        return currentNode.isOwner();
+        //return currentNode.isOwner();
+        return true;
+
     }
     
     public void setNodeNick(String nick) {
@@ -126,24 +132,24 @@ public class UserUIConfigurator {
         currentNode.setGreet(greet);
     }
     
-    public void setNodeFriend(boolean friend) {
-        currentNode.setFriend(friend);
-    }
+    //public void setNodeFriend(boolean friend) {
+    //    currentNode.setFriend(friend);
+    //}
 
-    public void setNodeVoice(boolean voice) {
-        currentNode.setVoice(voice);
-    }
+    //public void setNodeVoice(boolean voice) {
+    //    currentNode.setVoice(voice);
+    //}
 
-    public void setNodeOp(boolean op) {
-        currentNode.setOp(op);
-    }
+    //public void setNodeOp(boolean op) {
+    //    currentNode.setOp(op);
+    //}
 
-    public void setNodeMaster(boolean master) {
-        currentNode.setMaster(master);
-    }
+    //public void setNodeMaster(boolean master) {
+    //    currentNode.setMaster(master);
+    //}
 
-    public void setNodeOwner(boolean owner) {
-        currentNode.setOwner(owner);
-    }
+    //public void setNodeOwner(boolean owner) {
+    //    currentNode.setOwner(owner);
+    //}
 
 }
