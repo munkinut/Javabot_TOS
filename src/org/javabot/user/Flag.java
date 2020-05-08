@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "name", "truth"})
 public class Flag {
 
-    public static final String FRIEND = "friend";
-    public static final String OP = "op";
-    public static final String MASTER = "master";
-    public static final String OWNER = "owner";
-    public static final String VOICE = "voice";
+    public static final String FRIEND = "FRIEND";
+    public static final String OP = "OP";
+    public static final String MASTER = "MASTER";
+    public static final String OWNER = "OWNER";
+    public static final String VOICE = "VOICE";
 
     private String name;
     private boolean truth;
