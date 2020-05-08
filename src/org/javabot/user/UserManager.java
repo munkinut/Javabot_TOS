@@ -294,23 +294,23 @@ public class UserManager {
     }
         
     public boolean userIsFriend(String hostmask) {
-        return this.userIs(hostmask, Flags.FRIEND);
+        return this.userIs(hostmask, Flag.FRIEND);
     }
 
     public boolean userIsOp(String hostmask) {
-        return this.userIs(hostmask, Flags.OP);
+        return this.userIs(hostmask, Flag.OP);
     }
     
     public boolean userIsMaster(String hostmask) {
-        return this.userIs(hostmask, Flags.MASTER);
+        return this.userIs(hostmask, Flag.MASTER);
     }
     
     public boolean userIsOwner(String hostmask) {
-        return this.userIs(hostmask, Flags.OWNER);
+        return this.userIs(hostmask, Flag.OWNER);
     }
     
     public boolean userIsVoice(String hostmask) {
-        return this.userIs(hostmask, Flags.VOICE);
+        return this.userIs(hostmask, Flag.VOICE);
     }
     
     public String getGreet(String hostmask) {
@@ -327,31 +327,31 @@ public class UserManager {
         boolean success = false;
         User user = this.getUser(hostmask);
         if (user != null) {
-            if (flag.equals(Flags.FRIEND)) {
+            if (flag.equals(Flag.FRIEND)) {
                 //if (user.isFriend()) {
                 //    success = true;
                 //}
             }
             else
-            if (flag.equals(Flags.OP)) {
+            if (flag.equals(Flag.OP)) {
                 //if (user.isOp()) {
                 //    success = true;
                 //}
             }
             else
-            if (flag.equals(Flags.MASTER)) {
+            if (flag.equals(Flag.MASTER)) {
                 //if (user.isMaster()) {
                 //    success = true;
                 //}
             }
             else
-            if (flag.equals(Flags.OWNER)) {
+            if (flag.equals(Flag.OWNER)) {
                 //if (user.isOwner()) {
                 //    success = true;
                 //}
             }
             else
-            if (flag.equals(Flags.VOICE)) {
+            if (flag.equals(Flag.VOICE)) {
                 //if (user.isVoice()) {
                 //    success = true;
                 //}
