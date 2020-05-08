@@ -1,0 +1,13 @@
+org.javabot.channel
+org.javabot.client
+org.javabot.configuration
+org.javabot.engine
+org.javabot.gui
+org.javabot.message
+org.javabot.script
+org.javabot.security
+org.javabot.server
+org.javabot.task
+org.javabot.test
+org.javabot.user
+org.javabot.util
