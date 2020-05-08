@@ -11,9 +11,12 @@ public class TestStoreUsers {
         Users users = new Users();
         User user = new User("munki", "munki123");
 
-        ArrayList<User> userList = users.getUsers();
+        Flags flags = new Flags();
+        user.setFlags(flags);
+        ArrayList<User> userList = new ArrayList<>();
         boolean success = userList.add(user);
         users.setUsers(userList);
+
         storeUsers(users);
     }
 
