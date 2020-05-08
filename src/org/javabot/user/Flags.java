@@ -21,44 +21,38 @@
 
 package org.javabot.user;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
+
+@XmlRootElement(namespace = "net.munki.jaxb.Users")
 public class Flags {
 
-    public static final String FRIEND = "f";
-    public static final String OP = "o";
-    public static final String MASTER = "m";
-    public static final String OWNER = "n";
-    public static final String VOICE = "v";
-    
-    private final java.util.Hashtable<String, Boolean> flags;
+    private ArrayList<Flag> myflags = new ArrayList<>();
 
     public Flags() {
-        flags = new java.util.Hashtable<>();
-        flags.put(Flags.FRIEND, Boolean.FALSE);
-        flags.put(Flags.OP, Boolean.FALSE);
-        flags.put(Flags.MASTER, Boolean.FALSE);
-        flags.put(Flags.OWNER, Boolean.FALSE);
-        flags.put(Flags.VOICE, Boolean.FALSE);
+        myflags.add(new Flag(Flag.FRIEND, true));
+        myflags.add(new Flag(Flag.OP, false));
+        myflags.add(new Flag(Flag.MASTER, false));
+        myflags.add(new Flag(Flag.OWNER, false));
+        myflags.add(new Flag(Flag.VOICE, false));
     }
     
     public Flags(boolean friend, boolean op, boolean master, boolean owner, boolean voice) {
-        flags = new java.util.Hashtable<>();
-        flags.put(Flags.FRIEND, friend);
-        flags.put(Flags.OP, op);
-        flags.put(Flags.MASTER, master);
-        flags.put(Flags.OWNER, owner);
-        flags.put(Flags.VOICE, voice);
+        myflags.add(new Flag(Flag.FRIEND, friend));
+        myflags.add(new Flag(Flag.OP, op));
+        myflags.add(new Flag(Flag.MASTER, master));
+        myflags.add(new Flag(Flag.OWNER, owner));
+        myflags.add(new Flag(Flag.VOICE, voice));
     }
-    
-    public boolean get(String flag) {
-        if (flags.containsKey(flag)) {
-            return flags.get(flag);
-        }
-        else return false;
+
+    public ArrayList<Flag> getFlags() {
+        return myflags;
     }
-    
-    public void set(String flag, boolean state) {
-        if (flags.containsKey(flag)) {
-            flags.put(flag, state);
-        }
+
+    @XmlElement(name = "flag")
+    public void setFlags(ArrayList<Flag> flags) {
+        this.myflags = flags;
     }
+
 }
