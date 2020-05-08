@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(namespace = "net.munki.jaxb.Users")
-@XmlType(propOrder = { "nick", "password", "hostmask", "greet"})
+@XmlType(propOrder = { "nick", "password", "hostmask", "greet", "flags"})
 public class User {
 
     private static final String DEFAULT_NICK = "munkinut";
@@ -37,14 +37,14 @@ public class User {
     private String password;
     private String hostmask;
     private String greet;
-//    private Flags flags;
+    private Flags flags;
 
     public User() {
         this.nick = User.DEFAULT_NICK;
         this.password = User.DEFAULT_PASSWORD;
         this.hostmask = User.DEFAULT_HOSTMASK;
         this.greet = User.DEFAULT_GREET;
-        //flags = new Flags(false, false, false, false, false);
+        flags = new Flags(false, false, false, false, false);
     }
 
     public User(String nick) {
@@ -52,7 +52,7 @@ public class User {
         password = User.DEFAULT_PASSWORD;
         hostmask = User.DEFAULT_HOSTMASK;
         greet = User.DEFAULT_GREET;
-        //flags = new Flags(false, false, false, false, false);
+        flags = new Flags(false, false, false, false, false);
     }
     
     public User(String nick, String password) {
@@ -60,7 +60,7 @@ public class User {
         this.password = password;
         hostmask = User.DEFAULT_HOSTMASK;
         greet = User.DEFAULT_GREET;
-        //flags = new Flags(false, false, false, false, false);
+        flags = new Flags(false, false, false, false, false);
     }
     
     public User(String nick, String password, String hostmask, String greet, Flags flags) {
@@ -68,9 +68,8 @@ public class User {
         this.password = password;
         this.hostmask = hostmask;
         this.greet = greet;
-        //this.flags = flags;
+        this.flags = flags;
     }
-
 
     public String getNick() {
         return this.nick;
@@ -84,13 +83,11 @@ public class User {
         return this.hostmask;
     }
     
-    //public Flags getFlags() {
-    //    return this.flags;
-    //}
-    
     public String getGreet() {
         return this.greet;
     }
+
+    public Flags getFlags() { return this.flags; }
     
     public void setNick(String nick) {
         this.nick = nick;
@@ -104,57 +101,68 @@ public class User {
         this.hostmask = hostmask;
     }
     
-    //public void setFlags(Flags flags) {
-    //    this.flags = flags;
-    //}
-    
     public void setGreet(String greet) {
         this.greet = greet;
     }
-    
+
+    public void setFlags(Flags flags) {this.flags = flags; }
+
+    //public boolean get(String flag) {
+    //    if (flags.getFlags().containsKey(flag)) {
+    //        return flags.getFlags().get(flag);
+    //    }
+    //    else return false;
+    //}
+
+    //public void set(String flag, boolean state) {
+    //    if (flags.getFlags().containsKey(flag)) {
+    //        flags.getFlags().put(flag, state);
+    //    }
+    //}
+
     //public boolean isFriend() {
-    //    return flags.get(Flags.FRIEND);
+    //    return this.get(Flags.FRIEND);
     //}
 
     //public boolean isOp() {
-    //    return flags.get(Flags.OP);
+    //    return this.get(Flags.OP);
     //}
 
     //public boolean isMaster() {
-    //    return flags.get(Flags.MASTER);
+    //    return this.get(Flags.MASTER);
     //}
 
     //public boolean isOwner() {
-    //    return flags.get(Flags.OWNER);
+    //    return this.get(Flags.OWNER);
     //}
 
     //public boolean isVoice() {
-    //    return flags.get(Flags.VOICE);
+    //    return this.get(Flags.VOICE);
     //}
     
     //public void setFriend(boolean state) {
-    //    flags.set(Flags.FRIEND, state);
+    //    this.set(Flags.FRIEND, state);
     //}
 
     //public void setOp(boolean state) {
-    //    flags.set(Flags.OP, state);
+    //    this.set(Flags.OP, state);
     //}
 
     //public void setMaster(boolean state) {
-    //    flags.set(Flags.MASTER, state);
+    //    this.set(Flags.MASTER, state);
     //}
 
     //public void setOwner(boolean state) {
-    //    flags.set(Flags.OWNER, state);
+    //    this.set(Flags.OWNER, state);
     //}
 
     //public void setVoice(boolean state) {
-    //    flags.set(Flags.VOICE, state);
+    //    this.set(Flags.VOICE, state);
     //}
     
-    //public void clearFlags() {
-    //    flags = new Flags(false, false, false, false, false);
-    //}
+    public void clearFlags() {
+        flags = new Flags(false, false, false, false, false);
+    }
     
     public String toString() {
         return this.getNick();
