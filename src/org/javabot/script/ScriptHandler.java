@@ -64,7 +64,7 @@ public class ScriptHandler {
         String fs = File.separator;
         String currentPath = System.getProperty("user.dir");
         //String currentPath = "d:\\projects\\javabot\\compiled";
-        String path = currentPath + fs +
+        return currentPath + fs +
                 "org" +
                 fs +
                 "javabot" +
@@ -73,7 +73,6 @@ public class ScriptHandler {
                 fs +
                 command +
                 ".bsh";
-        return path;
     }
 
     private ArrayList<String> parseParams(ArrayList cmd) {

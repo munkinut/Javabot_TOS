@@ -30,18 +30,18 @@ public class BanManager {
 
     private final String banfile;
     private ArrayList bans;
-    private boolean debug = true;
 
     public BanManager() {
         String fs = java.io.File.separator;
         String currentPath = System.getProperty("user.dir");
+        boolean debug = true;
         if (debug) System.out.println("[BM] : user.dir = " + currentPath);
         this.banfile = currentPath + fs + "config" + fs + "bans.xml";
         if (debug) System.out.println("[BM] : banfile = " + banfile);
         bans = this.loadBans();
         if (debug) {
-            for (int i = 0; i < bans.size(); i++) {
-                String banmask = (String)bans.get(i);
+            for (Object ban : bans) {
+                String banmask = (String) ban;
                 System.out.println(banmask);
             }
         }
@@ -71,17 +71,15 @@ public class BanManager {
         boolean matches = false;
         String banmask;
         RE exp;
-        Iterator i = bans.iterator();
-        while (i.hasNext()) {
-            banmask = (String)i.next();
+        for (Object ban : bans) {
+            banmask = (String) ban;
             try {
                 exp = new RE(this.regThis(banmask));
                 if (exp.isMatch(hostmask)) {
                     matches = true;
                     break;
                 }
-            }
-            catch (gnu.regexp.REException ignored) {
+            } catch (REException ignored) {
             }
         }
         return matches;

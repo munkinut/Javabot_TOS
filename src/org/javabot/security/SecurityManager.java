@@ -72,7 +72,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     
     public void removeFlooder(String hostmask) {
         if (debug) System.out.println("[SM] : removeFlooder() called ... removing " + hostmask);
-        FloodCounter fc = (FloodCounter)flooders.get(hostmask);
+        FloodCounter fc = flooders.get(hostmask);
         fc.kill();
         this.flooders.remove(hostmask);
     }
@@ -104,7 +104,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
         }
         int maxHits = this.getMaxHits(floodType);
         if (debug) System.out.println("[SM] : hitFloodCounter() maxHits contains " + maxHits);
-        FloodCounter fc = (FloodCounter)flooders.get(hostmask);
+        FloodCounter fc = flooders.get(hostmask);
         fc.increment(floodType);
         if (fc.get(floodType) >= maxHits) {
             fc.incrementFloods();
@@ -153,32 +153,32 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     private void takeAction(int floodType, String hostmask) {
         if (debug) System.out.println("[SM] : takeAction() for floodType = " + floodType + " against user " + hostmask);
         switch (floodType) {
-            case FloodCounter.BAN:
+            case FloodCounter.BAN -> {
                 if (debug) System.out.println("[SM] : takeAction() multiple flood ... banning");
                 this.ban(floodType, hostmask);
-                break;
-            case FloodCounter.PRIVMSG:
+            }
+            case FloodCounter.PRIVMSG -> {
                 if (debug) System.out.println("[SM] : takeAction() privmsg flood ... ignoring");
                 this.addIgnore(hostmask);
-                break;
-            case FloodCounter.CHANMSG:
+            }
+            case FloodCounter.CHANMSG -> {
                 if (debug) System.out.println("[SM] : takeAction() chanmsg flood ... kicking");
                 this.kick(floodType, hostmask);
-                break;
+            }
         }
     }
     
     private void kick(int floodType, String hostmask) {
         if (debug) System.out.println("[SM] : kick() for floodType = " + floodType + " against user " + hostmask);
         for (int i = 0; i < observers.size(); i++) {
-            ((MyObserver)(observers.elementAt(i))).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
+            observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
         }
     }
     
     private void ban(int floodType, String hostmask) {
         if (debug) System.out.println("[SM] : ban() for floodType = " + floodType + " against user " + hostmask);
         for (int i = 0; i < observers.size(); i++) {
-            ((MyObserver)(observers.elementAt(i))).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
+            observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
         }
     }
     
@@ -191,7 +191,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
         while (keys.hasMoreElements()) {
             skim = true;
             hostmask = (String)keys.nextElement();
-            fc = (FloodCounter)flooders.get(hostmask);
+            fc = flooders.get(hostmask);
             for (int i = FloodCounter.PRIVMSG; i <= FloodCounter.JOIN; i++) {
                 if (fc.get(i) != 0) {
                     skim = false;

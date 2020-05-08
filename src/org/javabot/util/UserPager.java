@@ -31,8 +31,8 @@ import java.util.*;
  */
 public class UserPager {
 
-    private ArrayList<User> toPage = new ArrayList<>();
-    private Hashtable<Integer, ArrayList> pages = new Hashtable<>();
+    private ArrayList<User> toPage;
+    private Hashtable<Integer, ArrayList> pages;
     private int pageIndex;
 
 /** Constructs a Pager.
@@ -66,7 +66,7 @@ public class UserPager {
  * @return The next page of objects.
  */    
     public ArrayList next() {
-        ArrayList v = (ArrayList) pages.get(pageIndex);
+        ArrayList v = pages.get(pageIndex);
         pageIndex++;
         return v;
     }
@@ -76,7 +76,7 @@ public class UserPager {
  */    
     public boolean hasNext() {
         boolean b = false;
-        if ((!pages.isEmpty()) && (pages != null) && (pageIndex < pages.size())) {
+        if (!pages.isEmpty() && pageIndex < pages.size()) {
             b = true;
         }
         return b;
@@ -87,7 +87,7 @@ public class UserPager {
  */    
     public ArrayList previous() {
         pageIndex--;
-        return (ArrayList)pages.get(pageIndex);
+        return pages.get(pageIndex);
     }
     
 /** Determines the presence of a previous page.
@@ -95,7 +95,7 @@ public class UserPager {
  */    
     public boolean hasPrevious() {
         boolean b = false;
-        if ((!pages.isEmpty()) && (pages != null) && (pageIndex > 0)) {
+        if (!pages.isEmpty() && pageIndex > 0) {
             b = true;
         }
         return b;
@@ -110,10 +110,8 @@ public class UserPager {
         int pageCount = 0;
         ArrayList<Object> v;
         Hashtable<Integer, ArrayList> ht = new Hashtable<>();
-        Iterator e = toPage.iterator();
-        while (e.hasNext()) {
-            User user = (User)e.next();
-            v = new ArrayList<Object>();
+        for (User user : toPage) {
+            v = new ArrayList<>();
             v.add(user);
             ht.put(pageCount, v);
             pageCount++;
@@ -141,7 +139,7 @@ public class UserPager {
  */    
     public ArrayList getPage(int x) {
         Integer key = x;
-        return (ArrayList)pages.get(key);
+        return pages.get(key);
     }
     
 /** Returns an enumeration of pages.

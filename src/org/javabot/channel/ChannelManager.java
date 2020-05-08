@@ -65,10 +65,8 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     public ChannelManager(java.io.DataOutputStream outbound) {
         if (debug) System.out.println("[CM] : Channel Manager created");
         this.outbound = outbound;
-        this.channelUsers = new Hashtable<String, ChannelUser>();
+        this.channelUsers = new Hashtable<>();
         this.timer = new java.util.Timer(true);
-        /** A handler for the main properties file.
-         */
         org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
         this.channel = pm.getChannel();
         this.initialModes = pm.getChannelModes();

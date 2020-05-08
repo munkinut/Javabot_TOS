@@ -97,7 +97,7 @@ public class MessageFactory {
     private MessageInterface createPrefixedMessage(String inbound) {
         MessageInterface returnMessage = null;
         String prefix = inbound.substring(inbound.indexOf(":")+1, inbound.indexOf(" "));
-        if (prefix.indexOf("!") >= 0) {
+        if (prefix.contains("!")) {
             // we have a nickname
             String nick = prefix.substring(0, prefix.indexOf("!"));
             String hostmask = prefix.substring(prefix.indexOf("!")+1);
@@ -141,19 +141,19 @@ public class MessageFactory {
                 String channelType = "";
                 String channel = "";
                 String msgTo = "";
-                if (theRest.indexOf(" = ") > -1) {
+                if (theRest.contains(" = ")) {
                     channelType = "public";
                     msgTo = theRest.substring(theRest.indexOf(" ")+1, theRest.indexOf(" = "));
                     channel = theRest.substring(theRest.indexOf(" = ")+3);
                 }
                 else
-                if (theRest.indexOf(" * ") > -1) {
+                if (theRest.contains(" * ")) {
                     channelType = "private";
                     msgTo = theRest.substring(theRest.indexOf(" ")+1, theRest.indexOf(" * "));
                     channel = theRest.substring(theRest.indexOf(" * ")+3);
                 }
                 else
-                if (theRest.indexOf(" @ ") > -1) {
+                if (theRest.contains(" @ ")) {
                     channelType = "secret";
                     msgTo = theRest.substring(theRest.indexOf(" ")+1, theRest.indexOf(" @ "));
                     channel = theRest.substring(theRest.indexOf(" @ ")+3);

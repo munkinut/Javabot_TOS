@@ -108,20 +108,20 @@ public class inbound extends Thread {
     public inbound(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
         this.ircsocket = ircsocket;
         this.consoleOutput = consoleOutput;
-        /** Manages the properties file
+        /* Manages the properties file
          */
         PropertyManager pm = PropertyManager.getInstance();
-        /** Timer for timed events
+        /* Timer for timed events
          */
         Timer timer = new Timer(true);
         this.name = pm.getName();
         this.nick = pm.getNickname();
         this.channel = pm.getChannel();
-        /** Channel modes
+        /* Channel modes
          */
         String channelModes = pm.getChannelModes();
         this.autovoice = pm.getAutovoice();
-        /** Flood protection flag
+        /* Flood protection flag
          */
         boolean flood = pm.getFloodProtection();
         this.opme = pm.getOpme();
@@ -159,7 +159,7 @@ public class inbound extends Thread {
                     )
                 );
                 
-                if ((outbound != null) && (inbound != null)) {
+                if (outbound != null) {
                     this.cm = new org.javabot.channel.ChannelManager(outbound);
                     this.sh = new org.javabot.script.ScriptHandler(outbound);
                     this.sm.registerInterest(cm);
@@ -352,7 +352,7 @@ public class inbound extends Thread {
             
             ArrayList<String> params = this.parseCommand(privmsgMessage.getParams());
             if (!params.isEmpty()) {
-                String command = (String)params.get(0);
+                String command = params.get(0);
                 if (command.startsWith("!")) {
                     this.handlePublicCmd(command, nickFrom, msgTo, hostmask, params);
                 }
@@ -638,8 +638,8 @@ public class inbound extends Thread {
                 String msg;
                 while (pager.hasNext()) {
                     userPage = pager.next();
-                    for (int i = 0; i < userPage.size(); i++) {
-                        user = (User)userPage.get(i);
+                    for (Object o : userPage) {
+                        user = (User) o;
                         msg = user.getNick() + " : " + user.getHostmask();
                         IRCCommands.privmsg(nickFrom, msg, outbound);
                     }
@@ -876,8 +876,8 @@ public class inbound extends Thread {
                 String msg;
                 while (pager.hasNext()) {
                     banPage = pager.next();
-                    for (int i = 0; i < banPage.size(); i++) {
-                        msg = banPage.get(i);
+                    for (String s : banPage) {
+                        msg = s;
                         IRCCommands.privmsg(nickFrom, msg, outbound);
                     }
                     try {
@@ -895,8 +895,8 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleUnbanCmd(String hostmask, ArrayList<String> params) {
-        String banMask = (String)params.get(1);
-        String chan = (String)params.get(2);
+        String banMask = params.get(1);
+        String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             IRCCommands.unban(chan, banMask, outbound);
         }

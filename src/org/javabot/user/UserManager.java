@@ -26,20 +26,18 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.Iterator;
 
 public class UserManager {
 
-    private final String userfile;
     private Users users;
-    private boolean debug = true;
 
     public UserManager() {
         String fs = java.io.File.separator;
         String currentPath = System.getProperty("user.dir");
+        boolean debug = true;
         if (debug) System.out.println("[UM] : user.dir = " + currentPath);
-        this.userfile = currentPath + fs + "config" + fs + "users.xml";
+        String userfile = currentPath + fs + "config" + fs + "users.xml";
         if (debug) System.out.println("[UM] : userfile = " + userfile);
         users = this.loadUsers();
         if (debug) {
@@ -238,9 +236,7 @@ public class UserManager {
     private User getUser(String hostmask) {
         User returnUser = null;
 
-        Iterator i = users.getUsers().iterator();
-        while (i.hasNext()) {
-            User user = (User)i.next();
+        for (User user : users.getUsers()) {
             if (user.getHostmask().equals(hostmask)) {
                 returnUser = user;
             }
@@ -254,9 +250,7 @@ public class UserManager {
     
     public User getUserByBotnick(String botnick) {
         User returnUser = null;
-        Iterator i = users.getUsers().iterator();
-        while (i.hasNext()) {
-            User user = (User)i.next();
+        for (User user : users.getUsers()) {
             if (user.getNick().equals(botnick)) {
                 returnUser = user;
             }
@@ -268,9 +262,7 @@ public class UserManager {
         boolean success = false;
         User returnUser = null;
 
-        Iterator i = users.getUsers().iterator();
-        while (i.hasNext()) {
-            User user = (User)i.next();
+        for (User user : users.getUsers()) {
             if (user.getHostmask().equals(hostmask)) {
                 success = true;
                 break;
@@ -282,9 +274,7 @@ public class UserManager {
     public boolean userBotnickExists(String botnick) {
         boolean success = false;
         User returnUser = null;
-        Iterator i = users.getUsers().iterator();
-        while (i.hasNext()) {
-            User user = (User)i.next();
+        for (User user : users.getUsers()) {
             if (user.getNick().equals(botnick)) {
                 success = true;
                 break;
@@ -327,34 +317,32 @@ public class UserManager {
         boolean success = false;
         User user = this.getUser(hostmask);
         if (user != null) {
-            if (flag.equals(Flag.FRIEND)) {
-                //if (user.isFriend()) {
-                //    success = true;
-                //}
-            }
-            else
-            if (flag.equals(Flag.OP)) {
-                //if (user.isOp()) {
-                //    success = true;
-                //}
-            }
-            else
-            if (flag.equals(Flag.MASTER)) {
-                //if (user.isMaster()) {
-                //    success = true;
-                //}
-            }
-            else
-            if (flag.equals(Flag.OWNER)) {
-                //if (user.isOwner()) {
-                //    success = true;
-                //}
-            }
-            else
-            if (flag.equals(Flag.VOICE)) {
-                //if (user.isVoice()) {
-                //    success = true;
-                //}
+            switch (flag) {
+                case Flag.FRIEND:
+                    //if (user.isFriend()) {
+                    //    success = true;
+                    //}
+                    break;
+                case Flag.OP:
+                    //if (user.isOp()) {
+                    //    success = true;
+                    //}
+                    break;
+                case Flag.MASTER:
+                    //if (user.isMaster()) {
+                    //    success = true;
+                    //}
+                    break;
+                case Flag.OWNER:
+                    //if (user.isOwner()) {
+                    //    success = true;
+                    //}
+                    break;
+                case Flag.VOICE:
+                    //if (user.isVoice()) {
+                    //    success = true;
+                    //}
+                    break;
             }
         }
         return success;

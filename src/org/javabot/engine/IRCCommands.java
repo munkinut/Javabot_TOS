@@ -510,27 +510,13 @@ public class IRCCommands {
             
             int    value = cal.get(Calendar.DAY_OF_WEEK);
             switch (value) {
-                case Calendar.SUNDAY:
-                    day += "Sunday";
-                    break;
-                case Calendar.MONDAY:
-                    day += "Monday";
-                    break;
-                case Calendar.TUESDAY:
-                    day += "Thuesday";
-                    break;
-                case Calendar.WEDNESDAY:
-                    day += "Wednesday";
-                    break;
-                case Calendar.THURSDAY:
-                    day += "Thursday";
-                    break;
-                case Calendar.FRIDAY:
-                    day += "Friday";
-                    break;
-                case Calendar.SATURDAY:
-                    day += "Saturday";
-                    break;
+                case Calendar.SUNDAY -> day += "Sunday";
+                case Calendar.MONDAY -> day += "Monday";
+                case Calendar.TUESDAY -> day += "Thuesday";
+                case Calendar.WEDNESDAY -> day += "Wednesday";
+                case Calendar.THURSDAY -> day += "Thursday";
+                case Calendar.FRIDAY -> day += "Friday";
+                case Calendar.SATURDAY -> day += "Saturday";
             }
             
             int     year = cal.get(Calendar.YEAR);
@@ -544,10 +530,10 @@ public class IRCCommands {
             if (cach < 10){
                 minute = "0" + minute;
             }
-            
-            switch(am_pm){
-                case 0: ap = "AM"; break;
-                case 1: ap = "PM"; break;
+
+            switch (am_pm) {
+                case 0 -> ap = "AM";
+                case 1 -> ap = "PM";
             }
             
             outbound.writeBytes("PRIVMSG "+channel+" :Today is "+day+" "+today+". "+month[cal.get(Calendar.MONTH)]+" "+year+"; "+houre+":"+minute+" "+ap+"\r\n");
