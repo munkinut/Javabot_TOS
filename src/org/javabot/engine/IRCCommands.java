@@ -215,7 +215,7 @@ public class IRCCommands {
     }
 
     private static void print(String msg) {
-        print("Sending + " + msg);
+        System.out.println("Sending + " + msg);
     }
     //**
     //********************************************************************
