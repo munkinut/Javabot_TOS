@@ -972,8 +972,9 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handleOpMeCmd(String nickFrom, String hostmask) {
-        log.info("handleOpMeCmd() called");
+        log.info("handleOpMeCmd() called with nick = " + nickFrom + " hostmask = " + hostmask);
         if (um.userIsOp(hostmask)) {
+            log.info("user is an op");
             IRCCommands.opme(channel, nickFrom, outbound);
         }
     }

@@ -3,8 +3,8 @@
     <user>
         <nick>munki</nick>
         <password>munki123</password>
-        <hostmask>bibble</hostmask>
-        <greet>welcome</greet>
+        <hostmask>munki@9D3D6488.B3EFB4F9.8F756630.IP</hostmask>
+        <greet>Welcome munki</greet>
         <flags>
             <flag>
                 <name>FRIEND</name>
@@ -12,7 +12,7 @@
             </flag>
             <flag>
                 <name>OP</name>
-                <truth>false</truth>
+                <truth>true</truth>
             </flag>
             <flag>
                 <name>MASTER</name>
@@ -20,11 +20,11 @@
             </flag>
             <flag>
                 <name>OWNER</name>
-                <truth>false</truth>
+                <truth>true</truth>
             </flag>
             <flag>
                 <name>VOICE</name>
-                <truth>false</truth>
+                <truth>true</truth>
             </flag>
         </flags>
     </user>

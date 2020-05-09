@@ -276,9 +276,9 @@ public class IRCCommands {
      * @param outbound Outbound stream to IRC server
      */    
     public static void opme(String channel, String nick, DataOutputStream outbound) {
-        
+        print("opme called for channel " + channel + " by " + nick);
         try {
-            String msg = "mode "+channel+" +o "+nick+"\r\n";
+            String msg = "mode "+channel+" +o "+ nick +"\r\n";
             print(msg);
             outbound.writeBytes(msg);
         }
