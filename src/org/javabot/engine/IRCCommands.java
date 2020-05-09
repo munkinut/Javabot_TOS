@@ -41,12 +41,12 @@ public class IRCCommands {
     public static void pingpong(String response,DataOutputStream outbound) {
         
         try {
-            String ret = "PONG " + response + "\r\n";
-            System.out.println("Sending " + ret);
+            String ret = "PONG :" + response + "\r\n";
+            print("Sending " + ret);
             outbound.writeBytes(ret);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
         
     }
@@ -67,13 +67,13 @@ public class IRCCommands {
         try {
             String userRet = "user "+name+" 0 0 We will rock you\n";
             String nickRet = "nick "+nick+"\n";
-            System.out.println("Sending : " + userRet);
+            print("Sending : " + userRet);
             outbound.writeBytes(userRet);
-            System.out.println("Sending : " + nickRet);
+            print("Sending : " + nickRet);
             outbound.writeBytes(nickRet);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
         
     }
@@ -91,11 +91,11 @@ public class IRCCommands {
     public static void writeBytes(String all, DataOutputStream outbound) {
         
         try {
-            System.out.println("Sending : " + all);
+            print("Sending : " + all);
             outbound.writeBytes(all);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
         
     }
@@ -114,11 +114,11 @@ public class IRCCommands {
         
         try {
             String quitRet = "QUIT :" + quitMessage +"\r\n";
-            System.out.println("Sending : " + quitRet);
+            print("Sending : " + quitRet);
             outbound.writeBytes(quitRet);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
         
     }
@@ -137,11 +137,11 @@ public class IRCCommands {
     public static void privmsg(String to, String message,DataOutputStream outbound) {
         try {
             String msgRet = "PRIVMSG "+to+" :"+message+"\r\n";
-            System.out.println("Sending : " + msgRet);
+            print("Sending : " + msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe){
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     //**
@@ -160,11 +160,11 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +v " + nick + "\r\n";
-            System.out.println("Sending : " + msgRet);
+            print("Sending : " + msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     //**
@@ -183,11 +183,11 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +b " + banmask + "\r\n";
-            System.out.println("Sending : " + msgRet);
+            print("Sending : " + msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     //**
@@ -210,12 +210,12 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
 
     private static void print(String msg) {
-        System.out.println("Sending + " + msg);
+        print("Sending + " + msg);
     }
     //**
     //********************************************************************
@@ -237,7 +237,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     //**
@@ -260,7 +260,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     //**
@@ -283,7 +283,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -306,7 +306,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -330,7 +330,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -354,7 +354,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -394,7 +394,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -417,7 +417,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -440,7 +440,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -463,7 +463,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -486,7 +486,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -510,7 +510,7 @@ public class IRCCommands {
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -534,7 +534,7 @@ public class IRCCommands {
             outbound.writeBytes("PRIVMSG "+channel+" :!date    = shows the current time and date of the JavaBot Server\r\n");
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
     }
     
@@ -590,7 +590,7 @@ public class IRCCommands {
             
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            print("IOException: " + ioe);
         }
         
     }
