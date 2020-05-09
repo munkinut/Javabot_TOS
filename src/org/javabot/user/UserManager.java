@@ -37,10 +37,10 @@ public class UserManager {
     private String usersPath;
 
     public UserManager() {
-        String fs = java.io.File.separator;
+        //String fs = java.io.File.separator;
         boolean debug = true;
         Properties properties = PropertyManager.getInstance().getProperties();
-        usersPath = properties.getProperty("XML_Location");
+        usersPath = properties.getProperty("Users_Location");
         if (debug) System.out.println("[UM] : userfile = " + usersPath);
         users = this.loadUsers();
         if (debug) {
@@ -370,7 +370,7 @@ public class UserManager {
             // specify the location and name of xml file to be read
             File XMLfile = new File(usersPath);
 
-            // this will create Java object - country from the XML file
+            // this will create Java object - Users from the XML file
             users = (Users) jaxbUnmarshaller.unmarshal(XMLfile);
 
             ArrayList<User> userList = users.getUsers();
