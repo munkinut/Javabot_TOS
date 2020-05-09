@@ -182,7 +182,7 @@ public class inbound extends Thread {
                         consoleOutput.append(lineToWrite);
                         consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + lineToWrite.length());
 
-                        IRCCommands.identify(name, nick, outbound);
+                        //IRCCommands.identify(name, nick, outbound);
 
                         if(lineToWrite.contains("NOTICE *")){
                             go++;
@@ -198,7 +198,7 @@ public class inbound extends Thread {
                             consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + all.length());
                             IRCCommands.writeBytes(all, outbound);
                         }
-
+                        IRCCommands.identify(name, nick, outbound);
 
                     }
                     this.connected = true;
