@@ -158,7 +158,7 @@ public class inbound extends Thread {
         log.info("comnect() called");
         if (this.connected == false) {
             try {
-                log.info("CONNECTED WAS FALSE, ATTEMPTING TO CONNECT");
+                log.info("Connected was FALSE, attempting to connect");
                 outbound = new DataOutputStream(ircsocket.getOutputStream());
                 inbound = new BufferedReader(
                     new InputStreamReader(
@@ -173,9 +173,7 @@ public class inbound extends Thread {
                     this.sh = new org.javabot.script.ScriptHandler(outbound);
                     this.sm.registerInterest(cm);
 
-                    int go = 0;
-                    String ping;
-                    String responseLine;
+                    boolean identSent = false;
                     String lineToWrite;
                     for(int i=0;i<6;i++){
                         lineToWrite = inbound.readLine() + "\n";
@@ -183,22 +181,24 @@ public class inbound extends Thread {
                         consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + lineToWrite.length());
 
                         //IRCCommands.identify(name, nick, outbound);
-
                         if(lineToWrite.contains("NOTICE *")){
-                            go++;
+                            log.info("Line contained NOTICE * : skipping");
                         }
-                    
-                        if(go==2){
-                            ping = inbound.readLine();
-                            log.info("Server says " + ping);
-                            String quote = ping.substring(6);
+                        else if (lineToWrite.startsWith("PING :")){
+                            log.info("Line started with PING :");
+                            log.info("Server says " + lineToWrite);
+                            String quote = lineToWrite.substring(6);
                             String all = "PONG :"+quote+"\n";
                             log.info("Sending " + all);
                             consoleOutput.append(all);
                             consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + all.length());
                             IRCCommands.writeBytes(all, outbound);
                         }
-                        IRCCommands.identify(name, nick, outbound);
+
+                        if (!identSent) {
+                            IRCCommands.identify(name, nick, outbound);
+                            identSent = true;
+                        }
 
                     }
                     this.connected = true;
@@ -281,6 +281,7 @@ public class inbound extends Thread {
     private void handlePing(org.javabot.message.MessageInterface pingMessage) {
         log.info("handlePing() called");
         String params = pingMessage.getParams();
+        log.info(params);
         IRCCommands.pingpong(params, outbound);
     }
     
