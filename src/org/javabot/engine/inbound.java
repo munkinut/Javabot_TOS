@@ -158,6 +158,7 @@ public class inbound extends Thread {
         log.info("comnect() called");
         if (this.connected == false) {
             try {
+                log.info("CONNECTED WAS FALSE, ATTEMPTING TO CONNECT");
                 outbound = new DataOutputStream(ircsocket.getOutputStream());
                 inbound = new BufferedReader(
                     new InputStreamReader(
@@ -171,8 +172,7 @@ public class inbound extends Thread {
                     this.cm = new org.javabot.channel.ChannelManager(outbound);
                     this.sh = new org.javabot.script.ScriptHandler(outbound);
                     this.sm.registerInterest(cm);
-                    IRCCommands.identify(name, nick, outbound);
-                
+
                     int go = 0;
                     String ping;
                     String responseLine;
@@ -181,19 +181,25 @@ public class inbound extends Thread {
                         lineToWrite = inbound.readLine() + "\n";
                         consoleOutput.append(lineToWrite);
                         consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + lineToWrite.length());
-                    
-                        if(inbound.readLine().startsWith("NOTICE *")){
+
+                        IRCCommands.identify(name, nick, outbound);
+
+                        if(lineToWrite.contains("NOTICE *")){
                             go++;
                         }
                     
-                        if(go==1){
+                        if(go==2){
                             ping = inbound.readLine();
                             log.info("Server says " + ping);
                             String quote = ping.substring(6);
                             String all = "PONG :"+quote+"\n";
                             log.info("Sending " + all);
+                            consoleOutput.append(all);
+                            consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + all.length());
                             IRCCommands.writeBytes(all, outbound);
                         }
+
+
                     }
                     this.connected = true;
                 }
