@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users xmlns:ns2="net.munki.jaxb.Users">
+    <user>
+        <nick>munki</nick>
+        <password>munki123</password>
+        <hostmask>bibble</hostmask>
+        <greet>welcome</greet>
+        <flags>
+            <flag>
+                <name>FRIEND</name>
+                <truth>true</truth>
+            </flag>
+            <flag>
+                <name>OP</name>
+                <truth>false</truth>
+            </flag>
+            <flag>
+                <name>MASTER</name>
+                <truth>false</truth>
+            </flag>
+            <flag>
+                <name>OWNER</name>
+                <truth>false</truth>
+            </flag>
+            <flag>
+                <name>VOICE</name>
+                <truth>false</truth>
+            </flag>
+        </flags>
+    </user>
+</users>
