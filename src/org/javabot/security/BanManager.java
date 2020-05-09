@@ -21,10 +21,19 @@
 
 package org.javabot.security;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Properties;
 
 import gnu.regexp.*;
+import org.javabot.configuration.PropertyManager;
+import org.javabot.user.User;
+import org.javabot.user.Users;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 public class BanManager {
 
@@ -32,11 +41,10 @@ public class BanManager {
     private ArrayList bans;
 
     public BanManager() {
-        String fs = java.io.File.separator;
-        String currentPath = System.getProperty("user.dir");
+        //String fs = java.io.File.separator;
         boolean debug = true;
-        if (debug) System.out.println("[BM] : user.dir = " + currentPath);
-        this.banfile = currentPath + fs + "config" + fs + "bans.xml";
+        Properties properties = PropertyManager.getInstance().getProperties();
+        banfile = properties.getProperty("Bans_Location");
         if (debug) System.out.println("[BM] : banfile = " + banfile);
         bans = this.loadBans();
         if (debug) {
@@ -113,38 +121,48 @@ public class BanManager {
         this.storeBans();
     }
 
-    private synchronized ArrayList loadBans() {
-        ArrayList bans = new ArrayList();
+    private synchronized ArrayList<String> loadBans() {
+        ArrayList<String> bans = new ArrayList<>();
         try {
-            java.io.FileInputStream in = new java.io.FileInputStream(banfile);
-            //JSX.ObjIn usersIn = new JSX.ObjIn(in);
-            //bans = (ArrayList)usersIn.readObject();
-            in.close();
+            // create JAXB context and initializing Marshaller
+            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+            // specify the location and name of xml file to be read
+            File XMLfile = new File(banfile);
+
+            // this will create Java object - Users from the XML file
+            bans = (ArrayList<String>) jaxbUnmarshaller.unmarshal(XMLfile);
+
+        } catch (JAXBException e) {
+            // some exception occured
+            e.printStackTrace();
         }
-        catch (java.io.FileNotFoundException fnfe) {
-            System.err.println("Could not find file : " + banfile);
-        }
-        catch (java.io.IOException ioeLoad) {
-            System.err.println("Could not load or close file : " + banfile);
-        }
-        //catch (java.lang.ClassNotFoundException cnfe) {
-        //    System.err.println("Could not load object from file: " + banfile);
-        //}
         return bans;
     }
 
     private synchronized void storeBans() {
         try {
-            java.io.FileOutputStream out = new java.io.FileOutputStream(banfile);
-            //JSX.ObjOut usersOut = new JSX.ObjOut(false, out);
-            //usersOut.writeObject(bans);
-            out.close();
-        }
-        catch (java.io.FileNotFoundException fnfe) {
-            System.err.println("Could not find file : " + banfile);
-        }
-        catch (java.io.IOException ioeLoad) {
-            System.err.println("Could not store or close file : " + banfile);
+
+            // create JAXB context and initializing Marshal
+            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+            javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+            // for getting nice formatted output
+            jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+            //specify the location and name of xml file to be created
+            File XMLfile = new File(banfile);
+
+            // Writing to XML file
+            jaxbMarshaller.marshal(bans, XMLfile);
+            // Writing to console
+            jaxbMarshaller.marshal(bans, System.out);
+
+        } catch (JAXBException e) {
+            // some exception occured
+            e.printStackTrace();
         }
     }
 
