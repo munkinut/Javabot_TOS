@@ -8,8 +8,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class TestStoreUsers {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     public static void main(String[] args) {
         Users users = new Users();

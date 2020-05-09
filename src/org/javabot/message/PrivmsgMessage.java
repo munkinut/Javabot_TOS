@@ -21,8 +21,12 @@
 
 package org.javabot.message;
 
+import java.util.logging.Logger;
+
 public class PrivmsgMessage implements MessageInterface {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private String nick;
     private String hostmask;
     private String msgTo;

@@ -23,11 +23,14 @@ package org.javabot.engine;
 import java.io.IOException;
 import java.io.DataOutputStream;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 /** Library of functions executing IRC commands
  */
 public class IRCCommands {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     //Funktion PingPong by Torsten Born
     //********************************************************************
     //**

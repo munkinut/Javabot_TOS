@@ -21,8 +21,12 @@
 
 package org.javabot.server;
 
+import java.util.logging.Logger;
+
 public class JBServer extends java.rmi.server.UnicastRemoteObject implements JBSRemoteInterface {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     JBotnetInterface localServer;
 
     public JBServer(int port) throws Exception {

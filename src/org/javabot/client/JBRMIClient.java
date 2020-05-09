@@ -22,11 +22,15 @@
 package org.javabot.client;
 
 import java.rmi.*;
+import java.util.logging.Logger;
+
 import org.javabot.server.JBotnetInterface;
 
 /** JavaBot RMI client.
  */
 public class JBRMIClient implements JBotnetInterface {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     org.javabot.server.JBSRemoteInterface remote;
     

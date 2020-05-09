@@ -21,7 +21,11 @@
 
 package org.javabot.message;
 
+import java.util.logging.Logger;
+
 public class MessageFactory {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     // Constants describing different message types
     // From RFC2812

@@ -24,12 +24,15 @@ package org.javabot.util;
 import org.javabot.user.User;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /** Takes a ArrayList of objects and splits it into a set of smaller ArrayLists (pages).
  * @author W Milburn
  * @version 0.1
  */
 public class UserPager {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     private ArrayList<User> toPage;
     private Hashtable<Integer, ArrayList> pages;

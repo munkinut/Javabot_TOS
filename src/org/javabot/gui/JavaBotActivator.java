@@ -21,8 +21,12 @@
 
 package org.javabot.gui;
 
+import java.util.logging.Logger;
+
 public class JavaBotActivator {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final boolean debug = false;
 
     private boolean connected;

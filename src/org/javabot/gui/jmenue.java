@@ -22,9 +22,12 @@
 package org.javabot.gui;
 
 import java.awt.*;
+import java.util.logging.Logger;
 
 public class jmenue extends javax.swing.JFrame {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final JavaBotActivator jba;
 
     /** Creates new form jmenue */

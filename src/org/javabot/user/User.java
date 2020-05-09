@@ -23,10 +23,13 @@ package org.javabot.user;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.logging.Logger;
 
 @XmlRootElement(namespace = "net.munki.jaxb.Users")
 @XmlType(propOrder = { "nick", "password", "hostmask", "greet", "flags"})
 public class User {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     private static final String DEFAULT_NICK = "munkinut";
     private static final String DEFAULT_PASSWORD = "bibble";

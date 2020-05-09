@@ -26,9 +26,12 @@ package org.javabot.task;
 import org.javabot.util.MyObserver;
 
 import java.util.Vector;
+import java.util.logging.Logger;
 
 public class ChanLimitTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final Vector<MyObserver> observers;
 
     /** Creates new ChanLimitTask */

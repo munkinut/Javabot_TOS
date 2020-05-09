@@ -26,9 +26,12 @@ import org.javabot.user.Users;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class UserUIConfigurator {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final org.javabot.user.UserManager um;
     private User currentNode;
     

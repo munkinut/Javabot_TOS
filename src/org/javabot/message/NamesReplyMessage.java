@@ -21,8 +21,12 @@
 
 package org.javabot.message;
 
+import java.util.logging.Logger;
+
 public class NamesReplyMessage implements MessageInterface {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private String server;
     private String msgTo;
     private String channelType;

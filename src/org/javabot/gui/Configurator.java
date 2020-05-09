@@ -21,8 +21,12 @@
 
 package org.javabot.gui;
 
+import java.util.logging.Logger;
+
 public class Configurator {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final org.javabot.configuration.PropertyManager pm;
     
     private String server;

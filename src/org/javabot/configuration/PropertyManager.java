@@ -21,9 +21,13 @@
 
 package org.javabot.configuration;
 
+import java.util.logging.Logger;
+
 /** Manages the properties object and file
  */
 public class PropertyManager {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Debug switch
      */    

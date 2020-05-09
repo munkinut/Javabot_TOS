@@ -23,9 +23,12 @@ package org.javabot.util;
 
 import java.util.Random;
 import java.util.Date;
+import java.util.logging.Logger;
 
 public abstract class RandomGenerator {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final Random random;
     private final char[] select = {'A','B','C','D','E','F','G','H','J','K','L',
     'M','N','P','Q','R','S','T','U','V','W','X',

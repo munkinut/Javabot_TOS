@@ -25,8 +25,12 @@ package org.javabot.task;
 
 import org.javabot.util.MyObserver;
 
+import java.util.logging.Logger;
+
 public class IgnoreTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final java.util.Vector<MyObserver> observers;
     private final String hostmask;
 

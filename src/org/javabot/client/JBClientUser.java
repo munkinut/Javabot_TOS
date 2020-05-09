@@ -20,9 +20,13 @@
  */
 package org.javabot.client;
 
+import java.util.logging.Logger;
+
 /** Test client for JavaBot RMI Botnet.
  */
 public class JBClientUser {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Creates a new JBClientUser.
      */    

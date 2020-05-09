@@ -24,8 +24,12 @@ package org.javabot.security;
 import org.javabot.task.FloodTask;
 import org.javabot.security.SecurityManager;
 
+import java.util.logging.Logger;
+
 public class FloodCounter implements org.javabot.util.MyObserver {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final boolean debug = false;
     
     public static final int BAN = 0;

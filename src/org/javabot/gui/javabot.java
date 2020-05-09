@@ -21,8 +21,12 @@
 
 package org.javabot.gui;
 
+import java.util.logging.Logger;
+
 public class javabot{
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     public static void main(String[] args){
         
         jmenue.main(new String [0]);

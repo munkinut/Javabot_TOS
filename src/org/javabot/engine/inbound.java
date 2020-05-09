@@ -33,11 +33,14 @@ import java.io.InputStreamReader;
 import java.util.Timer;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Logger;
 
 /** Inbound message handler
  */
 public class inbound extends Thread {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     /** Debug flag
      */    
     private final boolean debug = false;

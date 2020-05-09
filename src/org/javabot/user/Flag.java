@@ -2,10 +2,13 @@ package org.javabot.user;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.logging.Logger;
 
 @XmlRootElement(namespace = "net.munki.jaxb.Users")
 @XmlType(propOrder = { "name", "truth"})
 public class Flag {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     public static final String FRIEND = "FRIEND";
     public static final String OP = "OP";

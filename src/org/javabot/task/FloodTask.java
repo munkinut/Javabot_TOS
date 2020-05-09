@@ -28,9 +28,12 @@ import org.javabot.util.MyObserver;
 
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 public class FloodTask extends TimerTask implements MyObservable {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final Vector<MyObserver> observers;
     private final int floodType;
 

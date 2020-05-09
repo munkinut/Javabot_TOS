@@ -24,9 +24,12 @@ package org.javabot.script;
 import bsh.*;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ScriptHandler {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final Interpreter interpreter;
     private final DataOutputStream outbound;
 

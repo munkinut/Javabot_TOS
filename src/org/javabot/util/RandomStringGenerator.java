@@ -21,7 +21,11 @@
 
 package org.javabot.util;
 
+import java.util.logging.Logger;
+
 public class RandomStringGenerator extends org.javabot.util.RandomGenerator {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     public RandomStringGenerator() {
         super();

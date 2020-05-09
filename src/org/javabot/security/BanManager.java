@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 import gnu.regexp.*;
 import org.javabot.configuration.PropertyManager;
@@ -36,6 +37,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 public class BanManager {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     private final String banfile;
     private ArrayList bans;

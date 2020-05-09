@@ -24,8 +24,11 @@ package org.javabot.script;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ScriptResource {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     private final DataOutputStream outbound;
     private final String channel;

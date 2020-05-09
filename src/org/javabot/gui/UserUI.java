@@ -21,8 +21,12 @@
 
 package org.javabot.gui;
 
+import java.util.logging.Logger;
+
 public class UserUI extends javax.swing.JFrame {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final UserUIConfigurator userUIConfigurator;
     
     /** Creates new form UserUI */

@@ -24,9 +24,12 @@ package org.javabot.user;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 @XmlRootElement(namespace = "net.munki.jaxb.Users")
 public class Flags {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     private ArrayList<Flag> myflags = new ArrayList<>();
 

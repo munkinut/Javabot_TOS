@@ -10,8 +10,11 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class TestLoadUsers {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     public static void main(String[] args) {
         Users users = loadUsers();

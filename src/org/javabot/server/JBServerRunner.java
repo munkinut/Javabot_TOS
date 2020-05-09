@@ -23,8 +23,11 @@ package org.javabot.server;
 
 import java.rmi.*;
 import java.rmi.registry.*;
+import java.util.logging.Logger;
 
 public class JBServerRunner {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     public JBServerRunner() {
     }

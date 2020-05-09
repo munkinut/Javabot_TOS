@@ -23,12 +23,15 @@ package org.javabot.channel;
 
 import org.javabot.engine.IRCCommands;
 import java.util.Hashtable;
+import java.util.logging.Logger;
 
 
 /** Provides channel management functionality.
  */
 public class ChannelManager implements org.javabot.util.MyObserver {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     /** Debug flag.
      */    
     private final boolean debug = false;

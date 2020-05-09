@@ -23,8 +23,12 @@
 
 package org.javabot.task;
 
+import java.util.logging.Logger;
+
 public class SkimmerTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     private final java.util.Vector observers;
 
     /** Creates new ChanLimitTask */

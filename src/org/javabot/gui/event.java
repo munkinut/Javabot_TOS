@@ -21,7 +21,11 @@
 
 package org.javabot.gui;
 
+import java.util.logging.Logger;
+
 class event extends java.awt.event.WindowAdapter {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     public void windowClosing(java.awt.event.WindowEvent e) {
     

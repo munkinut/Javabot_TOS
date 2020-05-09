@@ -21,10 +21,14 @@
 
 package org.javabot.channel;
 
+import java.util.logging.Logger;
+
 /** Represents a user in a channel.
  */
 public class ChannelUser {
-    
+
+    Logger log = Logger.getLogger(this.getClass().getName());
+
     /** Debug flag.
      */    
     private final boolean debug = false;

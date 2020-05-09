@@ -25,12 +25,15 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 /** Takes a ArrayList of objects and splits it into a set of smaller ArrayLists (pages).
  * @author W Milburn
  * @version 0.1
  */
 public class BanPager {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     private ArrayList<String> toPage;
     private Hashtable<Integer, ArrayList> pages;

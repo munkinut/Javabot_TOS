@@ -30,8 +30,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 public class UserManager {
+
+    Logger log = Logger.getLogger(this.getClass().getName());
 
     private Users users;
     private String usersPath;
