@@ -41,7 +41,7 @@ public class TestLoadUsers {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
             // specify the location and name of xml file to be read
-            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\out\\users.xml");
+            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\users.xml");
 
             // this will create Java object - country from the XML file
             users = (Users) jaxbUnmarshaller.unmarshal(XMLfile);

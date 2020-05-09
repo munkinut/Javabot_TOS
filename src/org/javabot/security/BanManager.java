@@ -41,40 +41,34 @@ public class BanManager {
     Logger log = Logger.getLogger(this.getClass().getName());
 
     private final String banfile;
-    private ArrayList bans;
+    private Bans bans;
 
     public BanManager() {
         //String fs = java.io.File.separator;
         boolean debug = true;
         Properties properties = PropertyManager.getInstance().getProperties();
         banfile = properties.getProperty("Bans_Location");
-        if (debug) System.out.println("[BM] : banfile = " + banfile);
+        log.info("banfile = " + banfile);
         bans = this.loadBans();
-        if (debug) {
-            for (Object ban : bans) {
-                String banmask = (String) ban;
-                System.out.println(banmask);
-            }
+        ArrayList<Ban> bans = new ArrayList<>();
+        for (Object ban : bans) {
+            String banmask = (String) ban;
+            System.out.println(banmask);
         }
     }
     
     public boolean addBan(String banmask) {
         boolean success = false;
-        if (!this.bans.contains(banmask)) {
-            bans.add(banmask);
-            this.saveBans();
-            success = true;
-        }
+        bans.getBans().add(new Ban(banmask));
+        this.saveBans();
+        success = true;
         return success;
     }
     
     public boolean delBan(String banmask) {
-        boolean success = false;
-        if (this.bans.contains(banmask)) {
-            bans.remove(banmask);
-            this.saveBans();
-            success = true;
-        }
+        boolean success = true;
+        //bans.getBans().add(new Ban(banmask));
+        //this.saveBans();
         return success;
     }
     
@@ -82,8 +76,8 @@ public class BanManager {
         boolean matches = false;
         String banmask;
         RE exp;
-        for (Object ban : bans) {
-            banmask = (String) ban;
+        for (Object ban : bans.getBans()) {
+            banmask = ((Ban)ban).getHostmask();
             try {
                 exp = new RE(this.regThis(banmask));
                 if (exp.isMatch(hostmask)) {
@@ -106,29 +100,19 @@ public class BanManager {
         return hostmask;
     }
 
-    public ArrayList getBans() {
+    public Bans getBans() {
         return this.bans;
-    }
-    
-    public boolean banExists(String banmask) {
-        boolean success = false;
-        if (bans.contains(banmask)) success = true;
-        return success;
-    }
-        
-    public void reloadBans() {
-        this.bans = this.loadBans();
     }
     
     public void saveBans() {
         this.storeBans();
     }
 
-    private synchronized ArrayList<String> loadBans() {
-        ArrayList<String> bans = new ArrayList<>();
+    private synchronized Bans loadBans() {
+        Bans bans = null;
         try {
             // create JAXB context and initializing Marshaller
-            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bans.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
@@ -136,7 +120,12 @@ public class BanManager {
             File XMLfile = new File(banfile);
 
             // this will create Java object - Users from the XML file
-            bans = (ArrayList<String>) jaxbUnmarshaller.unmarshal(XMLfile);
+            bans = (Bans) jaxbUnmarshaller.unmarshal(XMLfile);
+
+            ArrayList<Ban> banList = bans.getBans();
+            for(Ban ban:banList) {
+                System.out.println("User: " + ban.getHostmask());
+            }
 
         } catch (JAXBException e) {
             // some exception occured
@@ -146,10 +135,11 @@ public class BanManager {
     }
 
     private synchronized void storeBans() {
+
         try {
 
             // create JAXB context and initializing Marshal
-            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bans.class);
             javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
             // for getting nice formatted output
@@ -167,6 +157,8 @@ public class BanManager {
             // some exception occured
             e.printStackTrace();
         }
+
+
     }
 
 }

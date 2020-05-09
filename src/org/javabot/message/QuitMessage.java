@@ -33,6 +33,7 @@ public class QuitMessage implements MessageInterface {
 
     /** Creates new QuitMessage */
     public QuitMessage() {
+        log.info("QuitMessage() called");
     }
 
     public int getMessageType() {

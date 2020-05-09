@@ -35,6 +35,7 @@ public class ScriptHandler {
 
     /** Creates new ScriptHandler */
     public ScriptHandler(DataOutputStream outbound) {
+        log.info("ScriptHandler() called");
         this.interpreter = new Interpreter();
         this.outbound = outbound;
     }
@@ -67,7 +68,7 @@ public class ScriptHandler {
         String fs = File.separator;
         String currentPath = System.getProperty("user.dir");
         //String currentPath = "d:\\projects\\javabot\\compiled";
-        return currentPath + fs +
+        String totalPath = currentPath + fs +
                 "org" +
                 fs +
                 "javabot" +
@@ -76,6 +77,8 @@ public class ScriptHandler {
                 fs +
                 command +
                 ".bsh";
+        log.info("Looking for scripts in " + totalPath);
+        return totalPath;
     }
 
     private ArrayList<String> parseParams(ArrayList cmd) {

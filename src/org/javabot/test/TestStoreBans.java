@@ -1,5 +1,7 @@
 package org.javabot.test;
 
+import org.javabot.security.Ban;
+import org.javabot.security.Bans;
 import org.javabot.user.Flags;
 import org.javabot.user.User;
 import org.javabot.user.Users;
@@ -10,41 +12,39 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class TestStoreUsers {
+public class TestStoreBans {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
     public static void main(String[] args) {
-        Users users = new Users();
-        User user = new User("munki", "munki123");
+        Bans bans = new Bans();
+        Ban ban = new Ban("idiot!idiot@idiotsville.com");
 
-        Flags flags = new Flags();
-        user.setFlags(flags);
-        ArrayList<User> userList = new ArrayList<>();
-        boolean success = userList.add(user);
-        users.setUsers(userList);
+        ArrayList<Ban> banList = new ArrayList<>();
+        boolean success = banList.add(ban);
+        bans.setBans(banList);
 
-        storeUsers(users);
+        storeBans(bans);
     }
 
-    private static synchronized void storeUsers(Users users) {
+    private static synchronized void storeBans(Bans bans) {
 
         try {
 
             // create JAXB context and initializing Marshal
-            JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bans.class);
             javax.xml.bind.Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
             // for getting nice formatted output
             jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             //specify the location and name of xml file to be created
-            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\users.xml");
+            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\bans.xml");
 
             // Writing to XML file
-            jaxbMarshaller.marshal(users, XMLfile);
+            jaxbMarshaller.marshal(bans, XMLfile);
             // Writing to console
-            jaxbMarshaller.marshal(users, System.out);
+            jaxbMarshaller.marshal(bans, System.out);
 
         } catch (JAXBException e) {
             // some exception occured

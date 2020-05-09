@@ -35,6 +35,7 @@ public class NamesReplyMessage implements MessageInterface {
 
     /** Creates new NamesReplyMessage */
     public NamesReplyMessage() {
+        log.info("NamesReplyMessage() called");
     }
 
     public int getMessageType() {

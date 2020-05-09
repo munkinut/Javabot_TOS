@@ -54,7 +54,7 @@ public class FloodCounter implements org.javabot.util.MyObserver {
 
     /** Creates new FloodCounter */
     public FloodCounter() {
-        if (debug) System.out.println("[FC] : FloodCounter() called");
+        log.info("[FC] : FloodCounter() called");
         privmsg = 0;
         chanmsg = 0;
         ctcp = 0;
@@ -68,13 +68,13 @@ public class FloodCounter implements org.javabot.util.MyObserver {
     }
     
     private void initFloodTasks() {
-        if (debug) System.out.println("[FC] : initFloodTasks() called");
+        log.info("[FC] : initFloodTasks() called");
         this.addFloodTask(new FloodTask(FloodCounter.PRIVMSG));
         this.addFloodTask(new FloodTask(FloodCounter.CHANMSG));
     }
     
     private void addFloodTask(FloodTask floodTask) {
-        if (debug) System.out.println("[FC] : addFloodTask() called");
+        log.info("[FC] : addFloodTask() called");
         int maxTime = this.getMaxTime(floodTask.getFloodType());
         timer.scheduleAtFixedRate(floodTask, maxTime, maxTime);
         floodTask.registerInterest(this);
@@ -82,33 +82,33 @@ public class FloodCounter implements org.javabot.util.MyObserver {
     }
     
     private int getMaxTime(int floodType) {
-        if (debug) System.out.println("[FC] : getMaxTime() called");
+        log.info("[FC] : getMaxTime() called");
         int maxTime = 0;
         if (floodType == FloodCounter.PRIVMSG) {
-            if (debug) System.out.println("[FC] : getMaxTime() floodType = PRIVMSG");
+            log.info("[FC] : getMaxTime() floodType = PRIVMSG");
             maxTime = Integer.parseInt(SecurityManager.privmsgRatio.substring(SecurityManager.privmsgRatio.indexOf(":")+1)) * 1000;
         }
         else if (floodType == FloodCounter.CHANMSG) {
-            if (debug) System.out.println("[FC] : getMaxTime() floodType = CHANMSG");
+            log.info("[FC] : getMaxTime() floodType = CHANMSG");
             maxTime = Integer.parseInt(SecurityManager.chanmsgRatio.substring(SecurityManager.chanmsgRatio.indexOf(":")+1)) * 1000;
         }
         else if (floodType == FloodCounter.CTCP) {
-            if (debug) System.out.println("[FC] : getMaxTime() floodType = CTCP");
+            log.info("[FC] : getMaxTime() floodType = CTCP");
             maxTime = Integer.parseInt(SecurityManager.ctcpRatio.substring(SecurityManager.ctcpRatio.indexOf(":")+1)) * 1000;
         }
         else if (floodType == FloodCounter.COLOUR) {
-            if (debug) System.out.println("[FC] : getMaxTime() floodType = COLOUR");
+            log.info("[FC] : getMaxTime() floodType = COLOUR");
             maxTime = Integer.parseInt(SecurityManager.colourRatio.substring(SecurityManager.colourRatio.indexOf(":")+1)) * 1000;
         }
         else if (floodType == FloodCounter.DCC) {
-            if (debug) System.out.println("[FC] : getMaxTime() floodType = DCC");
+            log.info("[FC] : getMaxTime() floodType = DCC");
             maxTime = Integer.parseInt(SecurityManager.dccRatio.substring(SecurityManager.dccRatio.indexOf(":")+1)) * 1000;
         }
         else if (floodType == FloodCounter.JOIN) {
-            if (debug) System.out.println("[FC] : getMaxTime() floodType = JOIN");
+            log.info("[FC] : getMaxTime() floodType = JOIN");
             // maxTime = Integer.parseInt(SecurityManager.joinRatio.substring(SecurityManager.joinRatio.indexOf(":")+1)) * 1000;
         }
-        if (debug) System.out.println("[FC] : getMaxTime() maxHits = " + maxTime);
+        log.info("[FC] : getMaxTime() maxHits = " + maxTime);
         return maxTime;
     }
     
@@ -168,18 +168,18 @@ public class FloodCounter implements org.javabot.util.MyObserver {
     }
     
     private void killFloodTasks() {
-        if (debug) System.out.println("[FC] : killFloodTasks() called");
+        log.info("[FC] : killFloodTasks() called");
         FloodTask floodTask;
         for (int i = 0; i < this.floodTasks.size(); i++) {
             floodTask = (FloodTask)this.floodTasks.get(i);
             floodTask.cancel();
-            if (debug) System.out.println("[FC] : killFloodTasks() floodTask " + i + " cancelled");
+            log.info("[FC] : killFloodTasks() floodTask " + i + " cancelled");
         }
         floodTasks.removeAllElements();
     }
     
     private void killTimer() {
-        if (debug) System.out.println("[FC] : killTimer() called");
+        log.info("[FC] : killTimer() called");
         timer.cancel();
     }
     

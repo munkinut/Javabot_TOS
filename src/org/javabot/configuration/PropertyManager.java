@@ -29,10 +29,6 @@ public class PropertyManager {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    /** Debug switch
-     */    
-    private final boolean debug = true;
-    
     /** Busy flag to aid in thread synchronization
      */    
     private boolean busy;
@@ -46,7 +42,7 @@ public class PropertyManager {
     
     /** Creates new PropertyManager */
     private PropertyManager() {
-        if (debug) System.out.println("[PM] - PropertyManager() called");
+        log.info("PropertyManager() called");
         this.busy = false;
         this.properties = new java.util.Properties();
         this.readProperties();
@@ -71,11 +67,14 @@ public class PropertyManager {
      * @return Server name
      */    
     public synchronized String getServer() {
+        log.info("getServer() called");
         while (busy) {
             try {
+                log.info("waiting");
                 wait();
             }
             catch (java.lang.InterruptedException ignored) {
+                log.info("Thread interrupted " + ignored.getMessage());
             }
         }
         busy = true;
@@ -89,6 +88,7 @@ public class PropertyManager {
      * @param server Server name
      */    
     public synchronized void setServer(String server) {
+        log.info("setServer() called");
         while (busy) {
             try {
                 wait();
@@ -106,6 +106,7 @@ public class PropertyManager {
      * @return Name of the bot
      */    
     public synchronized String getName() {
+        log.info("getName() called");
         while (busy) {
             try {
                 wait();
@@ -124,6 +125,7 @@ public class PropertyManager {
      * @param name Name of the bot
      */    
     public synchronized void setName(String name) {
+        log.info("setName() called");
         while (busy) {
             try {
                 wait();
@@ -141,6 +143,7 @@ public class PropertyManager {
      * @return Bots nickname
      */    
     public synchronized String getNickname() {
+        log.info("getNickname() called");
         while (busy) {
             try {
                 wait();
@@ -159,6 +162,7 @@ public class PropertyManager {
      * @param nickname Nickname to set
      */    
     public synchronized void setNickname(String nickname) {
+        log.info("setNickname() called");
         while (busy) {
             try {
                 wait();
@@ -176,6 +180,7 @@ public class PropertyManager {
      * @return Channel name
      */    
     public synchronized String getChannel() {
+        log.info("getChannel() called");
         while (busy) {
             try {
                 wait();
@@ -194,6 +199,7 @@ public class PropertyManager {
      * @param channel Bots channel
      */    
     public synchronized void setChannel(String channel) {
+        log.info("setChannel() called");
         while (busy) {
             try {
                 wait();
@@ -211,6 +217,7 @@ public class PropertyManager {
      * @return Initial channel modes
      */    
     public synchronized String getChannelModes() {
+        log.info("getChannel() called");
         while (busy) {
             try {
                 wait();
@@ -229,6 +236,7 @@ public class PropertyManager {
      * @param channelmodes Initial channel modes
      */    
     public synchronized void setChannelModes(String channelmodes) {
+        log.info("getChannelModes() called");
         while (busy) {
             try {
                 wait();
@@ -246,6 +254,7 @@ public class PropertyManager {
      * @return Channel ratio
      */    
     public synchronized String getJoinRatio() {
+        log.info("getJoinRatio() called");
         while (busy) {
             try {
                 wait();
@@ -264,6 +273,7 @@ public class PropertyManager {
      * @param joinratio Join ratio for the channel
      */    
     public synchronized void setJoinRatio(String joinratio) {
+        log.info("getJoinRatio() called");
         while (busy) {
             try {
                 wait();
@@ -281,6 +291,7 @@ public class PropertyManager {
      * @return Private message ratio
      */    
     public synchronized String getPrivmsgRatio() {
+        log.info("getPrivmsgRatio() called");
         while (busy) {
             try {
                 wait();
@@ -299,6 +310,7 @@ public class PropertyManager {
      * @param privmsgratio Private message ratio
      */    
     public synchronized void setPrivmsgRatio(String privmsgratio) {
+        log.info("setPrivmsgRatio() called");
         while (busy) {
             try {
                 wait();
@@ -316,6 +328,7 @@ public class PropertyManager {
      * @return Channel message ratio
      */    
     public synchronized String getChanmsgRatio() {
+        log.info("getChanmsgRatio() called");
         while (busy) {
             try {
                 wait();
@@ -334,6 +347,7 @@ public class PropertyManager {
      * @param chanmsgratio Channel message ratio
      */    
     public synchronized void setChanmsgRatio(String chanmsgratio) {
+        log.info("setChanmsgRatio() called");
         while (busy) {
             try {
                 wait();
@@ -351,6 +365,7 @@ public class PropertyManager {
      * @return Colour flood ratio
      */    
     public synchronized String getColourRatio() {
+        log.info("getColourRatio() called");
         while (busy) {
             try {
                 wait();
@@ -369,6 +384,7 @@ public class PropertyManager {
      * @param colourratio Colour flood ratio
      */    
     public synchronized void setColourRatio(String colourratio) {
+        log.info("setColourRatio() called");
         while (busy) {
             try {
                 wait();
@@ -386,6 +402,7 @@ public class PropertyManager {
      * @return CTCP flood ratio
      */    
     public synchronized String getCtcpRatio() {
+        log.info("getCtcpRatio() called");
         while (busy) {
             try {
                 wait();
@@ -404,6 +421,7 @@ public class PropertyManager {
      * @param ctcpratio CTCP flood ratio
      */    
     public synchronized void setCtcpRatio(String ctcpratio) {
+        log.info("setCtcpRatio() called");
         while (busy) {
             try {
                 wait();
@@ -421,6 +439,7 @@ public class PropertyManager {
      * @return DCC flood ratio
      */    
     public synchronized String getDccRatio() {
+        log.info("getDccRatio() called");
         while (busy) {
             try {
                 wait();
@@ -439,6 +458,7 @@ public class PropertyManager {
      * @param dccratio DCC flood ratio
      */    
     public synchronized void setDccRatio(String dccratio) {
+        log.info("setDccRatio() called");
         while (busy) {
             try {
                 wait();
@@ -456,6 +476,7 @@ public class PropertyManager {
      * @return Port number
      */    
     public synchronized int getPort() {
+        log.info("getPort() called");
         while (busy) {
             try {
                 wait();
@@ -474,6 +495,7 @@ public class PropertyManager {
      * @param port Port number to connect to
      */    
     public synchronized void setPort(int port) {
+        log.info("setPort() called");
         while (busy) {
             try {
                 wait();
@@ -491,6 +513,7 @@ public class PropertyManager {
      * @return Autovoice flag
      */    
     public synchronized boolean getAutovoice() {
+        log.info("getAutovoice() called");
         while (busy) {
             try {
                 wait();
@@ -509,6 +532,7 @@ public class PropertyManager {
      * @param autovoice Autovoice flag
      */    
     public synchronized void setAutovoice(boolean autovoice) {
+        log.info("setAutovoice() called");
         while (busy) {
             try {
                 wait();
@@ -526,6 +550,7 @@ public class PropertyManager {
      * @return Autogreet flag
      */    
     public synchronized boolean getAutogreet() {
+        log.info("getAutogreet() called");
         while (busy) {
             try {
                 wait();
@@ -544,6 +569,7 @@ public class PropertyManager {
      * @param autogreet Autogreet flag
      */    
     public synchronized void setAutogreet(boolean autogreet) {
+        log.info("setAutogreet() called");
         while (busy) {
             try {
                 wait();
@@ -561,6 +587,7 @@ public class PropertyManager {
      * @return Flood protection flag
      */    
     public synchronized boolean getFloodProtection() {
+        log.info("getFloodProtection() called");
         while (busy) {
             try {
                 wait();
@@ -579,6 +606,7 @@ public class PropertyManager {
      * @param floodprotection Flood protection flag
      */    
     public synchronized void setFloodProtection(boolean floodprotection) {
+        log.info("setFloodProtection() called");
         while (busy) {
             try {
                 wait();
@@ -596,6 +624,7 @@ public class PropertyManager {
      * @return Opme flag
      */    
     public synchronized boolean getOpme() {
+        log.info("getOpme() called");
         while (busy) {
             try {
                 wait();
@@ -614,6 +643,7 @@ public class PropertyManager {
      * @param opme Opme flag
      */    
     public synchronized void setOpme(boolean opme) {
+        log.info("getOpme() called");
         while (busy) {
             try {
                 wait();
@@ -631,6 +661,7 @@ public class PropertyManager {
      * @return Cycle for ops flag
      */    
     public synchronized boolean getCycleForOps() {
+        log.info("getCycleForOps() called");
         while (busy) {
             try {
                 wait();
@@ -649,6 +680,7 @@ public class PropertyManager {
      * @param cycleforops Cycle for ops flag
      */    
     public synchronized void setCycleForOps(boolean cycleforops) {
+        log.info("setCycleForOps() called");
         while (busy) {
             try {
                 wait();
@@ -666,6 +698,7 @@ public class PropertyManager {
      * @return Dynamic limit flag
      */    
     public synchronized boolean getDynamicLimit() {
+        log.info("getDynamicLimit() called");
         while (busy) {
             try {
                 wait();
@@ -684,6 +717,7 @@ public class PropertyManager {
      * @param dynamiclimit dynamic limit flag
      */    
     public synchronized void setDynamicLimit(boolean dynamiclimit) {
+        log.info("setDynamicLimit() called");
         while (busy) {
             try {
                 wait();
@@ -701,24 +735,24 @@ public class PropertyManager {
      * @return Success flag
      */    
     public synchronized boolean writeProperties() {
-        if (debug) System.out.println("[PM] - writeProperties() called");
+        log.info("writeProperties() called");
         boolean success = true;
         while (busy) {
-            if (debug) System.out.println("[PM] - writeProperties() - BUSY ... waiting");
+            log.info("writeProperties() - BUSY ... waiting");
             try {
                 wait();
             }
             catch (java.lang.InterruptedException ignored) {
             }
         }
-        if (debug) System.out.println("[PM] - writeProperties() - NOT BUSY ... writing");
+        log.info("writeProperties() - NOT BUSY ... writing");
         busy = true;
         try {
             String fs = java.io.File.separator;
             String currentPath = System.getProperty("user.dir");
-            if (debug) System.out.println("[PM] : USER.DIR:" + currentPath);
+            log.info("USER.DIR:" + currentPath);
             String javabotProperties = currentPath + fs + "config" + fs + "javabot.properties";
-            if (debug) System.out.println("[PM] : javabotProperties = " + javabotProperties);
+            log.info("javabotProperties = " + javabotProperties);
             java.io.FileOutputStream out = new java.io.FileOutputStream(javabotProperties);
             properties.store(out, null);
             out.close();
@@ -740,27 +774,27 @@ public class PropertyManager {
      * @return Success flag
      */    
     public synchronized boolean readProperties() {
-        if (debug) System.out.println("[PM] - readProperties() called");
+        log.info("readProperties() called");
         boolean success = true;
         String server, name, nickname, channel, channelModes, join;
         int port;
         boolean autovoice,flood,opme,cycleForOps,dynamicLimit;
         while (busy) {
-            if (debug) System.out.println("[PM] - readProperties() - BUSY ... waiting");
+            log.info("readProperties() - BUSY ... waiting");
             try {
                 wait();
             }
             catch (java.lang.InterruptedException ignored) {
             }
         }
-        if (debug) System.out.println("[PM] - readProperties() - NOT BUSY ... reading");
+        log.info("readProperties() - NOT BUSY ... reading");
         busy = true;
         try {
             String fs = java.io.File.separator;
             String currentPath = System.getProperty("user.dir");
-            if (debug) System.out.println("[PM] : USER.DIR:" + currentPath);
+            log.info("[PM] : USER.DIR:" + currentPath);
             String javabotProperties = currentPath + fs + "config" + fs + "javabot.properties";
-            if (debug) System.out.println("[PM] : javabotProperties = " + javabotProperties);
+            log.info("[PM] : javabotProperties = " + javabotProperties);
             java.io.FileInputStream in = new java.io.FileInputStream(javabotProperties);
             properties.load(in);
             in.close();
@@ -916,7 +950,7 @@ public class PropertyManager {
      * @return false
      */    
     private boolean failProperties(String error) {
-        System.err.println(error);
+        log.severe(error);
         // consoleOutput.append(error + "\n");
         return false;
     }

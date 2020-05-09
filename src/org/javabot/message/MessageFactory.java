@@ -83,9 +83,11 @@ public class MessageFactory {
 
     /** Creates new MessageFactory */
     public MessageFactory() {
+        log.info("MessageFactory() called");
     }
     
     public MessageInterface getMessage(String inbound) {
+        log.info("getMessage() called");
         MessageInterface returnMessage = null;
         if (inbound.startsWith("PING ")) {
             String params = inbound.substring(inbound.indexOf(":")+1);
@@ -99,6 +101,7 @@ public class MessageFactory {
     }
     
     private MessageInterface createPrefixedMessage(String inbound) {
+        log.info("createPrefixedMessage() called");
         MessageInterface returnMessage = null;
         String prefix = inbound.substring(inbound.indexOf(":")+1, inbound.indexOf(" "));
         if (prefix.contains("!")) {

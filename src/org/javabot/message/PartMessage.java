@@ -33,6 +33,7 @@ public class PartMessage implements MessageInterface {
 
     /** Creates new PartMessage */
     public PartMessage() {
+        log.info("PartMessage() called");
     }
 
     public int getMessageType() {

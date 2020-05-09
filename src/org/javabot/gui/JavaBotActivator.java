@@ -37,6 +37,7 @@ public class JavaBotActivator {
 
     /** Creates new JavaBotActivator */
     public JavaBotActivator(javax.swing.JTextArea consoleOutput) {
+        log.info("JavaBotActivator() called");
         this.consoleOutput = consoleOutput;
         this.connected = false;
         this.propertyManager = org.javabot.configuration.PropertyManager.getInstance();
@@ -47,6 +48,7 @@ public class JavaBotActivator {
     }
     
     public boolean connect() {
+        log.info("connect() called");
         try {
             if (!connected) {
                 String server = propertyManager.getServer();
@@ -71,6 +73,7 @@ public class JavaBotActivator {
     }
     
     public boolean disconnect() {
+        log.info("disconnect() called");
         if (connected && (in != null)) {
             in.quit();
             try {
@@ -86,10 +89,11 @@ public class JavaBotActivator {
             }
             connected = false;
         }
-        return !connected;
+        return connected;
     }
     
     public boolean exit() {
+        log.info("exit() called");
         //noinspection StatementWithEmptyBody
         if (this.disconnect()) {
             // tell us we disconnected ok

@@ -33,6 +33,7 @@ public class JoinMessage implements MessageInterface {
 
     /** Creates new JoinMessage */
     public JoinMessage() {
+        log.info("JoinMessage() called");
     }
 
     public int getMessageType() {

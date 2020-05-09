@@ -42,6 +42,7 @@ public class JBRMIClient implements JBotnetInterface {
     @SuppressWarnings("deprecation")
     public JBRMIClient(String host, int port) throws Exception {
         String remoteURL = "rmi://" + host + ":" + port + "/JBServer";
+        log.info("Remote URL : " + remoteURL);
         remote = (org.javabot.server.JBSRemoteInterface)Naming.lookup(remoteURL);
         java.rmi.server.UnicastRemoteObject.exportObject(this);
         this.register(this);
@@ -52,7 +53,9 @@ public class JBRMIClient implements JBotnetInterface {
      * @return String representation of the remote server time.
      */    
     public String getTime() throws Exception {
-        return remote.getTime();
+        String time = remote.getTime();
+        log.info("Remote time : " + time);
+        return time;
     }
     
     /** Authenticate the bot with the server.

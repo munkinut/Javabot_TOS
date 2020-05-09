@@ -44,7 +44,7 @@ public class UserManager {
         boolean debug = true;
         Properties properties = PropertyManager.getInstance().getProperties();
         usersPath = properties.getProperty("Users_Location");
-        if (debug) System.out.println("[UM] : userfile = " + usersPath);
+        log.info("[UM] : userfile = " + usersPath);
         users = this.loadUsers();
         if (debug) {
 

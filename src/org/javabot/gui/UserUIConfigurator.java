@@ -37,11 +37,13 @@ public class UserUIConfigurator {
     
     /** Creates new UserUIConfigurator */
     public UserUIConfigurator() {
+        log.info("UserUIConfigurator() called");
         um = new org.javabot.user.UserManager();
         currentNode = null;
     }
     
     public void createNodes(DefaultMutableTreeNode top) {
+        log.info("createNodes() called");
         Users users = um.getUsers();
         ArrayList<User> userList = users.getUsers();
         DefaultMutableTreeNode userNode;

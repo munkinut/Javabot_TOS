@@ -21,6 +21,9 @@
 
 package org.javabot.util;
 
+import org.javabot.security.Ban;
+import org.javabot.security.Bans;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -35,7 +38,7 @@ public class BanPager {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    private ArrayList<String> toPage;
+    private Bans toPage;
     private Hashtable<Integer, ArrayList> pages;
     private int pageIndex;
 
@@ -43,7 +46,7 @@ public class BanPager {
  * @param v ArrayList of objects you want to page.
  * @param x Number of objects you require per page.
  */
-    public BanPager(ArrayList<String> v, int x) {
+    public BanPager(Bans v, int x) {
         toPage = v;
         pages = this.pageBy(x);
         pageIndex = 0;
@@ -61,7 +64,7 @@ public class BanPager {
  */    
     public int numberOfResults() {
         if (toPage != null) {
-            return toPage.size();
+            return toPage.getBans().size();
         }
         else return 0;
     }
@@ -112,11 +115,11 @@ public class BanPager {
     public Hashtable<Integer, ArrayList> pageBy(int x) {
 
         int pageCount = 0;
-        ArrayList<String> v;
+        ArrayList<Ban> v;
         Hashtable<Integer, ArrayList> ht = new Hashtable<>();
-        for (String user : toPage) {
+        for (Ban ban : toPage.getBans()) {
             v = new ArrayList<>();
-            v.add(user);
+            v.add(ban);
             ht.put(pageCount, v);
             pageCount++;
         }

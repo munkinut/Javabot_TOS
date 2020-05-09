@@ -32,9 +32,6 @@ public class ChannelManager implements org.javabot.util.MyObserver {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    /** Debug flag.
-     */    
-    private final boolean debug = false;
     /** Channel users keyed by hostmask.
      */    
     private Hashtable<String, ChannelUser> channelUsers;
@@ -66,7 +63,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param outbound outbound stream to server
      */
     public ChannelManager(java.io.DataOutputStream outbound) {
-        if (debug) System.out.println("[CM] : Channel Manager created");
+        log.info("Channel Manager created...");
         this.outbound = outbound;
         this.channelUsers = new Hashtable<>();
         this.timer = new java.util.Timer(true);
@@ -81,7 +78,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Number of users in channel.
      */    
     public int getNamesCount() {
-        if (debug) System.out.println("[CM] : getNamesCount() returns " + namesCount);
+        log.info("getNamesCount() returns " + namesCount);
         return namesCount;
     }
     
@@ -89,7 +86,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param namesCount Number of users in channel.
      */    
     public void setNamesCount(int namesCount) {
-        if (debug) System.out.println("[CM] : setNamesCount() sets namesCount to " + namesCount);
+        log.info("setNamesCount() sets namesCount to " + namesCount);
         this.namesCount = namesCount;
     }
     
@@ -97,7 +94,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Number of users in channel at the last count.
      */    
     public int getLastNamesCount() {
-        if (debug) System.out.println("[CM] : getLastNamesCount() returns " + lastNamesCount);
+        log.info("getLastNamesCount() returns " + lastNamesCount);
         return lastNamesCount;
     }
     
@@ -105,7 +102,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param lastNamesCount Number of users in channel at the last count.
      */    
     public void setLastNamesCount(int lastNamesCount) {
-        if (debug) System.out.println("[CM] : setLastNamesCount() sets namesCount to " + lastNamesCount);
+        log.info("setLastNamesCount() sets namesCount to " + lastNamesCount);
         this.lastNamesCount = lastNamesCount;
     }
     
@@ -113,7 +110,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param channel Channel to be managed.
      */    
     public void setChannel(String channel) {
-        if (debug) System.out.println("[CM] : setChannel() sets channel to " + channel);
+        log.info("[CM] : setChannel() sets channel to " + channel);
         this.channel = channel;
     }
 
@@ -121,7 +118,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param initialModes Initial channel modes.
      */    
     public void setInitialModes(String initialModes) {
-        if (debug) System.out.println("[CM] : setInitialModes() sets initialModes to " + initialModes);
+        log.info("[CM] : setInitialModes() sets initialModes to " + initialModes);
         this.initialModes = initialModes;
     }
 
@@ -129,7 +126,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Name of the channel being managed.
      */    
     public String getChannel() {
-        if (debug) System.out.println("[CM] : getChannel() returns " + channel);
+        log.info("[CM] : getChannel() returns " + channel);
         return this.channel;
     }
     
@@ -137,7 +134,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Initial modes for the channel being managed.
      */    
     public String getInitialModes() {
-        if (debug) System.out.println("[CM] : getInitialModes() returns " + initialModes);
+        log.info("[CM] : getInitialModes() returns " + initialModes);
         return this.initialModes;
     }
     
@@ -145,7 +142,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return The collection of channel users.  This is a Hashtable keyed by hostmask.
      */    
     public Hashtable<String, ChannelUser> getChannelUsers() {
-        if (debug) System.out.println("[CM] : getChannelUsers() returns \n\n" + channelUsers);
+        log.info("[CM] : getChannelUsers() returns \n\n" + channelUsers);
         return this.channelUsers;
     }
     
@@ -154,10 +151,10 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return ChannelUser object.
      */    
     public ChannelUser getChannelUser(String hostmask) {
-        if (debug) System.out.println("[CM] : getChannelUser() hostmask = " + hostmask);
+        log.info("[CM] : getChannelUser() hostmask = " + hostmask);
         ChannelUser channelUser = null;
         if (channelUsers.containsKey(hostmask)) {
-            if (debug) System.out.println("[CM] : getChannelUser() channelUsers contains " + hostmask);
+            log.info("[CM] : getChannelUser() channelUsers contains " + hostmask);
             channelUser = channelUsers.get(hostmask);
         }
         return channelUser;
@@ -167,7 +164,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param channelUsers Collection of channel users.  This is a Hashtable of ChannelUser objects keyed by hostmask.
      */    
     public void setChannelUsers(Hashtable channelUsers) {
-        if (debug) System.out.println("[CM] : setChannelUsers() sets channelUsers to \n\n" + channelUsers);
+        log.info("[CM] : setChannelUsers() sets channelUsers to \n\n" + channelUsers);
         this.channelUsers = channelUsers;
     }
     
@@ -176,16 +173,16 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param nick Nickname of channel user.
      */    
     public void addChannelUser(String hostmask, String nick) {
-        if (debug) System.out.println("[CM] : addChannelUser() hostmask = " + hostmask + ", nick = " + nick);
+        log.info("[CM] : addChannelUser() hostmask = " + hostmask + ", nick = " + nick);
         if (!channelUsers.containsKey(hostmask)) {
-            if (debug) System.out.println("[CM] : addChannelUser() channelUsers does not contain " + hostmask + " ... adding");
+            log.info("[CM] : addChannelUser() channelUsers does not contain " + hostmask + " ... adding");
             this.channelUsers.put(hostmask, new ChannelUser(nick));
         }
         else {
-            if (debug) System.out.println("[CM] : addChannelUser() channelUsers already contains " + hostmask);
+            log.info("[CM] : addChannelUser() channelUsers already contains " + hostmask);
             ChannelUser user = this.channelUsers.get(hostmask);
             if (!user.getNick().equals(nick)) {
-                if (debug) System.out.println("[CM] : addChannelUser() nick does not match for " + hostmask + " ... changing to " + nick);
+                log.info("[CM] : addChannelUser() nick does not match for " + hostmask + " ... changing to " + nick);
                 user.setNick(nick);
             }
         }
@@ -196,9 +193,9 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param nick New nickname.
      */    
     public void changeChannelUserNick(String hostmask, String nick) {
-        if (debug) System.out.println("[CM] : changeChannelUserNick() hostmask = " + hostmask + ", nick = " + nick);
+        log.info("[CM] : changeChannelUserNick() hostmask = " + hostmask + ", nick = " + nick);
         if (channelUsers.containsKey(hostmask)) {
-            if (debug) System.out.println("[CM] : changeChannelUserNick() channelUsers contains " + hostmask);
+            log.info("[CM] : changeChannelUserNick() channelUsers contains " + hostmask);
             ChannelUser user = channelUsers.get(hostmask);
             user.setNick(nick);
         }
@@ -224,9 +221,9 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param hostmask Hostmask of channel user to remove.
      */    
     public void removeChannelUser(String hostmask) {
-        if (debug) System.out.println("[CM] : removeChannelUser() hostmask = " + hostmask);
+        log.info("[CM] : removeChannelUser() hostmask = " + hostmask);
         if (channelUsers.containsKey(hostmask)) {
-            if (debug) System.out.println("[CM] : removeChannelUser() channelUsers contains " + hostmask + " ... removing");
+            log.info("[CM] : removeChannelUser() channelUsers contains " + hostmask + " ... removing");
             ChannelUser user = this.channelUsers.remove(hostmask);
         }
     }
@@ -235,7 +232,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param nick Nickname of channel user to remove.
      */    
     public void removeChannelUserByNick(String nick) {
-        if (debug) System.out.println("[CM] : removeChannelUserByNick() nick = " + nick);
+        log.info("[CM] : removeChannelUserByNick() nick = " + nick);
         java.util.Enumeration e = channelUsers.keys();
         ChannelUser user;
         String hostmask;
@@ -243,7 +240,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
             hostmask = (String)e.nextElement();
             user = channelUsers.get(hostmask);
             if (user.getNick().equals(nick)) {
-                if (debug) System.out.println("[CM] : removeChannelUserByNick() channelUsers contains " + nick + " ... removing");
+                log.info("[CM] : removeChannelUserByNick() channelUsers contains " + nick + " ... removing");
                 ChannelUser channelUser = channelUsers.remove(hostmask);
                 break;
             }
@@ -253,7 +250,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     /** Remove all channel users.
      */    
     public void removeAllChannelUsers() {
-        if (debug) System.out.println("[CM] : removeAllChannelUsers()");
+        log.info("[CM] : removeAllChannelUsers()");
         java.util.Enumeration e = channelUsers.keys();
         ChannelUser user;
         String hostmask;
@@ -266,7 +263,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     /** Limit channel according to the join ratio.
      */    
     public void limitChannel(){
-        if (debug) System.out.println("[CM] : limitChannel()");
+        log.info("[CM] : limitChannel()");
         org.javabot.task.ChanLimitTask chanLimitTask = new org.javabot.task.ChanLimitTask();
         chanLimitTask.registerInterest(this);
         timer.scheduleAtFixedRate(chanLimitTask, 0, this.getMaxTime(org.javabot.security.FloodCounter.JOIN));
@@ -277,31 +274,31 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Maximum number of hits allowed for flood type.
      */    
     public int getMaxHits(int floodType) {
-        if (debug) System.out.println("[CM] : getMaxHits() for floodType " + floodType);
+        log.info("[CM] : getMaxHits() for floodType " + floodType);
         int maxHits = 0;
         if (floodType == org.javabot.security.FloodCounter.PRIVMSG) {
             // maxHits = Integer.parseInt(ChannelManager.privmsgRatio.substring(0, ChannelManager.privmsgRatio.indexOf(":")));
-            if (debug) System.out.println("[CM] : getMaxHits() maxHits for privmsg = " + maxHits);
+            log.info("[CM] : getMaxHits() maxHits for privmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CHANMSG) {
             // maxHits = Integer.parseInt(ChannelManager.chanmsgRatio.substring(0, ChannelManager.chanmsgRatio.indexOf(":")));
-            if (debug) System.out.println("[CM] : getMaxHits() maxHits for chanmsg = " + maxHits);
+            log.info("[CM] : getMaxHits() maxHits for chanmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CTCP) {
             // maxHits = Integer.parseInt(ChannelManager.ctcpRatio.substring(0, ChannelManager.ctcpRatio.indexOf(":")));
-            if (debug) System.out.println("[CM] : getMaxHits() maxHits for ctcp = " + maxHits);
+            log.info("[CM] : getMaxHits() maxHits for ctcp = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.COLOUR) {
             // maxHits = Integer.parseInt(ChannelManager.colourRatio.substring(0, ChannelManager.colourRatio.indexOf(":")));
-            if (debug) System.out.println("[CM] : getMaxHits() maxHits for colour = " + maxHits);
+            log.info("[CM] : getMaxHits() maxHits for colour = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.DCC) {
             // maxHits = Integer.parseInt(ChannelManager.dccRatio.substring(0, ChannelManager.dccRatio.indexOf(":")));
-            if (debug) System.out.println("[CM] : getMaxHits() maxHits for dcc = " + maxHits);
+            log.info("[CM] : getMaxHits() maxHits for dcc = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.JOIN) {
             maxHits = Integer.parseInt(ChannelManager.joinRatio.substring(0, ChannelManager.joinRatio.indexOf(":")));
-            if (debug) System.out.println("[CM] : getMaxHits() maxHits for join = " + maxHits);
+            log.info("[CM] : getMaxHits() maxHits for join = " + maxHits);
         }
         return maxHits;
     }
@@ -311,31 +308,31 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Maximum time frame within which maximum hits are allowed for flood type.
      */    
     public int getMaxTime(int floodType) {
-        if (debug) System.out.println("[CM] : getMaxTime() for floodType " + floodType);
+        log.info("[CM] : getMaxTime() for floodType " + floodType);
         int maxHits = 0;
         if (floodType == org.javabot.security.FloodCounter.PRIVMSG) {
             // maxHits = Integer.parseInt(ChannelManager.privmsgRatio.substring(ChannelManager.privmsgRatio.indexOf(":")+1)) * 1000;
-            if (debug) System.out.println("[CM] : getMaxTime() maxTime for privmsg = " + maxHits);
+            log.info("[CM] : getMaxTime() maxTime for privmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CHANMSG) {
             // maxHits = Integer.parseInt(ChannelManager.chanmsgRatio.substring(ChannelManager.chanmsgRatio.indexOf(":")+1)) * 1000;
-            if (debug) System.out.println("[CM] : getMaxTime() maxTime for chanmsg = " + maxHits);
+            log.info("[CM] : getMaxTime() maxTime for chanmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CTCP) {
             // maxHits = Integer.parseInt(ChannelManager.ctcpRatio.substring(ChannelManager.ctcpRatio.indexOf(":")+1)) * 1000;
-            if (debug) System.out.println("[CM] : getMaxTime() maxTime for ctcp = " + maxHits);
+            log.info("[CM] : getMaxTime() maxTime for ctcp = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.COLOUR) {
             // maxHits = Integer.parseInt(ChannelManager.colourRatio.substring(ChannelManager.colourRatio.indexOf(":")+1)) * 1000;
-            if (debug) System.out.println("[CM] : getMaxTime() maxTime for colour = " + maxHits);
+            log.info("[CM] : getMaxTime() maxTime for colour = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.DCC) {
             // maxHits = Integer.parseInt(ChannelManager.dccRatio.substring(ChannelManager.dccRatio.indexOf(":")+1)) * 1000;
-            if (debug) System.out.println("[CM] : getMaxTime() maxTime for dcc = " + maxHits);
+            log.info("[CM] : getMaxTime() maxTime for dcc = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.JOIN) {
             maxHits = Integer.parseInt(ChannelManager.joinRatio.substring(ChannelManager.joinRatio.indexOf(":")+1)) * 1000;
-            if (debug) System.out.println("[CM] : getMaxTime() maxTime for join = " + maxHits);
+            log.info("[CM] : getMaxTime() maxTime for join = " + maxHits);
         }
         return maxHits;
     }
@@ -382,19 +379,17 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param event Event type as defined in org.javabot.util.MyObserver.
      */    
     public void notifyEvent(int event) {
-        if (debug) System.out.println("[CM] : notifyEvent(chanlimit) for event " + event);
+        log.info("[CM] : notifyEvent(chanlimit) for event " + event);
         if (event == org.javabot.security.SecurityManager.CHAN_LIMIT) {
-            if (debug) System.out.println("[CM] : notifyEvent() event is CHAN_LIMIT");
+            log.info("[CM] : notifyEvent() event is CHAN_LIMIT");
             // int namesCount = channelUsers.size();
             if ((lastNamesCount != namesCount) || (namesCount == 0)) {
-                if (debug) {
-                    System.out.println("[CM] : notifyEvent() lastNamesCount does not equal namesCount or namesCount is 0 ... changing channel limit");
-                    System.out.println("[CM] : notifyEvent() namesCount is " + namesCount);
-                    System.out.println("[CM] : notifyEvent() lastNamesCount is " + lastNamesCount);
-                }
+                log.info("notifyEvent() lastNamesCount does not equal namesCount or namesCount is 0 ... changing channel limit");
+                log.info("notifyEvent() namesCount is " + namesCount);
+                log.info("notifyEvent() lastNamesCount is " + lastNamesCount);
                 IRCCommands.changeChannelLimit(channel, namesCount + this.getMaxHits(org.javabot.security.FloodCounter.JOIN), outbound);
                 lastNamesCount = namesCount;
-                if (debug) System.out.println("[CM] : notifyEvent() lastNamesCount set to " + lastNamesCount);
+                log.info("notifyEvent() lastNamesCount set to " + lastNamesCount);
             }
         }
     }

@@ -35,6 +35,7 @@ public class KickMessage implements MessageInterface {
 
     /** Creates new KickMessage */
     public KickMessage() {
+        log.info("KickMessage() called");
     }
 
     public int getMessageType() {

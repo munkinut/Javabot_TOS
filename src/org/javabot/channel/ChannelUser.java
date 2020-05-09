@@ -44,7 +44,7 @@ public class ChannelUser {
      * @param nick User nickname.
      */
     public ChannelUser(String nick) {
-        if (debug) System.out.println("[CU] : ChannelUser() called for user " + nick);
+        log.info("ChannelUser() called for user " + nick);
         this.nick = nick;
         this.ignore = false;
     }
@@ -67,7 +67,7 @@ public class ChannelUser {
      * @param nick User nickname.
      */    
     public void setNick(String nick) {
-        if (debug) System.out.println("[CU] : setNick() called with nick = " + nick);
+        log.info("setNick() called with nick = " + nick);
         this.nick = nick;
     }
     
@@ -75,7 +75,7 @@ public class ChannelUser {
      * @return User nickname.
      */    
     public String getNick() {
-        if (debug) System.out.println("[CU] : getNick() called");
+        log.info("getNick() called");
         return this.nick;
     }
     

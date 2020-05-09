@@ -31,6 +31,7 @@ public class PingMessage implements MessageInterface {
 
     /** Creates new PingMessage */
     public PingMessage() {
+        log.info("PingMessage() called");
     }
 
     public int getMessageType() {

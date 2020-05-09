@@ -34,6 +34,7 @@ public class PrivmsgMessage implements MessageInterface {
 
     /** Creates new PrivmsgMessage */
     public PrivmsgMessage() {
+        log.info("PrivmsgMessage() called");
     }
 
     public int getMessageType() {

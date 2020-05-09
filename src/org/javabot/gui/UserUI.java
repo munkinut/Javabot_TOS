@@ -31,6 +31,7 @@ public class UserUI extends javax.swing.JFrame {
     
     /** Creates new form UserUI */
     public UserUI() {
+        log.info("UserUI() called");
         userUIConfigurator = new UserUIConfigurator();
         initComponents();
         // setJMenuBar(this.userUIMenuBar);
@@ -340,6 +341,7 @@ public class UserUI extends javax.swing.JFrame {
     }//GEN-END:initComponents
 
     private void clearForms() {
+        log.info("clearForms() called");
         this.botnickTextField.setText("");
         this.hostmaskTextField.setText("");
         this.passwordTextField.setText("");

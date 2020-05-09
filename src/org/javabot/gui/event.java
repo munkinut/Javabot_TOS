@@ -28,8 +28,8 @@ class event extends java.awt.event.WindowAdapter {
     Logger log = Logger.getLogger(this.getClass().getName());
 
     public void windowClosing(java.awt.event.WindowEvent e) {
-    
-      System.exit(0);
+        log.info("windowClosing() called. Exiting");
+        System.exit(0);
     }
  
 	 

@@ -43,7 +43,8 @@ public class ScriptResource {
         String nick,
         String hostmask,
         ArrayList<String> params) {
-            
+
+        log.info("ScriptResource() called");
             this.outbound = outbound;
             this.channel = channel;
             this.nick = nick;

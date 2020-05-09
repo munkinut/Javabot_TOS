@@ -21,6 +21,8 @@
 package org.javabot.engine;
 
 import org.javabot.configuration.PropertyManager;
+import org.javabot.security.Ban;
+import org.javabot.security.Bans;
 import org.javabot.user.User;
 import org.javabot.user.Users;
 import org.javabot.util.BanPager;
@@ -109,6 +111,7 @@ public class inbound extends Thread {
      * @param consoleOutput Console for output messages
      */    
     public inbound(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
+        log.info("inbound() called");
         this.ircsocket = ircsocket;
         this.consoleOutput = consoleOutput;
         /* Manages the properties file
@@ -139,6 +142,7 @@ public class inbound extends Thread {
     /** Closes connections
      */    
     public void quit() {
+        log.info("quit() called");
         if (outbound != null) {
             cm.removeAllChannelUsers();
             cm.killTimer();
@@ -151,7 +155,8 @@ public class inbound extends Thread {
      * @return Success flag
      */    
     public boolean connect() {
-        if (!this.connected) {
+        log.info("comnect() called");
+        if (this.connected == false) {
             try {
                 outbound = new DataOutputStream(ircsocket.getOutputStream());
                 inbound = new BufferedReader(
@@ -177,14 +182,16 @@ public class inbound extends Thread {
                         consoleOutput.append(lineToWrite);
                         consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + lineToWrite.length());
                     
-                        if(inbound.readLine().equals("NOTICE AUTH :*** No ident response")){
+                        if(inbound.readLine().startsWith("NOTICE *")){
                             go++;
                         }
                     
                         if(go==1){
                             ping = inbound.readLine();
+                            log.info("Server says " + ping);
                             String quote = ping.substring(6);
-                            String all = "pong "+quote+"\n";
+                            String all = "PONG :"+quote+"\n";
+                            log.info("Sending " + all);
                             IRCCommands.writeBytes(all, outbound);
                         }
                     }
@@ -201,11 +208,12 @@ public class inbound extends Thread {
     /** Handle server messages
      */    
     public void run(){
-        
+        log.info("run() called");
         int timeLimit = 0;
         
         if (this.connect()) {
             try {
+                log.info("Attempting to join and set modes");
                 cm.join();
                 cm.setModes();
                 
@@ -227,6 +235,7 @@ public class inbound extends Thread {
                 }
             }
             catch (java.io.IOException ignored){
+                log.info("IOException caught : " + ignored.getMessage());
             }
         }
     }
@@ -236,6 +245,7 @@ public class inbound extends Thread {
      * @param messageT Message to examine
      */    
     private void handleMessage(org.javabot.message.MessageInterface messageT) {
+        log.info("handleMessage() called");
         if (messageT instanceof org.javabot.message.PingMessage) {
             this.handlePing(messageT);
         }
@@ -263,6 +273,7 @@ public class inbound extends Thread {
      * @param pingMessage Ping message
      */    
     private void handlePing(org.javabot.message.MessageInterface pingMessage) {
+        log.info("handlePing() called");
         String params = pingMessage.getParams();
         IRCCommands.pingpong(params, outbound);
     }
@@ -271,6 +282,7 @@ public class inbound extends Thread {
      * @param joinMessage Join message
      */    
     private void handleJoin(org.javabot.message.MessageInterface joinMessage) {
+        log.info("handleJoin() called");
         String nickFrom = joinMessage.getNick();
         String hostmask = joinMessage.getHostmask();
         String chan = joinMessage.getChannel();
@@ -298,6 +310,7 @@ public class inbound extends Thread {
      * @param partMessage Part message
      */    
     private void handlePart(org.javabot.message.MessageInterface partMessage) {
+        log.info("handlePart() called");
         String chan = partMessage.getChannel();
         String hostmask = partMessage.getHostmask();
         cm.removeChannelUser(hostmask);
@@ -308,6 +321,7 @@ public class inbound extends Thread {
      * @param quitMessage Quit message
      */    
     private void handleQuit(org.javabot.message.MessageInterface quitMessage) {
+        log.info("handleQuit() called");
         String chan = quitMessage.getChannel();
         String hostmask = quitMessage.getHostmask();
         cm.removeChannelUser(hostmask);
@@ -318,6 +332,7 @@ public class inbound extends Thread {
      * @param kickMessage Kick message
      */    
     private void handleKick(org.javabot.message.MessageInterface kickMessage) {
+        log.info("handleKick() called");
         String chan = kickMessage.getChannel();
         String hostmask = kickMessage.getHostmask();
         String msgTo = kickMessage.getMsgTo();
@@ -329,6 +344,7 @@ public class inbound extends Thread {
      * @param namesReplyMessage Namesreply message
      */    
     private void handleNamesReply(org.javabot.message.MessageInterface namesReplyMessage) {
+        log.info("handleNamesReply() called");
         String names = namesReplyMessage.getNames();
         StringTokenizer st = new StringTokenizer(names, " ");
         cm.setNamesCount(st.countTokens());
@@ -344,6 +360,7 @@ public class inbound extends Thread {
      * @param privmsgMessage Privmsg message
      */    
     private void handlePrivmsg(org.javabot.message.MessageInterface privmsgMessage) {
+        log.info("handlePrivmsg() called");
         String nickFrom = privmsgMessage.getNick();
         String hostmask = privmsgMessage.getHostmask();
         String msgTo = privmsgMessage.getMsgTo();
@@ -374,6 +391,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handlePrivateCmd(String command, String nickFrom, String msgTo, String hostmask, ArrayList<String> params) {
+        log.info("handlePrivateCmd() called");
         if ((command.equals("auth")) && (params.size() == 3) && (msgTo.equals(nick))) {
             this.handleAuthCmd(nickFrom, hostmask, params);
         }
@@ -462,6 +480,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handlePublicCmd(String command, String nickFrom, String msgTo, String hostmask, ArrayList<String> params) {
+        log.info("handlePublicCmd() called");
         if ((command.equals("!opme")) && (params.size() == 1) && (msgTo.equals(channel))) {
             this.handlePubOpMeCmd(nickFrom, hostmask);
         }
@@ -486,6 +505,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleAuthCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleAuthCmd() called");
         String botnick = params.get(1);
         String botpass = params.get(2);
         if (um.auth(botnick, hostmask, botpass)) {
@@ -506,6 +526,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handlePassCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handlePassCmd() called");
         String oldpass = params.get(1);
         String newpass = params.get(2);
         if (um.pass(hostmask, oldpass, newpass)) {
@@ -519,6 +540,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleGreetCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleGreetCmd() called");
         StringBuilder greet = new StringBuilder();
         for (int i=1; i < params.size(); i++) {
             greet.append(params.get(i)).append(" ");
@@ -537,6 +559,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleFlagsCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleFlagsCmd() called");
         String botnick = params.get(1);
         String flags = params.get(2);
         char changer = flags.charAt(0);
@@ -601,6 +624,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleAddUserCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleAddUserCmd() called");
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.addUser(botnick)) {
@@ -615,6 +639,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleDelUserCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleDelUserCmd() called");
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.delUser(botnick)) {
@@ -629,6 +654,7 @@ public class inbound extends Thread {
      */    
     @SuppressWarnings("BusyWait")
     private void handleUsersCmd(String nickFrom, String hostmask) {
+        log.info("handleUsersCmd() called");
         if (um.userIsOp(hostmask)) {
             Users users = um.getUsers();
             if (users.getUsers().isEmpty()) {
@@ -662,6 +688,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleAddFriendCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleAddFriendCmd() called");
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.addFriend(botnick)) {
@@ -676,6 +703,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleAddVoiceCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleAddVoiceCmd() called");
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.addVoice(botnick)) {
@@ -690,6 +718,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleAddOpCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleAddOpCmd() called");
         String botnick = params.get(1);
         if (um.userIsMaster(hostmask)) {
             if (um.addOp(botnick)) {
@@ -704,6 +733,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleAddMasterCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleAddMasterCmd() called");
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.addMaster(botnick)) {
@@ -718,6 +748,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleDelFriendCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleDelFriendCmd() called");
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.delFriend(botnick)) {
@@ -732,6 +763,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleDelVoiceCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleDelVoiceCmd() called");
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.delVoice(botnick)) {
@@ -746,6 +778,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleDelOpCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleDelOpCmd() called");
         String botnick = params.get(1);
         if (um.userIsMaster(hostmask)) {
             if (um.delOp(botnick)) {
@@ -760,6 +793,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleDelMasterCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleDelMasterCmd() called");
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.delMaster(botnick)) {
@@ -773,6 +807,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleKickCmd(String hostmask, ArrayList<String> params) {
+        log.info("handleKickCmd() called");
         String nickToKick = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
@@ -785,6 +820,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleBanCmd(String hostmask, ArrayList<String> params) {
+        log.info("handleBanCmd() called");
         String banMask = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
@@ -797,6 +833,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleKickBanCmd(String hostmask, ArrayList<String> params) {
+        log.info("handleKickBanCmd() called");
         String nickToKick = params.get(1);
         String banMask = params.get(2);
         String chan = params.get(3);
@@ -812,6 +849,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleAddBanCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleAddBanCmd() called");
         String banMask = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
@@ -829,6 +867,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleDelBanCmd(String nickFrom, String hostmask, ArrayList<String> params) {
+        log.info("handleDelBanCmd() called");
         String banMask = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
@@ -844,6 +883,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleInviteCmd(String hostmask, ArrayList<String> params) {
+        log.info("handleInviteCmd() called");
         String nickname = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
@@ -856,6 +896,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handleUserfileCmd(String nickFrom, String hostmask) {
+        log.info("handleUserfileCmd() called");
         if (um.userIsOwner(hostmask)) {
             um.reloadUsers();
             IRCCommands.privmsg(nickFrom, "Userfile reloaded", outbound);
@@ -868,9 +909,11 @@ public class inbound extends Thread {
      */    
     @SuppressWarnings("BusyWait")
     private void handleBansCmd(String nickFrom, String hostmask) {
+        log.info("handleBansCmd() called");
         if (um.userIsOp(hostmask)) {
-            ArrayList<String> bans = bm.getBans();
-            if (bans.isEmpty()) {
+            Bans bans = bm.getBans();
+            ArrayList<Ban> banList = bans.getBans();
+            if (banList.isEmpty()) {
                 IRCCommands.privmsg(nickFrom, "Banlist empty", outbound);
             }
             else {
@@ -898,6 +941,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handleUnbanCmd(String hostmask, ArrayList<String> params) {
+        log.info("handleUnbanCmd() called");
         String banMask = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
@@ -910,6 +954,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handleVoiceMeCmd(String nickFrom, String hostmask) {
+        log.info("handleVoiceMeCmd() called");
         if (!autovoice && um.userIsVoice(hostmask)) {
             IRCCommands.autovoice(channel, nickFrom, outbound);
         }
@@ -920,6 +965,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handleOpMeCmd(String nickFrom, String hostmask) {
+        log.info("handleOpMeCmd() called");
         if (um.userIsOp(hostmask)) {
             IRCCommands.opme(channel, nickFrom, outbound);
         }
@@ -930,6 +976,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handlePubVoiceMeCmd(String nickFrom, String hostmask) {
+        log.info("handlePubVoiceCmd() called");
         if (!autovoice && um.userIsVoice(hostmask)) {
             IRCCommands.autovoice(channel,nickFrom,outbound);
         }
@@ -940,6 +987,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handlePubOpMeCmd(String nickFrom, String hostmask) {
+        log.info("handlePubOpMeCmd() called");
         if (opme && um.userIsOp(hostmask)) {
             IRCCommands.opme(channel,nickFrom,outbound);
         }
@@ -949,6 +997,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handlePubLcCmd(String hostmask) {
+        log.info("handlePubLcCmd() called");
         if (um.userIsOp(hostmask)) {
             IRCCommands.lockChannel(channel,outbound);
         }
@@ -958,6 +1007,7 @@ public class inbound extends Thread {
      * @param hostmask Originating hostmask
      */    
     private void handlePubUcCmd(String hostmask) {
+        log.info("handlePubUcCmd() called");
         if (um.userIsOp(hostmask)) {
             IRCCommands.unlockChannel(channel,outbound);
         }
@@ -970,6 +1020,7 @@ public class inbound extends Thread {
      * @param params Command parameters
      */    
     private void handlePubScriptCmd(String channel, String nick, String hostmask, ArrayList<String> params) {
+        log.info("handlePubScriptCmd() called");
         // script commands are handled by the ScriptHandler
         sh.handlePublicCmd(channel, nick, hostmask, params);
     }
@@ -979,6 +1030,7 @@ public class inbound extends Thread {
      * @return ArrayList of command parameters
      */    
     private ArrayList parseCommand(String params) {
+        log.info("parseCommand() called");
         ArrayList<String> v = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(params, " ");
         String token;
@@ -995,6 +1047,7 @@ public class inbound extends Thread {
      * @return ArrayList containing just parameters
      */    
     private ArrayList parseParams(ArrayList cmd) {
+        log.info("parseParams() called");
         ArrayList<String> v = new ArrayList();
         if (cmd.size() > 1) {
             v.addAll(cmd.subList(1,cmd.size()));

@@ -32,6 +32,7 @@ public class jmenue extends javax.swing.JFrame {
 
     /** Creates new form jmenue */
     public jmenue() {
+        log.info("jmenue() called");
         initComponents ();
         setJMenuBar(this.connectionMenuBar);
         pack ();

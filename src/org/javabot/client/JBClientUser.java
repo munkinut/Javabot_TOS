@@ -26,8 +26,6 @@ import java.util.logging.Logger;
  */
 public class JBClientUser {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
-
     /** Creates a new JBClientUser.
      */    
     public JBClientUser() {

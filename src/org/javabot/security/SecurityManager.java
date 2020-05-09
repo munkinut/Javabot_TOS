@@ -50,7 +50,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
 
     /** Creates new SecurityManager */
     public SecurityManager() {
-        if (debug) System.out.println("[SM] : Security Manager created");
+        log.info("[SM] : Security Manager created");
         org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
         SecurityManager.privmsgRatio = pm.getPrivmsgRatio();
         SecurityManager.chanmsgRatio = pm.getChanmsgRatio();
@@ -69,19 +69,19 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     }
     
     public void addFlooder(String hostmask) {
-        if (debug) System.out.println("[SM] : addFlooder() called ... adding " + hostmask);
+        log.info("[SM] : addFlooder() called ... adding " + hostmask);
         this.flooders.put(hostmask, new FloodCounter());
     }
     
     public void removeFlooder(String hostmask) {
-        if (debug) System.out.println("[SM] : removeFlooder() called ... removing " + hostmask);
+        log.info("[SM] : removeFlooder() called ... removing " + hostmask);
         FloodCounter fc = flooders.get(hostmask);
         fc.kill();
         this.flooders.remove(hostmask);
     }
     
     public void addIgnore(String hostmask) {
-        if (debug) System.out.println("[SM] : addIgnore() called");
+        log.info("[SM] : addIgnore() called");
         this.ignoreList.add(hostmask);
         org.javabot.task.IgnoreTask it = new org.javabot.task.IgnoreTask(hostmask);
         it.registerInterest(this);
@@ -91,102 +91,102 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     }
     
     public void removeIgnore(String hostmask) {
-        if (debug) System.out.println("[SM] : removeIgnore() called");
+        log.info("[SM] : removeIgnore() called");
         this.ignoreList.remove(hostmask);
     }
     
     public boolean isIgnored(String hostmask) {
-        if (debug) System.out.println("[SM] : isIgnored() called");
+        log.info("[SM] : isIgnored() called");
         return this.ignoreList.contains(hostmask);
     }
     
     public void hitFloodCounter(int floodType, String hostmask) {
-        if (debug) System.out.println("[SM] : hitFloodCounter() called : floodType = " + floodType + ", hostmask = " + hostmask);
+        log.info("[SM] : hitFloodCounter() called : floodType = " + floodType + ", hostmask = " + hostmask);
         if (!flooders.containsKey(hostmask)) {
             this.addFlooder(hostmask);
         }
         int maxHits = this.getMaxHits(floodType);
-        if (debug) System.out.println("[SM] : hitFloodCounter() maxHits contains " + maxHits);
+        log.info("[SM] : hitFloodCounter() maxHits contains " + maxHits);
         FloodCounter fc = flooders.get(hostmask);
         fc.increment(floodType);
         if (fc.get(floodType) >= maxHits) {
             fc.incrementFloods();
             if (fc.getFloods() >= 5) {
-                if (debug) System.out.println("[SM] : hitFloodCounter() total floods >= 5");
+                log.info("[SM] : hitFloodCounter() total floods >= 5");
                 this.takeAction(FloodCounter.BAN, hostmask);
             }
             fc.reset(floodType);
-            if (debug) System.out.println("[SM] : hitFloodCounter() floodCounter for floodType " + floodType + " >= " + maxHits);
+            log.info("[SM] : hitFloodCounter() floodCounter for floodType " + floodType + " >= " + maxHits);
             this.takeAction(floodType, hostmask);
         }
     }
     
     public int getMaxHits(int floodType) {
-        if (debug) System.out.println("[SM] : getMaxHits() for floodType " + floodType);
+        log.info("[SM] : getMaxHits() for floodType " + floodType);
         int maxHits = 0;
         switch (floodType) {
             case FloodCounter.PRIVMSG:
                 maxHits = Integer.parseInt(SecurityManager.privmsgRatio.substring(0, SecurityManager.privmsgRatio.indexOf(":")));
-                if (debug) System.out.println("[SM] : getMaxHits() maxHits for privmsg = " + maxHits);
+                log.info("[SM] : getMaxHits() maxHits for privmsg = " + maxHits);
                 break;
             case FloodCounter.CHANMSG:
                 maxHits = Integer.parseInt(SecurityManager.chanmsgRatio.substring(0, SecurityManager.chanmsgRatio.indexOf(":")));
-                if (debug) System.out.println("[SM] : getMaxHits() maxHits for chanmsg = " + maxHits);
+                log.info("[SM] : getMaxHits() maxHits for chanmsg = " + maxHits);
                 break;
             case FloodCounter.CTCP:
                 maxHits = Integer.parseInt(SecurityManager.ctcpRatio.substring(0, SecurityManager.ctcpRatio.indexOf(":")));
-                if (debug) System.out.println("[SM] : getMaxHits() maxHits for ctcp = " + maxHits);
+                log.info("[SM] : getMaxHits() maxHits for ctcp = " + maxHits);
                 break;
             case FloodCounter.COLOUR:
                 maxHits = Integer.parseInt(SecurityManager.colourRatio.substring(0, SecurityManager.colourRatio.indexOf(":")));
-                if (debug) System.out.println("[SM] : getMaxHits() maxHits for colour = " + maxHits);
+                log.info("[SM] : getMaxHits() maxHits for colour = " + maxHits);
                 break;
             case FloodCounter.DCC:
                 maxHits = Integer.parseInt(SecurityManager.dccRatio.substring(0, SecurityManager.dccRatio.indexOf(":")));
-                if (debug) System.out.println("[SM] : getMaxHits() maxHits for dcc = " + maxHits);
+                log.info("[SM] : getMaxHits() maxHits for dcc = " + maxHits);
                 break;
             case FloodCounter.JOIN:
                 // maxHits = Integer.parseInt(SecurityManager.joinRatio.substring(0, SecurityManager.joinRatio.indexOf(":")));
-                if (debug) System.out.println("[SM] : getMaxHits() maxHits for join = " + maxHits);
+                log.info("[SM] : getMaxHits() maxHits for join = " + maxHits);
                 break;
         }
         return maxHits;
     }
 
     private void takeAction(int floodType, String hostmask) {
-        if (debug) System.out.println("[SM] : takeAction() for floodType = " + floodType + " against user " + hostmask);
+        log.info("[SM] : takeAction() for floodType = " + floodType + " against user " + hostmask);
         switch (floodType) {
             case FloodCounter.BAN -> {
-                if (debug) System.out.println("[SM] : takeAction() multiple flood ... banning");
+                log.info("[SM] : takeAction() multiple flood ... banning");
                 this.ban(floodType, hostmask);
             }
             case FloodCounter.PRIVMSG -> {
-                if (debug) System.out.println("[SM] : takeAction() privmsg flood ... ignoring");
+                log.info("[SM] : takeAction() privmsg flood ... ignoring");
                 this.addIgnore(hostmask);
             }
             case FloodCounter.CHANMSG -> {
-                if (debug) System.out.println("[SM] : takeAction() chanmsg flood ... kicking");
+                log.info("[SM] : takeAction() chanmsg flood ... kicking");
                 this.kick(floodType, hostmask);
             }
         }
     }
     
     private void kick(int floodType, String hostmask) {
-        if (debug) System.out.println("[SM] : kick() for floodType = " + floodType + " against user " + hostmask);
+        log.info("[SM] : kick() for floodType = " + floodType + " against user " + hostmask);
         for (int i = 0; i < observers.size(); i++) {
             observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
         }
     }
     
     private void ban(int floodType, String hostmask) {
-        if (debug) System.out.println("[SM] : ban() for floodType = " + floodType + " against user " + hostmask);
+        log.info("[SM] : ban() for floodType = " + floodType + " against user " + hostmask);
         for (int i = 0; i < observers.size(); i++) {
             observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
         }
     }
     
     private void skimFlooders() {
-        if (debug) System.out.println("[SM] : skimFlooders() called");
+        log.info("[SM] : skimFlooders() called");
         boolean skim;
         String hostmask;
         FloodCounter fc;
