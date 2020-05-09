@@ -21,24 +21,27 @@
 
 package org.javabot.user;
 
+import org.javabot.configuration.PropertyManager;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Properties;
 
 public class UserManager {
 
     private Users users;
+    private String usersPath;
 
     public UserManager() {
         String fs = java.io.File.separator;
-        String currentPath = System.getProperty("user.dir");
         boolean debug = true;
-        if (debug) System.out.println("[UM] : user.dir = " + currentPath);
-        String userfile = currentPath + fs + "config" + fs + "users.xml";
-        if (debug) System.out.println("[UM] : userfile = " + userfile);
+        Properties properties = PropertyManager.getInstance().getProperties();
+        usersPath = properties.getProperty("XML_Location");
+        if (debug) System.out.println("[UM] : userfile = " + usersPath);
         users = this.loadUsers();
         if (debug) {
 
@@ -365,7 +368,7 @@ public class UserManager {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
             // specify the location and name of xml file to be read
-            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\out\\users.xml");
+            File XMLfile = new File(usersPath);
 
             // this will create Java object - country from the XML file
             users = (Users) jaxbUnmarshaller.unmarshal(XMLfile);
@@ -395,7 +398,7 @@ public class UserManager {
             jaxbMarshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             //specify the location and name of xml file to be created
-            File XMLfile = new File("C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\out\\users.xml");
+            File XMLfile = new File(usersPath);
 
             // Writing to XML file
             jaxbMarshaller.marshal(users, XMLfile);
