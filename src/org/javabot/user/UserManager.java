@@ -28,7 +28,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -294,6 +293,7 @@ public class UserManager {
     }
 
     public boolean userIsOp(String hostmask) {
+        log.info("userIsOp() called with hostmask = " + hostmask);
         return this.userIs(hostmask, Flag.OP);
     }
     
@@ -306,6 +306,7 @@ public class UserManager {
     }
     
     public boolean userIsVoice(String hostmask) {
+        log.info("userIsVoice() called with hostmask = " + hostmask);
         return this.userIs(hostmask, Flag.VOICE);
     }
     
@@ -318,21 +319,49 @@ public class UserManager {
             return null;
         }
     }
+
+    private boolean testFlag(ArrayList<Flag> flags, String flagStr) {
+        log.info("testFlag() called with flagStr = " + flagStr);
+        boolean success = false;
+        for(Flag flag : flags) {
+            String flagName = flag.getName();
+            log.info("flagName was " + flagName);
+            boolean flagStrTest = flagName.equals(flagStr);
+            log.info("flagStrTest comes back " + flagStrTest);
+            boolean flagTest = flag.isTruth();
+            log.info("flagTest comes back " + flagTest);
+            if (flagStrTest && flagTest) {
+                log.info("Flag tests true");
+                success = true;
+            }
+            else {
+                log.info("Flag tests false");
+                success = false;
+            }
+            if (success == true) break;
+
+        }
+        return success;
+
+    }
     
-    private boolean userIs(String hostmask, String flag) {
+    private boolean userIs(String hostmask, String flagStr) {
+        log.info("userIs() called with hostmask = " + hostmask + " flagStr = " + flagStr);
         boolean success = false;
         User user = this.getUser(hostmask);
         if (user != null) {
-            switch (flag) {
+            log.info("user came back not null");
+            ArrayList<Flag> flags = user.getFlags().getFlags();
+            switch (flagStr) {
                 case Flag.FRIEND:
                     //if (user.isFriend()) {
                     //    success = true;
                     //}
                     break;
                 case Flag.OP:
-                    //if (user.isOp()) {
-                    //    success = true;
-                    //}
+                    log.info("case Flag.OP entered");
+                    success = testFlag(flags,flagStr);
+                    log.info("success is + " + success);
                     break;
                 case Flag.MASTER:
                     //if (user.isMaster()) {
@@ -345,11 +374,14 @@ public class UserManager {
                     //}
                     break;
                 case Flag.VOICE:
-                    //if (user.isVoice()) {
-                    //    success = true;
-                    //}
+                    log.info("case Flag.VOICE entered");
+                    success = testFlag(flags,flagStr);
+                    log.info("success is + " + success);
                     break;
             }
+        }
+        else {
+            log.info("user came back null");
         }
         return success;
     }

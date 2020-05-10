@@ -963,6 +963,7 @@ public class inbound extends Thread {
     private void handleVoiceMeCmd(String nickFrom, String hostmask) {
         log.info("handleVoiceMeCmd() called");
         if (!autovoice && um.userIsVoice(hostmask)) {
+        //if (um.userIsVoice(hostmask)) {
             IRCCommands.autovoice(channel, nickFrom, outbound);
         }
     }
@@ -977,6 +978,7 @@ public class inbound extends Thread {
             log.info("user is an op");
             IRCCommands.opme(channel, nickFrom, outbound);
         }
+        else log.info("user is not an op");
     }
     
     /** Handle public voiceme command
