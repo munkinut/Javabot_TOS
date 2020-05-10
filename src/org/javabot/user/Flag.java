@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.logging.Logger;
 
-@XmlRootElement(namespace = "net.munki.jaxb.Users")
+@XmlRootElement(namespace = "org.javabot.user.Users")
 @XmlType(propOrder = { "name", "truth"})
 public class Flag {
 

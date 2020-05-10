@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-@XmlRootElement(namespace = "net.munki.jaxb.Users")
+@XmlRootElement(namespace = "org.javabot.user.Users")
 public class Flags {
 
     Logger log = Logger.getLogger(this.getClass().getName());
