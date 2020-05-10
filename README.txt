@@ -7,7 +7,7 @@ Maintained by munki
 
 Contributors: munki, Torsten Born, Michael Oemler
 
-An IRC bot written in Java, now updated to compile with Java 14 to Java 9 level.
+An IRC bot written in Java, now updated to compile with Java 14 to Java 14 level.
 This is the predecessor of Javabot_TNG although it is better in some ways.
 It has more functionality and a GUI interface.
 
