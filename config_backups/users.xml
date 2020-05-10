@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<users xmlns:ns2="net.munki.jaxb.Users">
+<users xmlns:ns2="org.javabot.user.Users">
     <user>
         <nick>munki</nick>
         <password>munki123</password>
-        <hostmask>bibble</hostmask>
-        <greet>welcome</greet>
+        <hostmask>munki@9D3D6488.B3EFB4F9.8F756630.IP</hostmask>
+        <greet>Welcome munki</greet>
         <flags>
             <flag>
                 <name>FRIEND</name>
@@ -12,7 +12,7 @@
             </flag>
             <flag>
                 <name>OP</name>
-                <truth>false</truth>
+                <truth>true</truth>
             </flag>
             <flag>
                 <name>MASTER</name>
@@ -24,7 +24,7 @@
             </flag>
             <flag>
                 <name>VOICE</name>
-                <truth>false</truth>
+                <truth>true</truth>
             </flag>
         </flags>
     </user>
