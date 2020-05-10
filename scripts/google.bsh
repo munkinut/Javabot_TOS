@@ -3,7 +3,7 @@
 //
 // invoked using !<botnick> google <params>
 
-Vector params = scriptResource.getParams();
+ArrayList params = scriptResource.getParams();
 
 Socket sock;
 BufferedReader in;
@@ -13,8 +13,8 @@ String buffer = null;
 StringBuffer query = new StringBuffer();
 String param;
 
-for (int i = 0; i < params.size(); i++) {
-    param = (String)params.get(i);
+for (int i = 0; i < params.size(); i++) { // Changed params from a Vector to an ArrayList
+    param = (String)params.get(i);        // so this code might need altering to suit.
     query.append(param);
     query.append("+");
 }
