@@ -22,6 +22,8 @@
 package org.javabot.script;
 
 import bsh.*;
+import org.javabot.configuration.PropertyManager;
+
 import java.io.*;
 import java.util.*;
 import java.util.logging.Logger;
@@ -32,10 +34,15 @@ public class ScriptHandler {
 
     private final Interpreter interpreter;
     private final DataOutputStream outbound;
+    private final String scriptPath;
 
     /** Creates new ScriptHandler */
     public ScriptHandler(DataOutputStream outbound) {
         log.info("ScriptHandler() called");
+        Properties properties = PropertyManager.getInstance().getProperties();
+        scriptPath = properties.getProperty("Scripts_Location");
+        log.info("scriptPath = " + scriptPath);
+
         this.interpreter = new Interpreter();
         this.outbound = outbound;
     }
@@ -65,19 +72,8 @@ public class ScriptHandler {
     }
     
     private String pathToScript(String command) {
-        String fs = File.separator;
-        String currentPath = System.getProperty("user.dir");
-        //String currentPath = "d:\\projects\\javabot\\compiled";
-        String totalPath = currentPath + fs +
-                "org" +
-                fs +
-                "javabot" +
-                fs +
-                "scripts" +
-                fs +
-                command +
-                ".bsh";
-        log.info("Looking for scripts in " + totalPath);
+        String totalPath = scriptPath + command + ".bsh";
+        log.info("Looking for script at " + totalPath);
         return totalPath;
     }
 
