@@ -163,7 +163,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     /** Set the collection of channel users.
      * @param channelUsers Collection of channel users.  This is a Hashtable of ChannelUser objects keyed by hostmask.
      */    
-    public void setChannelUsers(Hashtable channelUsers) {
+    public void setChannelUsers(Hashtable<String, ChannelUser> channelUsers) {
         log.info("[CM] : setChannelUsers() sets channelUsers to \n\n" + channelUsers);
         this.channelUsers = channelUsers;
     }

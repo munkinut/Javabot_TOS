@@ -50,7 +50,7 @@ public class FloodCounter implements org.javabot.util.MyObserver {
     private int floods;
     
     private final java.util.Timer timer;
-    private final java.util.Vector floodTasks;
+    private final java.util.ArrayList<FloodTask> floodTasks;
 
     /** Creates new FloodCounter */
     public FloodCounter() {
@@ -63,7 +63,7 @@ public class FloodCounter implements org.javabot.util.MyObserver {
         join = 0;
         floods = 0;
         this.timer = new java.util.Timer(true);
-        this.floodTasks = new java.util.Vector();
+        this.floodTasks = new java.util.ArrayList<>();
         this.initFloodTasks();
     }
     
@@ -175,7 +175,7 @@ public class FloodCounter implements org.javabot.util.MyObserver {
             floodTask.cancel();
             log.info("[FC] : killFloodTasks() floodTask " + i + " cancelled");
         }
-        floodTasks.removeAllElements();
+        floodTasks.clear();
     }
     
     private void killTimer() {

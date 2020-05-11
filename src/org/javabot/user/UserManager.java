@@ -36,7 +36,7 @@ public class UserManager {
     Logger log = Logger.getLogger(this.getClass().getName());
 
     private Users users;
-    private String usersPath;
+    private final String usersPath;
 
     public UserManager() {
         //String fs = java.io.File.separator;

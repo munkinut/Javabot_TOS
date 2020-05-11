@@ -77,8 +77,8 @@ public class ScriptHandler {
         return totalPath;
     }
 
-    private ArrayList<String> parseParams(ArrayList cmd) {
-        ArrayList v = new ArrayList();
+    private ArrayList<String> parseParams(ArrayList<String> cmd) {
+        ArrayList<String> v = new ArrayList<>();
         if (cmd.size() > 1) {
             v.addAll(cmd.subList(1,cmd.size()));
         }

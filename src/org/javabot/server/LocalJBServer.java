@@ -27,10 +27,10 @@ public class LocalJBServer implements JBotnetInterface {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    private final java.util.Vector clients;
+    private final java.util.ArrayList<JBotnetInterface> clients;
 
     public LocalJBServer() {
-        clients = new java.util.Vector();
+        clients = new java.util.ArrayList();
     }
 
     public String getTime() {

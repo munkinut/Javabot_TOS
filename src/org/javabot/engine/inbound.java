@@ -1039,7 +1039,7 @@ public class inbound extends Thread {
      * @param params Command parameter string
      * @return ArrayList of command parameters
      */    
-    private ArrayList parseCommand(String params) {
+    private ArrayList<String> parseCommand(String params) {
         log.info("parseCommand() called");
         ArrayList<String> v = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(params, " ");
@@ -1056,7 +1056,7 @@ public class inbound extends Thread {
      * @param cmd ArrayList of command and parameters
      * @return ArrayList containing just parameters
      */    
-    private ArrayList parseParams(ArrayList cmd) {
+    private ArrayList<String> parseParams(ArrayList<String> cmd) {
         log.info("parseParams() called");
         ArrayList<String> v = new ArrayList();
         if (cmd.size() > 1) {
