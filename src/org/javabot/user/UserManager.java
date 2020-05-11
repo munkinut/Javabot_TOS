@@ -374,6 +374,8 @@ public class UserManager {
                     success = testFlag(flags,flagStr);
                     log.info("success is + " + success);
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + flagStr);
             }
         }
         else {

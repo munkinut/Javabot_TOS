@@ -566,6 +566,7 @@ public class IRCCommands {
                 case Calendar.THURSDAY -> day += "Thursday";
                 case Calendar.FRIDAY -> day += "Friday";
                 case Calendar.SATURDAY -> day += "Saturday";
+                default -> throw new IllegalStateException("Unexpected value: " + value);
             }
             
             int     year = cal.get(Calendar.YEAR);

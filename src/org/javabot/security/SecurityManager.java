@@ -168,6 +168,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
                 log.info("[SM] : takeAction() chanmsg flood ... kicking");
                 this.kick(floodType, hostmask);
             }
+            default -> throw new IllegalStateException("Unexpected value: " + floodType);
         }
     }
     
