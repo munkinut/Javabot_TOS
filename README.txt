@@ -15,3 +15,5 @@ The install and user docs can be found in the docs directory, although these are
 You might want to read those as they will tell you how to establish yourself as the bot owner by 
 creating a new default userfile. Alternatively, you can edit the existing user file by hand.
 
+Important YOU SHOULD NOT DEVELOP ON THIS BRANCH.  The present development branch is Javabot_TOS_3_devel. Check it out from the GitHub repo github.com/munkinut/Javabot_TOS.
+
