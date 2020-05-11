@@ -20,7 +20,7 @@
             </flag>
             <flag>
                 <name>OWNER</name>
-                <truth>false</truth>
+                <truth>true</truth>
             </flag>
             <flag>
                 <name>VOICE</name>
