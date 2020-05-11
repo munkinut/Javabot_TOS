@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 
 public class SecurityManager implements MyObserver, org.javabot.util.MyObservable {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     public static final int CHAN_LIMIT = 0;
     public static final int FLOOD = 1;

@@ -33,29 +33,25 @@ import java.util.logging.Logger;
 
 public class UserManager {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private Users users;
     private final String usersPath;
 
     public UserManager() {
         //String fs = java.io.File.separator;
-        boolean debug = true;
         Properties properties = PropertyManager.getInstance().getProperties();
         usersPath = properties.getProperty("Users_Location");
         log.info("[UM] : userfile = " + usersPath);
         users = this.loadUsers();
-        if (debug) {
-
-            ArrayList<User> userList = users.getUsers();
-            for(User user:userList) {
-                System.out.println(user.getNick());
-                System.out.println(user.getPassword());
-                System.out.println(user.getHostmask());
-                System.out.println(user.getGreet());
-            }
-
+        ArrayList<User> userList = users.getUsers();
+        for(User user:userList) {
+            log.info(user.getNick());
+            log.info(user.getPassword());
+            log.info(user.getHostmask());
+            log.info(user.getGreet());
         }
+
     }
     
     public boolean auth(String botnick, String hostmask, String pass) {
@@ -338,7 +334,7 @@ public class UserManager {
                 log.info("Flag tests false");
                 success = false;
             }
-            if (success == true) break;
+            if (success) break;
 
         }
         return success;

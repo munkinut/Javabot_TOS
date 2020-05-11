@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 
 public class FloodCounter implements org.javabot.util.MyObserver {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final boolean debug = false;
     
@@ -171,7 +171,7 @@ public class FloodCounter implements org.javabot.util.MyObserver {
         log.info("[FC] : killFloodTasks() called");
         FloodTask floodTask;
         for (int i = 0; i < this.floodTasks.size(); i++) {
-            floodTask = (FloodTask)this.floodTasks.get(i);
+            floodTask = this.floodTasks.get(i);
             floodTask.cancel();
             log.info("[FC] : killFloodTasks() floodTask " + i + " cancelled");
         }

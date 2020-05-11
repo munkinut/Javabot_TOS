@@ -30,7 +30,7 @@ import java.util.logging.Logger;
 
 public class UserUIConfigurator {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final org.javabot.user.UserManager um;
     private User currentNode;

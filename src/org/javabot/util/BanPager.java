@@ -27,7 +27,6 @@ import org.javabot.security.Bans;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.logging.Logger;
 
 /** Takes a ArrayList of objects and splits it into a set of smaller ArrayLists (pages).

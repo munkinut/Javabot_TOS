@@ -41,7 +41,7 @@ import java.util.logging.Logger;
  */
 public class inbound extends Thread {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Debug flag
      */    
@@ -156,7 +156,7 @@ public class inbound extends Thread {
      */    
     public boolean connect() {
         log.info("comnect() called");
-        if (this.connected == false) {
+        if (!this.connected) {
             try {
                 log.info("Connected was FALSE, attempting to connect");
                 outbound = new DataOutputStream(ircsocket.getOutputStream());
@@ -240,8 +240,8 @@ public class inbound extends Thread {
                     
                 }
             }
-            catch (java.io.IOException ignored){
-                log.info("IOException caught : " + ignored.getMessage());
+            catch (java.io.IOException ioe){
+                log.info("IOException caught : " + ioe.getMessage());
             }
         }
     }
@@ -579,7 +579,7 @@ public class inbound extends Thread {
                             IRCCommands.privmsg(nickFrom, "Friend flag added for "+botnick, outbound);
                         }
                     }
-                    else if (changer == '-') {
+                    else {
                         if (um.delFriend(botnick)) {
                             IRCCommands.privmsg(nickFrom, "Friend flag deleted for "+botnick, outbound);
                         }
@@ -591,7 +591,7 @@ public class inbound extends Thread {
                             IRCCommands.privmsg(nickFrom, "Voice flag added for "+botnick, outbound);
                         }
                     }
-                    else if (changer == '-') {
+                    else {
                         if (um.delVoice(botnick)) {
                             IRCCommands.privmsg(nickFrom, "Voice flag deleted for "+botnick, outbound);
                         }
@@ -603,7 +603,7 @@ public class inbound extends Thread {
                             IRCCommands.privmsg(nickFrom, "Op flag added for "+botnick, outbound);
                         }
                     }
-                    else if (changer == '-') {
+                    else {
                         if (um.delOp(botnick)) {
                             IRCCommands.privmsg(nickFrom, "Op flag deleted for "+botnick, outbound);
                         }
@@ -615,7 +615,7 @@ public class inbound extends Thread {
                             IRCCommands.privmsg(nickFrom, "Master flag added for "+botnick, outbound);
                         }
                     }
-                    else if (changer == '-') {
+                    else {
                         if (um.delMaster(botnick)) {
                             IRCCommands.privmsg(nickFrom, "Master flag deleted for "+botnick, outbound);
                         }
@@ -1058,7 +1058,7 @@ public class inbound extends Thread {
      */    
     private ArrayList<String> parseParams(ArrayList<String> cmd) {
         log.info("parseParams() called");
-        ArrayList<String> v = new ArrayList();
+        ArrayList<String> v = new ArrayList<>();
         if (cmd.size() > 1) {
             v.addAll(cmd.subList(1,cmd.size()));
         }

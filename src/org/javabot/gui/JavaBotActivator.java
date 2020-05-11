@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public class JavaBotActivator {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final boolean debug = false;
 
@@ -47,7 +47,7 @@ public class JavaBotActivator {
         return connected;
     }
     
-    public boolean connect() {
+    public void connect() {
         log.info("connect() called");
         try {
             if (!connected) {
@@ -69,7 +69,6 @@ public class JavaBotActivator {
             connected = false;
             // System.exit(1);
         }
-        return connected;
     }
     
     public boolean disconnect() {

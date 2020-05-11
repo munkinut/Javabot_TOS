@@ -20,8 +20,6 @@
  */
 package org.javabot.client;
 
-import java.util.logging.Logger;
-
 /** Test client for JavaBot RMI Botnet.
  */
 public class JBClientUser {

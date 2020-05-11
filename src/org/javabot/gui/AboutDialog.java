@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 
 public class AboutDialog extends javax.swing.JDialog {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Creates new form AboutDialog */
     public AboutDialog(java.awt.Frame parent,boolean modal) {

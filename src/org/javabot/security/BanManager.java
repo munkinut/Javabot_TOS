@@ -23,14 +23,11 @@ package org.javabot.security;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 import gnu.regexp.*;
 import org.javabot.configuration.PropertyManager;
-import org.javabot.user.User;
-import org.javabot.user.Users;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -38,38 +35,29 @@ import javax.xml.bind.Unmarshaller;
 
 public class BanManager {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final String banfile;
     private final Bans bans;
 
     public BanManager() {
         //String fs = java.io.File.separator;
-        boolean debug = true;
         Properties properties = PropertyManager.getInstance().getProperties();
         banfile = properties.getProperty("Bans_Location");
         log.info("banfile = " + banfile);
         bans = this.loadBans();
-        ArrayList<Ban> bans = new ArrayList<>();
-        for (Object ban : bans) {
-            String banmask = (String) ban;
-            System.out.println(banmask);
-        }
     }
     
     public boolean addBan(String banmask) {
-        boolean success = false;
         bans.getBans().add(new Ban(banmask));
         this.saveBans();
-        success = true;
-        return success;
+        return true;
     }
     
     public boolean delBan(String banmask) {
-        boolean success = true;
         //bans.getBans().add(new Ban(banmask));
         //this.saveBans();
-        return success;
+        return true;
     }
     
     public boolean matches(String hostmask) {

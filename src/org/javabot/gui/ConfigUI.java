@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public class ConfigUI extends javax.swing.JFrame {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final boolean debug = false;
     private final org.javabot.gui.Configurator cf;

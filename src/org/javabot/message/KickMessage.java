@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public class KickMessage implements MessageInterface {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private String nick;
     private String hostmask;

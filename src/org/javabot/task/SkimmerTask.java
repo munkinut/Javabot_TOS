@@ -41,7 +41,7 @@ public class SkimmerTask extends java.util.TimerTask implements org.javabot.util
     
     public void run() {
         for (int i = 0; i < observers.size(); i++) {
-            ((org.javabot.util.MyObserver)(observers.get(i))).notifyEvent(org.javabot.security.SecurityManager.SKIM_FLOODERS);
+            observers.get(i).notifyEvent(org.javabot.security.SecurityManager.SKIM_FLOODERS);
         }
     }
     

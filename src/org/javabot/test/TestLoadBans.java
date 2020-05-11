@@ -2,16 +2,11 @@ package org.javabot.test;
 
 import org.javabot.security.Ban;
 import org.javabot.security.Bans;
-import org.javabot.user.Flag;
-import org.javabot.user.Flags;
-import org.javabot.user.User;
-import org.javabot.user.Users;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class TestLoadBans {

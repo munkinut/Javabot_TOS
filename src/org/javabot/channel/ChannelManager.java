@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  */
 public class ChannelManager implements org.javabot.util.MyObserver {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Channel users keyed by hostmask.
      */    
@@ -252,11 +252,10 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     public void removeAllChannelUsers() {
         log.info("[CM] : removeAllChannelUsers()");
         java.util.Enumeration e = channelUsers.keys();
-        ChannelUser user;
         String hostmask;
         while (e.hasMoreElements()) {
             hostmask = (String)e.nextElement();
-            user = channelUsers.remove(hostmask);
+            channelUsers.remove(hostmask);
         }
     }
     

@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 
 public class ScriptResource {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final DataOutputStream outbound;
     private final String channel;

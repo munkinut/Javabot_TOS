@@ -30,7 +30,7 @@ public class LocalJBServer implements JBotnetInterface {
     private final java.util.ArrayList<JBotnetInterface> clients;
 
     public LocalJBServer() {
-        clients = new java.util.ArrayList();
+        clients = new java.util.ArrayList<>();
     }
 
     public String getTime() {

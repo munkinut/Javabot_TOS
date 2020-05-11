@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 
 public class jmenue extends javax.swing.JFrame {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final JavaBotActivator jba;
 

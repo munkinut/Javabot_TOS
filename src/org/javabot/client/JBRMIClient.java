@@ -30,7 +30,7 @@ import org.javabot.server.JBotnetInterface;
  */
 public class JBRMIClient implements JBotnetInterface {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     org.javabot.server.JBSRemoteInterface remote;
     

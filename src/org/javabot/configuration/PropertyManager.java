@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class PropertyManager {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Busy flag to aid in thread synchronization
      */    
@@ -73,8 +73,8 @@ public class PropertyManager {
                 log.info("waiting");
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
-                log.info("Thread interrupted " + ignored.getMessage());
+            catch (java.lang.InterruptedException ie) {
+                log.info("Thread interrupted " + ie.getMessage());
             }
         }
         busy = true;
@@ -732,11 +732,9 @@ public class PropertyManager {
     }
     
     /** Writes properties to a file
-     * @return Success flag
      */    
-    public synchronized boolean writeProperties() {
+    public synchronized void writeProperties() {
         log.info("writeProperties() called");
-        boolean success = true;
         while (busy) {
             log.info("writeProperties() - BUSY ... waiting");
             try {
@@ -758,16 +756,15 @@ public class PropertyManager {
             out.close();
         }
         catch (java.io.FileNotFoundException fnfe) {
-            success = this.failProperties("Could not find Properties file : javabot.properties");
+            this.failProperties("Could not find Properties file : javabot.properties");
             // System.exit(1);
         }
         catch (java.io.IOException ioeStore) {
-            success = this.failProperties("Could not store or close Properties file : javabot.properties");
+            this.failProperties("Could not store or close Properties file : javabot.properties");
             // System.exit(1);
         }
         busy = false;
         notifyAll();
-        return success;
     }
     
     /** Read properties from a file

@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public class MessageFactory {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     // Constants describing different message types
     // From RFC2812
@@ -118,24 +118,25 @@ public class MessageFactory {
                 String channel = msg.substring(msg.indexOf(" ")+1);
                 returnMessage = this.createPartMessage(nick, hostmask, channel);
             }
-            else
-            if (msg.startsWith("KICK ")) {
-                String chanMsgTo = msg.substring(msg.indexOf(" ")+1, msg.indexOf(" :"));
-                String channel = chanMsgTo.substring(0, chanMsgTo.indexOf(" "));
-                String msgTo = chanMsgTo.substring(chanMsgTo.indexOf(" ")+1);
-                String params = msg.substring(msg.indexOf(":")+1);
-                returnMessage = this.createKickMessage(nick, hostmask, channel, msgTo, params);
-            }
-            else
-            if (msg.startsWith("QUIT ")) {
-                String channel = msg.substring(msg.indexOf(":")+1);
-                returnMessage = this.createQuitMessage(nick, hostmask, channel);
-            }
-            else
-            if (msg.startsWith("PRIVMSG ")) {
-                String msgTo = msg.substring(msg.indexOf(" ")+1, msg.indexOf(" :"));
-                String params = msg.substring(msg.indexOf(":")+1);
-                returnMessage = this.createPrivmsgMessage(nick, hostmask, msgTo, params);
+            else {
+                if (msg.startsWith("KICK ")) {
+                    String chanMsgTo = msg.substring(msg.indexOf(" ") + 1, msg.indexOf(" :"));
+                    String channel = chanMsgTo.substring(0, chanMsgTo.indexOf(" "));
+                    String msgTo = chanMsgTo.substring(chanMsgTo.indexOf(" ")+1);
+                    String params = msg.substring(msg.indexOf(":")+1);
+                    returnMessage = this.createKickMessage(nick, hostmask, channel, msgTo, params);
+                }
+                else
+                if (msg.startsWith("QUIT ")) {
+                    String channel = msg.substring(msg.indexOf(":")+1);
+                    returnMessage = this.createQuitMessage(nick, hostmask, channel);
+                }
+                else
+                if (msg.startsWith("PRIVMSG ")) {
+                    String msgTo = msg.substring(msg.indexOf(" ") + 1, msg.indexOf(" :"));
+                    String params = msg.substring(msg.indexOf(":")+1);
+                    returnMessage = this.createPrivmsgMessage(nick, hostmask, msgTo, params);
+                }
             }
         }
         else {
