@@ -110,7 +110,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param channel Channel to be managed.
      */    
     public void setChannel(String channel) {
-        log.info("[CM] : setChannel() sets channel to " + channel);
+        log.info("setChannel() sets channel to " + channel);
         this.channel = channel;
     }
 
@@ -118,7 +118,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param initialModes Initial channel modes.
      */    
     public void setInitialModes(String initialModes) {
-        log.info("[CM] : setInitialModes() sets initialModes to " + initialModes);
+        log.info("setInitialModes() sets initialModes to " + initialModes);
         this.initialModes = initialModes;
     }
 
@@ -126,7 +126,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Name of the channel being managed.
      */    
     public String getChannel() {
-        log.info("[CM] : getChannel() returns " + channel);
+        log.info("getChannel() returns " + channel);
         return this.channel;
     }
     
@@ -134,7 +134,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Initial modes for the channel being managed.
      */    
     public String getInitialModes() {
-        log.info("[CM] : getInitialModes() returns " + initialModes);
+        log.info("getInitialModes() returns " + initialModes);
         return this.initialModes;
     }
     
@@ -142,7 +142,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return The collection of channel users.  This is a Hashtable keyed by hostmask.
      */    
     public Hashtable<String, ChannelUser> getChannelUsers() {
-        log.info("[CM] : getChannelUsers() returns \n\n" + channelUsers);
+        log.info("getChannelUsers() returns \n\n" + channelUsers);
         return this.channelUsers;
     }
     
@@ -151,10 +151,10 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return ChannelUser object.
      */    
     public ChannelUser getChannelUser(String hostmask) {
-        log.info("[CM] : getChannelUser() hostmask = " + hostmask);
+        log.info("getChannelUser() hostmask = " + hostmask);
         ChannelUser channelUser = null;
         if (channelUsers.containsKey(hostmask)) {
-            log.info("[CM] : getChannelUser() channelUsers contains " + hostmask);
+            log.info("getChannelUser() channelUsers contains " + hostmask);
             channelUser = channelUsers.get(hostmask);
         }
         return channelUser;
@@ -164,7 +164,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param channelUsers Collection of channel users.  This is a Hashtable of ChannelUser objects keyed by hostmask.
      */    
     public void setChannelUsers(Hashtable<String, ChannelUser> channelUsers) {
-        log.info("[CM] : setChannelUsers() sets channelUsers to \n\n" + channelUsers);
+        log.info("setChannelUsers() sets channelUsers to \n\n" + channelUsers);
         this.channelUsers = channelUsers;
     }
     
@@ -173,16 +173,16 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param nick Nickname of channel user.
      */    
     public void addChannelUser(String hostmask, String nick) {
-        log.info("[CM] : addChannelUser() hostmask = " + hostmask + ", nick = " + nick);
+        log.info("addChannelUser() hostmask = " + hostmask + ", nick = " + nick);
         if (!channelUsers.containsKey(hostmask)) {
-            log.info("[CM] : addChannelUser() channelUsers does not contain " + hostmask + " ... adding");
+            log.info("addChannelUser() channelUsers does not contain " + hostmask + " ... adding");
             this.channelUsers.put(hostmask, new ChannelUser(nick));
         }
         else {
-            log.info("[CM] : addChannelUser() channelUsers already contains " + hostmask);
+            log.info("addChannelUser() channelUsers already contains " + hostmask);
             ChannelUser user = this.channelUsers.get(hostmask);
             if (!user.getNick().equals(nick)) {
-                log.info("[CM] : addChannelUser() nick does not match for " + hostmask + " ... changing to " + nick);
+                log.info("addChannelUser() nick does not match for " + hostmask + " ... changing to " + nick);
                 user.setNick(nick);
             }
         }
@@ -193,9 +193,9 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param nick New nickname.
      */    
     public void changeChannelUserNick(String hostmask, String nick) {
-        log.info("[CM] : changeChannelUserNick() hostmask = " + hostmask + ", nick = " + nick);
+        log.info("changeChannelUserNick() hostmask = " + hostmask + ", nick = " + nick);
         if (channelUsers.containsKey(hostmask)) {
-            log.info("[CM] : changeChannelUserNick() channelUsers contains " + hostmask);
+            log.info("changeChannelUserNick() channelUsers contains " + hostmask);
             ChannelUser user = channelUsers.get(hostmask);
             user.setNick(nick);
         }
@@ -221,9 +221,9 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param hostmask Hostmask of channel user to remove.
      */    
     public void removeChannelUser(String hostmask) {
-        log.info("[CM] : removeChannelUser() hostmask = " + hostmask);
+        log.info("removeChannelUser() hostmask = " + hostmask);
         if (channelUsers.containsKey(hostmask)) {
-            log.info("[CM] : removeChannelUser() channelUsers contains " + hostmask + " ... removing");
+            log.info("removeChannelUser() channelUsers contains " + hostmask + " ... removing");
             ChannelUser user = this.channelUsers.remove(hostmask);
         }
     }
@@ -232,7 +232,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param nick Nickname of channel user to remove.
      */    
     public void removeChannelUserByNick(String nick) {
-        log.info("[CM] : removeChannelUserByNick() nick = " + nick);
+        log.info("removeChannelUserByNick() nick = " + nick);
         java.util.Enumeration e = channelUsers.keys();
         ChannelUser user;
         String hostmask;
@@ -240,7 +240,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
             hostmask = (String)e.nextElement();
             user = channelUsers.get(hostmask);
             if (user.getNick().equals(nick)) {
-                log.info("[CM] : removeChannelUserByNick() channelUsers contains " + nick + " ... removing");
+                log.info("removeChannelUserByNick() channelUsers contains " + nick + " ... removing");
                 ChannelUser channelUser = channelUsers.remove(hostmask);
                 break;
             }
@@ -250,7 +250,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     /** Remove all channel users.
      */    
     public void removeAllChannelUsers() {
-        log.info("[CM] : removeAllChannelUsers()");
+        log.info("removeAllChannelUsers()");
         java.util.Enumeration e = channelUsers.keys();
         String hostmask;
         while (e.hasMoreElements()) {
@@ -262,7 +262,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     /** Limit channel according to the join ratio.
      */    
     public void limitChannel(){
-        log.info("[CM] : limitChannel()");
+        log.info("limitChannel()");
         org.javabot.task.ChanLimitTask chanLimitTask = new org.javabot.task.ChanLimitTask();
         chanLimitTask.registerInterest(this);
         timer.scheduleAtFixedRate(chanLimitTask, 0, this.getMaxTime(org.javabot.security.FloodCounter.JOIN));
@@ -273,31 +273,31 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Maximum number of hits allowed for flood type.
      */    
     public int getMaxHits(int floodType) {
-        log.info("[CM] : getMaxHits() for floodType " + floodType);
+        log.info("getMaxHits() for floodType " + floodType);
         int maxHits = 0;
         if (floodType == org.javabot.security.FloodCounter.PRIVMSG) {
             // maxHits = Integer.parseInt(ChannelManager.privmsgRatio.substring(0, ChannelManager.privmsgRatio.indexOf(":")));
-            log.info("[CM] : getMaxHits() maxHits for privmsg = " + maxHits);
+            log.info("getMaxHits() maxHits for privmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CHANMSG) {
             // maxHits = Integer.parseInt(ChannelManager.chanmsgRatio.substring(0, ChannelManager.chanmsgRatio.indexOf(":")));
-            log.info("[CM] : getMaxHits() maxHits for chanmsg = " + maxHits);
+            log.info("getMaxHits() maxHits for chanmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CTCP) {
             // maxHits = Integer.parseInt(ChannelManager.ctcpRatio.substring(0, ChannelManager.ctcpRatio.indexOf(":")));
-            log.info("[CM] : getMaxHits() maxHits for ctcp = " + maxHits);
+            log.info("getMaxHits() maxHits for ctcp = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.COLOUR) {
             // maxHits = Integer.parseInt(ChannelManager.colourRatio.substring(0, ChannelManager.colourRatio.indexOf(":")));
-            log.info("[CM] : getMaxHits() maxHits for colour = " + maxHits);
+            log.info("getMaxHits() maxHits for colour = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.DCC) {
             // maxHits = Integer.parseInt(ChannelManager.dccRatio.substring(0, ChannelManager.dccRatio.indexOf(":")));
-            log.info("[CM] : getMaxHits() maxHits for dcc = " + maxHits);
+            log.info("getMaxHits() maxHits for dcc = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.JOIN) {
             maxHits = Integer.parseInt(ChannelManager.joinRatio.substring(0, ChannelManager.joinRatio.indexOf(":")));
-            log.info("[CM] : getMaxHits() maxHits for join = " + maxHits);
+            log.info("getMaxHits() maxHits for join = " + maxHits);
         }
         return maxHits;
     }
@@ -307,31 +307,31 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @return Maximum time frame within which maximum hits are allowed for flood type.
      */    
     public int getMaxTime(int floodType) {
-        log.info("[CM] : getMaxTime() for floodType " + floodType);
+        log.info("getMaxTime() for floodType " + floodType);
         int maxHits = 0;
         if (floodType == org.javabot.security.FloodCounter.PRIVMSG) {
             // maxHits = Integer.parseInt(ChannelManager.privmsgRatio.substring(ChannelManager.privmsgRatio.indexOf(":")+1)) * 1000;
-            log.info("[CM] : getMaxTime() maxTime for privmsg = " + maxHits);
+            log.info("getMaxTime() maxTime for privmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CHANMSG) {
             // maxHits = Integer.parseInt(ChannelManager.chanmsgRatio.substring(ChannelManager.chanmsgRatio.indexOf(":")+1)) * 1000;
-            log.info("[CM] : getMaxTime() maxTime for chanmsg = " + maxHits);
+            log.info("getMaxTime() maxTime for chanmsg = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.CTCP) {
             // maxHits = Integer.parseInt(ChannelManager.ctcpRatio.substring(ChannelManager.ctcpRatio.indexOf(":")+1)) * 1000;
-            log.info("[CM] : getMaxTime() maxTime for ctcp = " + maxHits);
+            log.info("getMaxTime() maxTime for ctcp = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.COLOUR) {
             // maxHits = Integer.parseInt(ChannelManager.colourRatio.substring(ChannelManager.colourRatio.indexOf(":")+1)) * 1000;
-            log.info("[CM] : getMaxTime() maxTime for colour = " + maxHits);
+            log.info("getMaxTime() maxTime for colour = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.DCC) {
             // maxHits = Integer.parseInt(ChannelManager.dccRatio.substring(ChannelManager.dccRatio.indexOf(":")+1)) * 1000;
-            log.info("[CM] : getMaxTime() maxTime for dcc = " + maxHits);
+            log.info("getMaxTime() maxTime for dcc = " + maxHits);
         }
         else if (floodType == org.javabot.security.FloodCounter.JOIN) {
             maxHits = Integer.parseInt(ChannelManager.joinRatio.substring(ChannelManager.joinRatio.indexOf(":")+1)) * 1000;
-            log.info("[CM] : getMaxTime() maxTime for join = " + maxHits);
+            log.info("getMaxTime() maxTime for join = " + maxHits);
         }
         return maxHits;
     }
@@ -378,9 +378,9 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param event Event type as defined in org.javabot.util.MyObserver.
      */    
     public void notifyEvent(int event) {
-        log.info("[CM] : notifyEvent(chanlimit) for event " + event);
+        log.info("notifyEvent(chanlimit) for event " + event);
         if (event == org.javabot.security.SecurityManager.CHAN_LIMIT) {
-            log.info("[CM] : notifyEvent() event is CHAN_LIMIT");
+            log.info("notifyEvent() event is CHAN_LIMIT");
             // int namesCount = channelUsers.size();
             if ((lastNamesCount != namesCount) || (namesCount == 0)) {
                 log.info("notifyEvent() lastNamesCount does not equal namesCount or namesCount is 0 ... changing channel limit");
