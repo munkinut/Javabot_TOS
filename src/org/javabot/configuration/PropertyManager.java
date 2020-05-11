@@ -787,11 +787,9 @@ public class PropertyManager {
         log.info("readProperties() - NOT BUSY ... reading");
         busy = true;
         try {
-            String fs = java.io.File.separator;
-            String currentPath = System.getProperty("user.dir");
-            log.info("[PM] : USER.DIR:" + currentPath);
-            String javabotProperties = currentPath + fs + "config" + fs + "javabot.properties";
-            log.info("[PM] : javabotProperties = " + javabotProperties);
+            String javabotProperties = System.getProperty("javabot.properties.file");
+            log.info("javabot.properties.file = " + javabotProperties);
+            log.info("javabotProperties = " + javabotProperties);
             java.io.FileInputStream in = new java.io.FileInputStream(javabotProperties);
             properties.load(in);
             in.close();
