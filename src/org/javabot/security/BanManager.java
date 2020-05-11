@@ -41,7 +41,7 @@ public class BanManager {
     Logger log = Logger.getLogger(this.getClass().getName());
 
     private final String banfile;
-    private Bans bans;
+    private final Bans bans;
 
     public BanManager() {
         //String fs = java.io.File.separator;

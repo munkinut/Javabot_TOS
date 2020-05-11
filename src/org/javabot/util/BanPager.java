@@ -38,8 +38,8 @@ public class BanPager {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    private Bans toPage;
-    private Hashtable<Integer, ArrayList> pages;
+    private final Bans toPage;
+    private final Hashtable<Integer, ArrayList> pages;
     private int pageIndex;
 
 /** Constructs a Pager.
