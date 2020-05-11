@@ -42,7 +42,7 @@ public class UserManager {
         //String fs = java.io.File.separator;
         Properties properties = PropertyManager.getInstance().getProperties();
         usersPath = properties.getProperty("Users_Location");
-        log.info("[UM] : userfile = " + usersPath);
+        log.info("userfile = " + usersPath);
         users = this.loadUsers();
         ArrayList<User> userList = users.getUsers();
         for(User user:userList) {
