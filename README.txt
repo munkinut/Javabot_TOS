@@ -7,8 +7,5 @@ Maintained by munki
 
 Contributors: munki, Torsten Born, Michael Oemler
 
-An IRC bot written in Java, now updated to compile with Java 14 to Java 14 level.
-This is the predecessor of Javabot_TNG although it is better in some ways.
-It has more functionality and a GUI interface.
+Please see the Project Wiki Read Me page which you can find here -> https://github.com/munkinut/Javabot_TOS/wiki/ReadMe
 
-The install and user docs can be found in the docs directory, although these are now out of date.
