@@ -72,7 +72,7 @@ public class ScriptHandler {
     }
     
     private String pathToScript(String command) {
-        String totalPath = scriptPath + command + ".bsh";
+        String totalPath = new StringBuilder(scriptPath).append(command).append(".bsh").toString();
         log.info("Looking for script at " + totalPath);
         return totalPath;
     }
