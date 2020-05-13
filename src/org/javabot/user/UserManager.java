@@ -408,12 +408,12 @@ public class UserManager {
 
             ArrayList<User> userList = users.getUsers();
             for(User user:userList) {
-                System.out.println("User: " + user.getNick() + " aged " + user.getHostmask());
+                log.info("User: " + user.getNick() + " aged " + user.getHostmask());
             }
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not unmarshal xml file : " + e.getMessage());
         }
         return users;
     }
@@ -440,7 +440,7 @@ public class UserManager {
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not marshal xml file : " + e.getMessage());
         }
 
 

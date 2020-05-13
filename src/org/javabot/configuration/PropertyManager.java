@@ -74,7 +74,7 @@ public class PropertyManager {
                 wait();
             }
             catch (java.lang.InterruptedException ie) {
-                log.info("Thread interrupted " + ie.getMessage());
+                log.warning("Thread interrupted " + ie.getMessage());
             }
         }
         busy = true;

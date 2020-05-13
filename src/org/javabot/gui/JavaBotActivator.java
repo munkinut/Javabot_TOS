@@ -60,12 +60,12 @@ public class JavaBotActivator {
             }
         }
         catch (java.net.UnknownHostException uhe){
-            System.err.println("UnknownHostException: " + uhe);
+            log.warning("UnknownHostException: " + uhe);
             connected = false;
             // System.exit(1);
         }
         catch (java.io.IOException ioe){
-            System.err.println("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
             connected = false;
             // System.exit(1);
         }
@@ -96,9 +96,11 @@ public class JavaBotActivator {
         //noinspection StatementWithEmptyBody
         if (this.disconnect()) {
             // tell us we disconnected ok
+            log.info("Disconnected OK");
         }
         else {
             // tell us we did not disconnect ok
+            log.info("Disconnected NOT OK");
         }
         return connected;
     }

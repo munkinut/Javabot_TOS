@@ -59,14 +59,14 @@ public class ScriptHandler {
                 interpreter.source(script);
             }
             catch (EvalError e) {
+                log.severe(e.getMessage());
                 e.printStackTrace();
             }
             catch (FileNotFoundException fnfe) {
-                System.err.println("Could not find script : " + script);
+                log.warning("Could not find script : " + script);
             }
             catch (IOException ioe) {
-                System.err.println("Could not read script : " + script);
-                ioe.printStackTrace();
+                log.warning("Could not read script : " + script);
             }
         }
     }

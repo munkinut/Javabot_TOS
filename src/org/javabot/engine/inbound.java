@@ -205,6 +205,7 @@ public class inbound extends Thread {
                 }
             }
             catch (java.io.IOException ioe){
+                log.warning("IOException caught : " + ioe.getMessage());
                 this.connected = false;
             }
         }
@@ -241,7 +242,7 @@ public class inbound extends Thread {
                 }
             }
             catch (java.io.IOException ioe){
-                log.info("IOException caught : " + ioe.getMessage());
+                log.warning("IOException caught : " + ioe.getMessage());
             }
         }
     }

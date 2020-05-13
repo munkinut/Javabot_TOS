@@ -83,7 +83,7 @@ public class BanManager {
             RE nickReg = new RE("\\*");
             hostmask = nickReg.substituteAll(hostmask, "\\S*");
         }
-        catch (gnu.regexp.REException ignored) {
+        catch (REException ignored) {
         }
         return hostmask;
     }
@@ -112,12 +112,12 @@ public class BanManager {
 
             ArrayList<Ban> banList = bans.getBans();
             for(Ban ban:banList) {
-                System.out.println("User: " + ban.getHostmask());
+                log.info("User: " + ban.getHostmask());
             }
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not unmarshal xml file : " + e.getMessage());
         }
         return bans;
     }
@@ -143,7 +143,7 @@ public class BanManager {
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not marshal xml file : " + e.getMessage());
         }
 
 

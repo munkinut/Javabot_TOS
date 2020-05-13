@@ -44,7 +44,7 @@ public class LocalJBServer implements JBotnetInterface {
     
     public void register(JBotnetInterface client) {
         clients.add(client);
-        System.out.println("Client registered");
+        log.info("Client registered");
     }
     
 }

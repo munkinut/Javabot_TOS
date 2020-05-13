@@ -42,7 +42,7 @@ public class IRCCommands {
         
         try {
             String ret = "PONG :" + response + "\r\n";
-            print("Sending " + ret);
+            print(ret);
             outbound.writeBytes(ret);
         }
         catch (IOException ioe) {
@@ -67,9 +67,9 @@ public class IRCCommands {
         try {
             String userRet = "user "+name+" 0 0 We will rock you\n";
             String nickRet = "nick "+nick+"\n";
-            print("Sending : " + userRet);
+            print(userRet);
             outbound.writeBytes(userRet);
-            print("Sending : " + nickRet);
+            print(nickRet);
             outbound.writeBytes(nickRet);
         }
         catch (IOException ioe) {
@@ -91,7 +91,7 @@ public class IRCCommands {
     public static void writeBytes(String all, DataOutputStream outbound) {
         
         try {
-            print("Sending : " + all);
+            print(all);
             outbound.writeBytes(all);
         }
         catch (IOException ioe) {
@@ -114,7 +114,7 @@ public class IRCCommands {
         
         try {
             String quitRet = "QUIT :" + quitMessage +"\r\n";
-            print("Sending : " + quitRet);
+            print(quitRet);
             outbound.writeBytes(quitRet);
         }
         catch (IOException ioe) {
@@ -137,7 +137,7 @@ public class IRCCommands {
     public static void privmsg(String to, String message,DataOutputStream outbound) {
         try {
             String msgRet = "PRIVMSG "+to+" :"+message+"\r\n";
-            print("Sending : " + msgRet);
+            print(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe){
@@ -160,7 +160,7 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +v " + nick + "\r\n";
-            print("Sending : " + msgRet);
+            print(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
@@ -183,7 +183,7 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +b " + banmask + "\r\n";
-            print("Sending : " + msgRet);
+            print(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
@@ -215,7 +215,7 @@ public class IRCCommands {
     }
 
     private static void print(String msg) {
-        System.out.println("Sending + " + msg);
+        System.out.println("Sending : " + msg);
     }
     //**
     //********************************************************************

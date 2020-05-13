@@ -73,7 +73,7 @@ public class ScriptResource {
             this.outbound.writeBytes("PRIVMSG " + this.nick +" :" + message + "\r\n");
         }
         catch (IOException ioe){
-            System.out.println("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
 
@@ -83,7 +83,7 @@ public class ScriptResource {
             this.outbound.writeBytes("PRIVMSG " + this.channel + " :" + message + "\r\n");
         }
         catch (IOException ioe) {
-            System.out.println("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
 
