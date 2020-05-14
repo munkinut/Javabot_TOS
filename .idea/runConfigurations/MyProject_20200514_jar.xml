@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MyProject-20200514.jar" type="JarApplication">
+    <option name="JAR_PATH" value="$PROJECT_DIR$/dist/lib/MyProject-20200514.jar" />
+    <option name="VM_PARAMETERS" value="-Djava.util.logging.config.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties -Djavabot.properties.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="ALTERNATIVE_JRE_PATH" value="14" />
+    <module name="Javabot_TOS" />
+    <method v="2" />
+  </configuration>
+</component>
