@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="groovy-3.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../apache-groovy-sdk-3.0.3/groovy-3.0.3/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../apache-groovy-sdk-3.0.3/groovy-3.0.3/lib" recursive="false" />
+  </library>
+</component>
