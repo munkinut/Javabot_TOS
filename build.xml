@@ -7,11 +7,15 @@
     <property name="build" location="out/production/Javabot_TOS"/>
     <property name="dist" location="dist"/>
     <property name="lib" location="lib"/>
+    <property name="images" location="images"/>
+    <property name="jarname" value="MyProject-20200514.jar"/>
+    <property name="loggingConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties"/>
+    <property name="javabotConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties"/>
 
     <path id="project.class.path">
         <!-- <pathelement location="lib/"/> -->
-        <fileset dir="lib" includes="*.jar"/>
-        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar"/>
+        <fileset dir="${lib}" includes="*.jar"/>
+        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar" excludes=""/>
         <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib\extras-jaxb" includes="*.jar"/>
     </path>
 
@@ -25,7 +29,15 @@
     <target name="compile" depends="init"
             description="compile the source">
         <!-- Compile the Java code from ${src} into ${build} -->
-        <javac srcdir="${src}" destdir="${build}" classpathref="project.class.path"/>
+        <javac srcdir="${src}" destdir="${build}" classpathref="project.class.path" />
+        <copy todir="${build}/org/javabot/gui">
+            <fileset dir="${src}/org/javabot/gui/">
+                <exclude name="**/*.java"/>
+                <include name="**/*.form"/>
+                <include name="**/*.gif"/>
+                <include name="**/*.ico"/>
+            </fileset>
+        </copy>
     </target>
 
     <target name="dist" depends="compile"
@@ -34,7 +46,22 @@
         <mkdir dir="${dist}/lib"/>
 
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}" manifest=""/>
+        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" manifest="Manifest.txt">
+            <!-- <fileset dir="${images}"/> -->
+            <fileset dir="${build}"/>
+        </jar>
+
+        <copy todir="${dist}/lib/" >
+            <fileset dir="${lib}">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib\extras-jaxb">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
     </target>
 
     <target name="clean"
@@ -43,4 +70,13 @@
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
     </target>
+
+    <path id="run.class.path">
+        <fileset dir="${dist}/lib" includes="*.jar"/>
+    </path>
+
+    <target name="run_jar">
+        <java fork="true" classpathref="run.class.path" jvmargs="-Djava.util.logging.config.file=${loggingConfig} -Djavabot.properties.file=${javabotConfig}" jar="${dist}/lib/${jarname}" />
+    </target>
+
 </project>
