@@ -1,0 +1,46 @@
+<project name="Javabot_TOS" default="dist" basedir=".">
+    <description>
+        Build file for Javabot_TOS
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="build" location="out/production/Javabot_TOS"/>
+    <property name="dist" location="dist"/>
+    <property name="lib" location="lib"/>
+
+    <path id="project.class.path">
+        <!-- <pathelement location="lib/"/> -->
+        <fileset dir="lib" includes="*.jar"/>
+        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar"/>
+        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib\extras-jaxb" includes="*.jar"/>
+    </path>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init"
+            description="compile the source">
+        <!-- Compile the Java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}" classpathref="project.class.path"/>
+    </target>
+
+    <target name="dist" depends="compile"
+            description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib"/>
+
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}" manifest=""/>
+    </target>
+
+    <target name="clean"
+            description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+</project>
