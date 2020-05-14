@@ -22,6 +22,10 @@
 package org.javabot.gui;
 
 import java.awt.*;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.logging.Logger;
 
 public class jmenue extends javax.swing.JFrame {
@@ -137,12 +141,12 @@ public class jmenue extends javax.swing.JFrame {
           getContentPane().add(consoleScrollPane, java.awt.BorderLayout.CENTER);
           
           getContentPane().add(consoleInput, java.awt.BorderLayout.SOUTH);
-          
-          conDisconButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/javabot/images/disconnected.gif")));
-          conDisconButton.setToolTipText("Click to Connect");
+
+            conDisconButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("disconnected.gif")));
+        conDisconButton.setToolTipText("Click to Connect");
           conDisconButton.setBorder(new javax.swing.border.EtchedBorder());
-          conDisconButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/javabot/images/connected.gif")));
-          conDisconButton.setName("");
+            conDisconButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("connected.gif")));
+        conDisconButton.setName("");
           conDisconButton.addActionListener(new java.awt.event.ActionListener() {
               public void actionPerformed(java.awt.event.ActionEvent evt) {
                   conDisconButtonActionPerformed(evt);
