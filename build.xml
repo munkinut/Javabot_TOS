@@ -8,7 +8,6 @@
     <property name="dist" location="dist"/>
     <property name="lib" location="lib"/>
     <property name="images" location="images"/>
-    <property name="jarname" value="MyProject-20200514.jar"/>
     <property name="loggingConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties"/>
     <property name="javabotConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties"/>
 
@@ -16,12 +15,9 @@
         <!-- <pathelement location="lib/"/> -->
         <fileset dir="${lib}" includes="*.jar"/>
         <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar" excludes=""/>
-        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib\extras-jaxb" includes="*.jar"/>
     </path>
 
     <target name="init">
-        <!-- Create the time stamp -->
-        <tstamp/>
         <!-- Create the build directory structure used by compile -->
         <mkdir dir="${build}"/>
     </target>
@@ -46,7 +42,7 @@
         <mkdir dir="${dist}/lib"/>
 
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" manifest="Manifest.txt">
+        <jar jarfile="${dist}/lib/javabot_tos.jar" manifest="Manifest.txt">
             <!-- <fileset dir="${images}"/> -->
             <fileset dir="${build}"/>
         </jar>
@@ -76,7 +72,7 @@
     </path>
 
     <target name="run_jar">
-        <java fork="true" classpathref="run.class.path" jvmargs="-Djava.util.logging.config.file=${loggingConfig} -Djavabot.properties.file=${javabotConfig}" jar="${dist}/lib/${jarname}" />
+        <java fork="true" classpathref="run.class.path" jvmargs="-Djava.util.logging.config.file=${loggingConfig} -Djavabot.properties.file=${javabotConfig}" jar="${dist}/lib/javabot_tos.jar" />
     </target>
 
 </project>
