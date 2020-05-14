@@ -22,6 +22,10 @@
 package org.javabot.script;
 
 import bsh.*;
+import groovy.lang.Binding;
+import groovy.util.GroovyScriptEngine;
+import groovy.util.ResourceException;
+import groovy.util.ScriptException;
 import org.javabot.configuration.PropertyManager;
 
 import java.io.*;
@@ -32,47 +36,107 @@ public class ScriptHandler {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
+    // For Beanshell scripts
     private final Interpreter interpreter;
     private final DataOutputStream outbound;
     private final String scriptPath;
+    //private String file;
+
+    // For Groovy scripts
+    GroovyScriptEngine gse;
+    //Binding binding;
 
     /** Creates new ScriptHandler */
     public ScriptHandler(DataOutputStream outbound) {
+        this.outbound = outbound;
+
         log.info("ScriptHandler() called");
         Properties properties = PropertyManager.getInstance().getProperties();
         scriptPath = properties.getProperty("Scripts_Location");
         log.info("scriptPath = " + scriptPath);
 
+        // For Beanshell scripts
         this.interpreter = new Interpreter();
-        this.outbound = outbound;
+
+        // For Groovy scripts
+        //File tmpDir = new File(scriptPath);
+        //String[] roots = new String[]{tmpDir.getAbsolutePath()};
+        //try {
+        //     this.gse = new GroovyScriptEngine(roots);
+        //} catch (IOException e) {
+        //    log.warning("IOException thrown : " + e.getMessage());
+        //}
+        //binding = new Binding();
+
     }
     
     public void handlePublicCmd(String channel, String nick, String hostmask, ArrayList<String> cmd) {
         if (!cmd.isEmpty()) {
-            String command = cmd.get(0);
             ArrayList<String> params = this.parseParams(cmd);
-            String script = this.pathToScript(command);
-            ScriptResource scriptResource = new ScriptResource(
-                outbound, channel, nick, hostmask, params);
-            try {
-                interpreter.set("scriptResource", scriptResource);
-                interpreter.source(script);
+            String command = cmd.get(0);
+            if(isBeanshellScript(command)) {
+                String script = this.pathToBeanshellScript(command);
+                log.info(script);
+                ScriptResource scriptResource = new ScriptResource(
+                        outbound, channel, nick, hostmask, params);
+                try {
+                    interpreter.set("scriptResource", scriptResource);
+                    interpreter.source(script);
+                }
+                catch (EvalError e) {
+                    log.severe(e.getMessage());
+                }
+                catch (FileNotFoundException fnfe) {
+                    log.warning("Could not find script : " + script);
+                }
+                catch (IOException ioe) {
+                    log.warning("Could not read script : " + script);
+                }
+
             }
-            catch (EvalError e) {
-                log.severe(e.getMessage());
-                e.printStackTrace();
+            else if(isGroovyScript(command)) {
+                String script = this.pathToGroovyScript(command);
+                log.info(script);
+                ScriptResource scriptResource = new ScriptResource(
+                        outbound, channel, nick, hostmask, params);
+                String[] roots = new String[]{scriptPath};
+                try {
+                    gse = new GroovyScriptEngine(roots);
+                } catch (IOException e) {
+                    log.warning("IOException thrown : " + e.getMessage());
+                }
+                Binding binding = new Binding();
+                binding.setProperty("scriptResource", scriptResource);
+                try {
+                    gse.run(script, binding);
+                } catch (ResourceException e) {
+                    log.warning("ResourceException thrown : " + e.getMessage());
+                } catch (ScriptException e) {
+                    log.warning("ScriptException thrown : " + e.getMessage());
+                }
             }
-            catch (FileNotFoundException fnfe) {
-                log.warning("Could not find script : " + script);
-            }
-            catch (IOException ioe) {
-                log.warning("Could not read script : " + script);
+            else {
+                log.warning("Script was neither Beanshell nor Groovy.");
             }
         }
     }
-    
-    private String pathToScript(String command) {
+
+    private boolean isBeanshellScript(String command) {
+        return false;
+    }
+
+    private boolean isGroovyScript(String command) {
+        return true;
+    }
+
+    private String pathToBeanshellScript(String command) {
         String totalPath = new StringBuilder(scriptPath).append(command).append(".bsh").toString();
+        log.info("Looking for script at " + totalPath);
+        return totalPath;
+    }
+
+    private String pathToGroovyScript(String command) {
+        String totalPath = new StringBuilder().append(command).append(".groovy").toString();
         log.info("Looking for script at " + totalPath);
         return totalPath;
     }
