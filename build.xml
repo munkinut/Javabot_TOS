@@ -9,9 +9,10 @@
     <property name="dist" location="dist"/>
     <property name="lib" location="lib"/>
     <property name="images" location="images"/>
-    <property name="loggingConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties"/>
-    <property name="javabotConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties"/>
-
+    <!-- <property name="loggingConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties"/> -->
+    <property name="loggingConfig" value="${user.dir}\\config\\javabot.logging.properties"/>
+    <!--<property name="javabotConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties"/>-->
+    <property name="javabotConfig" value="${user.dir}\\config\\javabot.properties"/>
     <path id="project.class.path">
         <!-- <pathelement location="lib/"/> -->
         <fileset dir="${lib}" includes="*.jar"/>
