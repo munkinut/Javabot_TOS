@@ -21,6 +21,8 @@
 
 package org.javabot.gui;
 
+import org.javabot.configuration.PropertyManager;
+
 import java.util.logging.Logger;
 
 public class JavaBotActivator {
@@ -32,7 +34,7 @@ public class JavaBotActivator {
     private boolean connected;
     private final javax.swing.JTextArea consoleOutput;
     private java.net.Socket ircsocket;
-    private final org.javabot.configuration.PropertyManagerApache propertyManager;
+    private final PropertyManager propertyManager;
     private org.javabot.engine.inbound in;
 
     /** Creates new JavaBotActivator */
@@ -40,7 +42,7 @@ public class JavaBotActivator {
         log.info("JavaBotActivator() called");
         this.consoleOutput = consoleOutput;
         this.connected = false;
-        this.propertyManager = org.javabot.configuration.PropertyManagerApache.getInstance();
+        this.propertyManager = org.javabot.configuration.PropertyManager.getInstance();
     }
     
     public boolean isConnected() {

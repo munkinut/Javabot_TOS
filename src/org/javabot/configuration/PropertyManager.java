@@ -21,6 +21,11 @@
 
 package org.javabot.configuration;
 
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+
 import java.util.logging.Logger;
 
 /** Manages the properties object and file
@@ -30,22 +35,30 @@ public class PropertyManager {
     final Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Busy flag to aid in thread synchronization
-     */    
+     */
     private boolean busy;
-    
+
     /** Properties object for the bot
-     */    
-    private final java.util.Properties properties;
+     */
+    private PropertiesConfiguration properties = null;
+
+    private final FileBasedConfigurationBuilder<PropertiesConfiguration> builder;
+
     /** The singleton instance
-     */    
+     */
     private static PropertyManager propertyManager;
-    
+
     /** Creates new PropertyManager */
     private PropertyManager() {
         log.info("PropertyManager() called");
-        this.busy = false;
-        this.properties = new java.util.Properties();
-        this.readProperties();
+        busy = false;
+        Configurations configs = new Configurations();
+        builder = configs.propertiesBuilder("config/javabot.properties");
+        try {
+            properties = builder.getConfiguration();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
     }
     
     /** Provides the singleton instance
@@ -54,13 +67,6 @@ public class PropertyManager {
     public static synchronized PropertyManager getInstance() {
         if (propertyManager == null) propertyManager = new PropertyManager();
         return propertyManager;
-    }
-    
-    /** Provides the properties object
-     * @return the properties object
-     */    
-    public synchronized java.util.Properties getProperties() {
-        return this.properties;
     }
     
     /** Provides the server name
@@ -73,17 +79,71 @@ public class PropertyManager {
                 log.info("waiting");
                 wait();
             }
-            catch (java.lang.InterruptedException ie) {
+            catch (InterruptedException ie) {
                 log.warning("Thread interrupted " + ie.getMessage());
             }
         }
         busy = true;
-        String server = properties.getProperty("Server");
+        String server = properties.getString("Server");
         busy = false;
         notifyAll();
         return server;
     }
-    
+
+    public synchronized String getScriptsLocation() {
+        log.info("getScriptsLocation() called");
+        while (busy) {
+            try {
+                log.info("waiting");
+                wait();
+            }
+            catch (InterruptedException ie) {
+                log.warning("Thread interrupted " + ie.getMessage());
+            }
+        }
+        busy = true;
+        String scriptsLocation = properties.getString("Scripts_Location");
+        busy = false;
+        notifyAll();
+        return scriptsLocation;
+    }
+
+    public synchronized String getBansLocation() {
+        log.info("getBansLocation() called");
+        while (busy) {
+            try {
+                log.info("waiting");
+                wait();
+            }
+            catch (InterruptedException ie) {
+                log.warning("Thread interrupted " + ie.getMessage());
+            }
+        }
+        busy = true;
+        String bansLocation = properties.getString("Bans_Location");
+        busy = false;
+        notifyAll();
+        return bansLocation;
+    }
+
+    public synchronized String getUsersLocation() {
+        log.info("getUsersLocation() called");
+        while (busy) {
+            try {
+                log.info("waiting");
+                wait();
+            }
+            catch (InterruptedException ie) {
+                log.warning("Thread interrupted " + ie.getMessage());
+            }
+        }
+        busy = true;
+        String usersLocation = properties.getString("Users_Location");
+        busy = false;
+        notifyAll();
+        return usersLocation;
+    }
+
     /** Sets the server name
      * @param server Server name
      */    
@@ -93,11 +153,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Server", server);
+        if (properties != null) properties.setProperty("Server", server);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -111,11 +176,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String name = properties.getProperty("Name");
+        String name = properties.getString("Name");
         busy = false;
         notifyAll();
         return name;
@@ -130,11 +195,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Name", name);
+        if (properties != null) properties.setProperty("Name", name);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -148,11 +218,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String nickname = properties.getProperty("Nickname");
+        String nickname = properties.getString("Nickname");
         busy = false;
         notifyAll();
         return nickname;
@@ -167,11 +237,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Nickname", nickname);
+        if (properties != null) properties.setProperty("Nickname", nickname);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -185,11 +260,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String channel = properties.getProperty("Channel");
+        String channel = properties.getString("Channel");
         busy = false;
         notifyAll();
         return channel;
@@ -204,11 +279,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Channel", channel);
+        if (properties != null) properties.setProperty("Channel", channel);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -222,11 +302,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String channelmodes = properties.getProperty("ChannelModes");
+        String channelmodes = properties.getString("ChannelModes");
         busy = false;
         notifyAll();
         return channelmodes;
@@ -241,11 +321,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("ChannelModes", channelmodes);
+        if (properties != null) properties.setProperty("ChannelModes", channelmodes);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -259,11 +344,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String joinratio = properties.getProperty("Join");
+        String joinratio = properties.getString("Join");
         busy = false;
         notifyAll();
         return joinratio;
@@ -273,16 +358,21 @@ public class PropertyManager {
      * @param joinratio Join ratio for the channel
      */    
     public synchronized void setJoinRatio(String joinratio) {
-        log.info("getJoinRatio() called");
+        log.info("setJoinRatio() called");
         while (busy) {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Join", joinratio);
+        if (properties != null) properties.setProperty("Join", joinratio);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -296,11 +386,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String privmsgratio = properties.getProperty("Privmsg");
+        String privmsgratio = properties.getString("Privmsg");
         busy = false;
         notifyAll();
         return privmsgratio;
@@ -315,11 +405,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Privmsg", privmsgratio);
+        if (properties != null) properties.setProperty("Privmsg", privmsgratio);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -333,11 +428,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String chanmsgratio = properties.getProperty("Chanmsg");
+        String chanmsgratio = properties.getString("Chanmsg");
         busy = false;
         notifyAll();
         return chanmsgratio;
@@ -352,11 +447,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Chanmsg", chanmsgratio);
+        if (properties != null) properties.setProperty("Chanmsg", chanmsgratio);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -370,11 +470,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String colourratio = properties.getProperty("Colour");
+        String colourratio = properties.getString("Colour");
         busy = false;
         notifyAll();
         return colourratio;
@@ -389,11 +489,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Colour", colourratio);
+        if (properties != null) properties.setProperty("Colour", colourratio);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -407,11 +512,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String ctcpratio = properties.getProperty("Ctcp");
+        String ctcpratio = properties.getString("Ctcp");
         busy = false;
         notifyAll();
         return ctcpratio;
@@ -426,11 +531,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Ctcp", ctcpratio);
+        if (properties != null) properties.setProperty("Ctcp", ctcpratio);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -444,11 +554,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        String dccratio = properties.getProperty("Dcc");
+        String dccratio = properties.getString("Dcc");
         busy = false;
         notifyAll();
         return dccratio;
@@ -463,11 +573,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Dcc", dccratio);
+        if (properties != null) properties.setProperty("Dcc", dccratio);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -481,11 +596,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        int port = Integer.parseInt(properties.getProperty("Port"));
+        int port = properties.getInt("Port");
         busy = false;
         notifyAll();
         return port;
@@ -500,11 +615,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Port", Integer.toString(port));
+        if (properties != null) properties.setProperty("Port", port);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -518,11 +638,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        boolean autovoice = Boolean.parseBoolean(properties.getProperty("Autovoice"));
+        boolean autovoice = properties.getBoolean("Autovoice");
         busy = false;
         notifyAll();
         return autovoice;
@@ -537,11 +657,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Autovoice", Boolean.toString(autovoice));
+        if (properties != null) properties.setProperty("Autovoice", autovoice);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -555,11 +680,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        boolean autogreet = Boolean.parseBoolean(properties.getProperty("Autogreet"));
+        boolean autogreet = properties.getBoolean("Autogreet");
         busy = false;
         notifyAll();
         return autogreet;
@@ -574,11 +699,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Autogreet", Boolean.toString(autogreet));
+        if (properties != null) properties.setProperty("Autogreet", autogreet);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -592,11 +722,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        boolean floodprotection = Boolean.parseBoolean(properties.getProperty("Floodprotection"));
+        boolean floodprotection = properties.getBoolean("Floodprotection");
         busy = false;
         notifyAll();
         return floodprotection;
@@ -611,11 +741,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Floodprotection", Boolean.toString(floodprotection));
+        if (properties != null) properties.setProperty("Floodprotection", floodprotection);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -629,11 +764,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        boolean opme = Boolean.parseBoolean(properties.getProperty("Opme"));
+        boolean opme = properties.getBoolean("Opme");
         busy = false;
         notifyAll();
         return opme;
@@ -648,11 +783,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("Opme", Boolean.toString(opme));
+        if (properties != null) properties.setProperty("Opme", opme);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -666,11 +806,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        boolean cycleforops = Boolean.parseBoolean(properties.getProperty("CycleForOps"));
+        boolean cycleforops = properties.getBoolean("CycleForOps");
         busy = false;
         notifyAll();
         return cycleforops;
@@ -685,11 +825,16 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("CycleForOps", Boolean.toString(cycleforops));
+        if (properties != null) properties.setProperty("CycleForOps", cycleforops);
+        try {
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
+        }
         busy = false;
         notifyAll();
     }
@@ -703,11 +848,11 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        boolean dynamiclimit = Boolean.parseBoolean(properties.getProperty("DynamicLimit"));
+        boolean dynamiclimit = properties.getBoolean("DynamicLimit");
         busy = false;
         notifyAll();
         return dynamiclimit;
@@ -722,224 +867,20 @@ public class PropertyManager {
             try {
                 wait();
             }
-            catch (java.lang.InterruptedException ignored) {
+            catch (InterruptedException ignored) {
             }
         }
         busy = true;
-        properties.setProperty("DynamicLimit", Boolean.toString(dynamiclimit));
-        busy = false;
-        notifyAll();
-    }
-    
-    /** Writes properties to a file
-     */    
-    public synchronized void writeProperties() {
-        log.info("writeProperties() called");
-        while (busy) {
-            log.info("writeProperties() - BUSY ... waiting");
-            try {
-                wait();
-            }
-            catch (java.lang.InterruptedException ignored) {
-            }
-        }
-        log.info("writeProperties() - NOT BUSY ... writing");
-        busy = true;
+        if (properties != null) properties.setProperty("DynamicLimit", dynamiclimit);
         try {
-            String fs = java.io.File.separator;
-            String currentPath = System.getProperty("user.dir");
-            log.info("USER.DIR:" + currentPath);
-            String javabotProperties = currentPath + fs + "config" + fs + "javabot.properties";
-            log.info("javabotProperties = " + javabotProperties);
-            java.io.FileOutputStream out = new java.io.FileOutputStream(javabotProperties);
-            properties.store(out, null);
-            out.close();
-        }
-        catch (java.io.FileNotFoundException fnfe) {
-            this.failProperties("Could not find Properties file : javabot.properties");
-            // System.exit(1);
-        }
-        catch (java.io.IOException ioeStore) {
-            this.failProperties("Could not store or close Properties file : javabot.properties");
-            // System.exit(1);
+            builder.save();
+        } catch (ConfigurationException e) {
+            log.warning(e.getMessage());
         }
         busy = false;
         notifyAll();
     }
     
-    /** Read properties from a file
-     * @return Success flag
-     */    
-    public synchronized boolean readProperties() {
-        log.info("readProperties() called");
-        boolean success = true;
-        String server, name, nickname, channel, channelModes, join;
-        int port;
-        boolean autovoice,flood,opme,cycleForOps,dynamicLimit;
-        while (busy) {
-            log.info("readProperties() - BUSY ... waiting");
-            try {
-                wait();
-            }
-            catch (java.lang.InterruptedException ignored) {
-            }
-        }
-        log.info("readProperties() - NOT BUSY ... reading");
-        busy = true;
-        try {
-            String javabotProperties = System.getProperty("javabot.properties.file");
-            log.info("javabot.properties.file = " + javabotProperties);
-            log.info("javabotProperties = " + javabotProperties);
-            java.io.FileInputStream in = new java.io.FileInputStream(javabotProperties);
-            properties.load(in);
-            in.close();
-        }
-        catch (java.io.FileNotFoundException fnfe) {
-            success = this.failProperties("Could not find Properties file : javabot.properties");
-            // System.exit(1);
-        }
-        catch (java.io.IOException ioeLoad) {
-            success = this.failProperties("Could not load or close Properties file : javabot.properties");
-            // System.exit(1);
-        }
-        busy = false;
-        notifyAll();
-        if (properties.containsKey("Server")) {
-            server = properties.getProperty("Server");
-            if (server.equals("")) {
-                success = this.failProperties("Properties file contains a blank entry for Server");
-                // System.exit(1);
-            }
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Server.");
-            // System.exit(1);
-        }
-        if (properties.containsKey("Port")) {
-            try {
-                port = Integer.parseInt(properties.getProperty("Port"));
-            }
-            catch (java.lang.NumberFormatException nfe) {
-                success = this.failProperties("Properties file contains an invalid entry for Port");
-                // System.exit(1);
-            }
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Port.");
-            // System.exit(1);
-        }
-        if (properties.containsKey("Name")) {
-            name = properties.getProperty("Name");
-            if (name.equals("")) {
-                success = this.failProperties("Properties file contains a blank entry for Name");
-                //System.exit(1);
-            }
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Name.");
-            // System.exit(1);
-        }
-        if (properties.containsKey("Nickname")) {
-            nickname = properties.getProperty("Nickname");
-            if (nickname.equals("")) {
-                success = this.failProperties("Properties file contains a blank entry for Nickname");
-                //System.exit(1);
-            }
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Nickname.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("Channel")) {
-            channel = properties.getProperty("Channel").toLowerCase();
-            if (channel.equals("")) {
-                success = this.failProperties("Properties file contains a blank entry for Channel");
-                //System.exit(1);
-            }
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Channel.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("ChannelModes")) {
-            channelModes = properties.getProperty("ChannelModes");
-            //noinspection StatementWithEmptyBody
-            if (channelModes.equals("")) {
-                //we dont necessarily care if there are no modes so don't whine about it
-                //success = this.failProperties("Properties file contains a blank entry for ChannelModes");
-                //System.exit(1);
-            }
-        }
-        else {
-            success = this.failProperties("Properties file does not contain ChannelModes.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("Autovoice")) {
-            autovoice = Boolean.parseBoolean(properties.getProperty("Autovoice"));
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Autovoice.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("Autogreet")) {
-            autovoice = Boolean.parseBoolean(properties.getProperty("Autogreet"));
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Autogreet.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("Floodprotection")) {
-            flood = Boolean.parseBoolean(properties.getProperty("Floodprotection"));
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Floodprotection.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("Opme")) {
-            opme = Boolean.parseBoolean(properties.getProperty("Opme"));
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Opme.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("CycleForOps")) {
-            cycleForOps = Boolean.parseBoolean(properties.getProperty("CycleForOps"));
-        }
-        else {
-            success = this.failProperties("Properties file does not contain CycleForOps.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("DynamicLimit")) {
-            dynamicLimit = Boolean.parseBoolean(properties.getProperty("DynamicLimit"));
-        }
-        else {
-            success = this.failProperties("Properties file does not contain DynamicLimit.");
-            //System.exit(1);
-        }
-        if (properties.containsKey("Join")) {
-            join = properties.getProperty("Join");
-            java.util.StringTokenizer st = new java.util.StringTokenizer(join, ":");
-            if (st.countTokens() != 2) {
-                success = this.failProperties("Properties file contains invalid ratio for Join");
-            }
-            else {
-                while (st.hasMoreTokens()) {
-                    try {
-                        int number = Integer.parseInt(st.nextToken());
-                    }
-                    catch (java.lang.NumberFormatException nfe) {
-                        success = this.failProperties("Properties file contains an invalid value for Join");
-                    }
-                }
-            }
-        }
-        else {
-            success = this.failProperties("Properties file does not contain Join.");
-            // System.exit(1);
-        }
-        return success;
-    }
-
     /** Log an error and return false
      * @param error Message to log
      * @return false

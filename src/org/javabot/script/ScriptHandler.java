@@ -26,7 +26,7 @@ import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
-import org.javabot.configuration.PropertyManagerApache;
+import org.javabot.configuration.PropertyManager;
 
 import java.io.*;
 import java.util.*;
@@ -51,7 +51,7 @@ public class ScriptHandler {
         this.outbound = outbound;
 
         log.info("ScriptHandler() called");
-        PropertyManagerApache pm = PropertyManagerApache.getInstance();
+        PropertyManager pm = PropertyManager.getInstance();
         scriptPath = pm.getScriptsLocation();
         log.info("scriptPath = " + scriptPath);
 

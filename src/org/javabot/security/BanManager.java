@@ -23,11 +23,10 @@ package org.javabot.security;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import gnu.regexp.*;
-import org.javabot.configuration.PropertyManagerApache;
+import org.javabot.configuration.PropertyManager;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -42,7 +41,7 @@ public class BanManager {
 
     public BanManager() {
         //String fs = java.io.File.separator;
-        PropertyManagerApache pm = PropertyManagerApache.getInstance();
+        PropertyManager pm = PropertyManager.getInstance();
         banfile = pm.getBansLocation();
         log.info("banfile = " + banfile);
         bans = this.loadBans();

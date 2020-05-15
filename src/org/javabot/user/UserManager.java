@@ -21,14 +21,13 @@
 
 package org.javabot.user;
 
-import org.javabot.configuration.PropertyManagerApache;
+import org.javabot.configuration.PropertyManager;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class UserManager {
@@ -40,7 +39,7 @@ public class UserManager {
 
     public UserManager() {
         //String fs = java.io.File.separator;
-        PropertyManagerApache pm = PropertyManagerApache.getInstance();
+        PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
         usersPath = pm.getUsersLocation();
         log.info("userfile = " + usersPath);
         users = this.loadUsers();
