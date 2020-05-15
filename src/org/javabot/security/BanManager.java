@@ -27,7 +27,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import gnu.regexp.*;
-import org.javabot.configuration.PropertyManager;
+import org.javabot.configuration.PropertyManagerApache;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -42,8 +42,8 @@ public class BanManager {
 
     public BanManager() {
         //String fs = java.io.File.separator;
-        Properties properties = PropertyManager.getInstance().getProperties();
-        banfile = properties.getProperty("Bans_Location");
+        PropertyManagerApache pm = PropertyManagerApache.getInstance();
+        banfile = pm.getBansLocation();
         log.info("banfile = " + banfile);
         bans = this.loadBans();
     }

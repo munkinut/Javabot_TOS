@@ -26,7 +26,7 @@ import groovy.lang.Binding;
 import groovy.util.GroovyScriptEngine;
 import groovy.util.ResourceException;
 import groovy.util.ScriptException;
-import org.javabot.configuration.PropertyManager;
+import org.javabot.configuration.PropertyManagerApache;
 
 import java.io.*;
 import java.util.*;
@@ -51,8 +51,8 @@ public class ScriptHandler {
         this.outbound = outbound;
 
         log.info("ScriptHandler() called");
-        Properties properties = PropertyManager.getInstance().getProperties();
-        scriptPath = properties.getProperty("Scripts_Location");
+        PropertyManagerApache pm = PropertyManagerApache.getInstance();
+        scriptPath = pm.getScriptsLocation();
         log.info("scriptPath = " + scriptPath);
 
         // For Beanshell scripts
@@ -121,10 +121,12 @@ public class ScriptHandler {
         }
     }
 
+    // TODO : write this so we can have bsh scripts being properly identified
     private boolean isBeanshellScript(String command) {
         return false;
     }
 
+    // TODO : write this so we can have groovy scripts being properly identified
     private boolean isGroovyScript(String command) {
         return true;
     }

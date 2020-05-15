@@ -21,6 +21,7 @@
 
 package org.javabot.channel;
 
+import org.javabot.configuration.PropertyManagerApache;
 import org.javabot.engine.IRCCommands;
 import java.util.Hashtable;
 import java.util.logging.Logger;
@@ -67,7 +68,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
         this.outbound = outbound;
         this.channelUsers = new Hashtable<>();
         this.timer = new java.util.Timer(true);
-        org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
+        PropertyManagerApache pm = org.javabot.configuration.PropertyManagerApache.getInstance();
         this.channel = pm.getChannel();
         this.initialModes = pm.getChannelModes();
         ChannelManager.joinRatio = pm.getJoinRatio();

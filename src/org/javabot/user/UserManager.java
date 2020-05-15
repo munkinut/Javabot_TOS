@@ -21,7 +21,7 @@
 
 package org.javabot.user;
 
-import org.javabot.configuration.PropertyManager;
+import org.javabot.configuration.PropertyManagerApache;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -40,8 +40,8 @@ public class UserManager {
 
     public UserManager() {
         //String fs = java.io.File.separator;
-        Properties properties = PropertyManager.getInstance().getProperties();
-        usersPath = properties.getProperty("Users_Location");
+        PropertyManagerApache pm = PropertyManagerApache.getInstance();
+        usersPath = pm.getUsersLocation();
         log.info("userfile = " + usersPath);
         users = this.loadUsers();
         ArrayList<User> userList = users.getUsers();

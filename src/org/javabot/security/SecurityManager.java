@@ -51,7 +51,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     /** Creates new SecurityManager */
     public SecurityManager() {
         log.info("[SM] : Security Manager created");
-        org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
+        org.javabot.configuration.PropertyManagerApache pm = org.javabot.configuration.PropertyManagerApache.getInstance();
         SecurityManager.privmsgRatio = pm.getPrivmsgRatio();
         SecurityManager.chanmsgRatio = pm.getChanmsgRatio();
         SecurityManager.ctcpRatio = pm.getCtcpRatio();

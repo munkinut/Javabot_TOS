@@ -20,7 +20,7 @@
 
 package org.javabot.engine;
 
-import org.javabot.configuration.PropertyManager;
+import org.javabot.configuration.PropertyManagerApache;
 import org.javabot.security.Ban;
 import org.javabot.security.Bans;
 import org.javabot.user.User;
@@ -116,7 +116,7 @@ public class inbound extends Thread {
         this.consoleOutput = consoleOutput;
         /* Manages the properties file
          */
-        PropertyManager pm = PropertyManager.getInstance();
+        PropertyManagerApache pm = PropertyManagerApache.getInstance();
         /* Timer for timed events
          */
         Timer timer = new Timer(true);
