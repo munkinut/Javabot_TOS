@@ -8,6 +8,6 @@ org.javabot.script
 org.javabot.security
 org.javabot.server
 org.javabot.task
-org.javabot.test
+org.javabot.play
 org.javabot.user
 org.javabot.util

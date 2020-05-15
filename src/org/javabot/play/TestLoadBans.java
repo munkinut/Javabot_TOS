@@ -1,4 +1,4 @@
-package org.javabot.test;
+package org.javabot.play;
 
 import org.javabot.security.Ban;
 import org.javabot.security.Bans;

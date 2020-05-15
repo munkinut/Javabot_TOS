@@ -1,4 +1,4 @@
-package org.javabot.test;
+package org.javabot.play;
 
 import org.javabot.user.Flags;
 import org.javabot.user.User;
