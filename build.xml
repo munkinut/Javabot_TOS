@@ -74,7 +74,10 @@
     </path>
 
     <target name="run_jar">
-        <java fork="true" classpathref="run.class.path" jvmargs="-Djava.util.logging.config.file=${loggingConfig} -Djavabot.properties.file=${javabotConfig}" jar="${dist}/lib/javabot_tos.jar" />
+        <java fork="true" classpathref="run.class.path" jar="${dist}/lib/javabot_tos.jar">
+            <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
+            <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>
+        </java>
     </target>
 
 </project>
