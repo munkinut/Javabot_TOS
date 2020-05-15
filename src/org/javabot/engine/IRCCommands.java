@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  */
 public class IRCCommands {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    static Logger log = Logger.getLogger("IRCCommands");
 
     //Funktion PingPong by Torsten Born
     //********************************************************************
@@ -213,14 +213,16 @@ public class IRCCommands {
             print("IOException: " + ioe);
         }
     }
-
-    private static void print(String msg) {
-        System.out.println("Sending : " + msg);
-    }
     //**
     //********************************************************************
     //Ende der Funktion UnBan
-    
+
+
+    private static void print(String msg) {
+        if (msg.startsWith("IOException")) log.warning(msg);
+        else log.info(msg);
+    }
+
     //Funktion Kick by Warren Milburn
     //********************************************************************
     //**
