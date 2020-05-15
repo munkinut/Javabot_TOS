@@ -155,7 +155,7 @@ public class inbound extends Thread {
      * @return Success flag
      */    
     public boolean connect() {
-        log.info("comnect() called");
+        log.info("connect() called");
         if (!this.connected) {
             try {
                 log.info("Connected was FALSE, attempting to connect");
@@ -242,7 +242,8 @@ public class inbound extends Thread {
                 }
             }
             catch (java.io.IOException ioe){
-                log.warning("IOException caught : " + ioe.getMessage());
+                log.info("IOException caught : " + ioe.getMessage());
+                this.connected = false;
             }
         }
     }
