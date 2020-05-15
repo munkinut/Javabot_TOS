@@ -78,4 +78,11 @@
         </java>
     </target>
 
+    <target name="run">
+        <java fork="true" classpathref="run.class.path" classname="org.javabot.gui.javabot">
+            <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
+            <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>
+        </java>
+    </target>
+
 </project>
