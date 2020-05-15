@@ -926,13 +926,16 @@ public class inbound extends Thread {
             }
             else {
                 BanPager pager = new BanPager(bans,2);
-                ArrayList<String> banPage;
+                ArrayList banPage;
                 String msg;
                 while (pager.hasNext()) {
                     banPage = pager.next();
-                    for (String s : banPage) {
-                        msg = s;
-                        IRCCommands.privmsg(nickFrom, msg, outbound);
+                    for (Object s : banPage) {
+                        if (s instanceof String) {
+                            msg = (String)s;
+                            IRCCommands.privmsg(nickFrom, msg, outbound);
+                        }
+                        else log.warning("Object was not an instance of String");
                     }
                     try {
                         sleep(1000);
