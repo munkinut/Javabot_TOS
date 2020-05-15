@@ -1,1 +1,1 @@
-java -Djava.util.logging.config.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties -Djavabot.properties.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties -jar dist\lib\javabot_tos.jar
+java -Djava.util.logging.config.file=%CD%\config\javabot.logging.properties -Djavabot.properties.file=%CD%\config\javabot.properties -jar dist\lib\javabot_tos.jar
