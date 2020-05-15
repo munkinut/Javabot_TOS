@@ -2,6 +2,7 @@
     <description>
         Build file for Javabot_TOS
     </description>
+
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
     <property name="build" location="out/production/Javabot_TOS"/>
@@ -51,13 +52,10 @@
 
         <copy todir="${dist}/lib/" >
             <fileset dir="${lib}">
-                <include name="**/*.jar"/>
+                <include name="*.jar"/>
             </fileset>
             <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib">
-                <include name="**/*.jar"/>
-            </fileset>
-            <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib\extras-jaxb">
-                <include name="**/*.jar"/>
+                <include name="*.jar"/>
             </fileset>
         </copy>
     </target>
