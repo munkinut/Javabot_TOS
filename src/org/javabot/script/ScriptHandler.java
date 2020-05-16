@@ -75,7 +75,7 @@ public class ScriptHandler {
             ArrayList<String> params = this.parseParams(cmd);
             String command = cmd.get(0);
             if(isBeanshellScript(command)) {
-                String script = this.pathToBeanshellScript(command);
+                String script = this.pathToScript(command, "bsh");
                 log.info(script);
                 ScriptResource scriptResource = new ScriptResource(
                         outbound, channel, nick, hostmask, params);
@@ -95,8 +95,10 @@ public class ScriptHandler {
 
             }
             else if(isGroovyScript(command)) {
-                String script = this.pathToGroovyScript(command);
+                String script = this.pathToScript(command, "groovy");
+                String scriptName = new StringBuilder(command).append(".groovy").toString() ;
                 log.info(script);
+                log.info(scriptName);
                 ScriptResource scriptResource = new ScriptResource(
                         outbound, channel, nick, hostmask, params);
                 String[] roots = new String[]{scriptPath};
@@ -108,9 +110,10 @@ public class ScriptHandler {
                 Binding binding = new Binding();
                 binding.setProperty("scriptResource", scriptResource);
                 try {
-                    gse.run(script, binding);
+                    gse.run(scriptName, binding);
                 } catch (ResourceException e) {
                     log.warning("ResourceException thrown : " + e.getMessage());
+                    e.printStackTrace();
                 } catch (ScriptException e) {
                     log.warning("ScriptException thrown : " + e.getMessage());
                 }
@@ -123,22 +126,46 @@ public class ScriptHandler {
 
     // TODO : write this so we can have bsh scripts being properly identified
     private boolean isBeanshellScript(String command) {
-        return false;
+        // Search for command in the scripts location
+        // If it ends with bsh, return true
+        String extension = "bsh";
+        File scriptDir = new File(scriptPath);
+        File[] scriptFiles = scriptDir.listFiles();
+        boolean success = false;
+        for (File scriptFile : scriptFiles) {
+            String filename = scriptFile.getName();
+            log.info("Script filename = " + filename);
+            if(filename.startsWith(command) && filename.endsWith(extension)) {
+                log.info("filename starts with " + command + " and ends with " + extension);
+                success = true;
+                break;
+            }
+        }
+        return success;
     }
 
     // TODO : write this so we can have groovy scripts being properly identified
     private boolean isGroovyScript(String command) {
-        return true;
+        // Search for command in the scripts location
+        // If it ends with groovy, return true
+        String extension = "groovy";
+        File scriptDir = new File(scriptPath);
+        File[] scriptFiles = scriptDir.listFiles();
+        boolean success = false;
+        for (File scriptFile : scriptFiles) {
+            String filename = scriptFile.getName();
+            log.info("Script filename = " + filename);
+            if(filename.startsWith(command) && filename.endsWith(extension)) {
+                log.info("filename starts with " + command + " and ends with " + extension);
+                success = true;
+                break;
+            }
+        }
+        return success;
     }
 
-    private String pathToBeanshellScript(String command) {
-        String totalPath = new StringBuilder(scriptPath).append(command).append(".bsh").toString();
-        log.info("Looking for script at " + totalPath);
-        return totalPath;
-    }
-
-    private String pathToGroovyScript(String command) {
-        String totalPath = new StringBuilder().append(command).append(".groovy").toString();
+    private String pathToScript(String command, String extension) {
+        String totalPath = new StringBuilder(scriptPath).append(command).append(".").append(extension).toString();
         log.info("Looking for script at " + totalPath);
         return totalPath;
     }
