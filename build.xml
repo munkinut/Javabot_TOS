@@ -9,15 +9,32 @@
     <property name="dist" location="dist"/>
     <property name="lib" location="lib"/>
     <property name="images" location="images"/>
-    <!-- <property name="loggingConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties"/> -->
     <property name="loggingConfig" value="${user.dir}\\config\\javabot.logging.properties"/>
-    <!--<property name="javabotConfig" value="C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties"/>-->
     <property name="javabotConfig" value="${user.dir}\\config\\javabot.properties"/>
+
     <path id="project.class.path">
-        <!-- <pathelement location="lib/"/> -->
         <fileset dir="${lib}" includes="*.jar"/>
         <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar" excludes=""/>
+        <pathelement location="${build}"/>
     </path>
+
+    <path id="test.class.path">
+        <fileset dir="${lib}" includes="*.jar"/>
+        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar" excludes="ant-1.10.7.jar"/>
+        <pathelement location="${build}"/>
+    </path>
+
+    <target name="run_tests" depends="dist">
+        <junit printsummary="on" haltonfailure="yes" fork="true">
+            <classpath>
+                <path refid="test.class.path"/>
+            </classpath>
+            <!--<formatter type="brief" usefile="false" />-->
+            <batchtest>
+                <fileset dir="${src}" includes="**/*Test.java" />
+            </batchtest>
+        </junit>
+    </target>
 
     <target name="init">
         <!-- Create the build directory structure used by compile -->

@@ -1,138 +1,131 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ChannelManagerTest {
+public class ChannelManagerTest {
 
-    @BeforeEach
-    void setUp() {
+    public ChannelManagerTest() {
+
     }
 
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
     }
 
-    @Test
-    void getNamesCount() {
-    }
-
-    @Test
-    void setNamesCount() {
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void getLastNamesCount() {
+    public void getNamesCount() {
     }
 
     @Test
-    void setLastNamesCount() {
+    public void setNamesCount() {
     }
 
     @Test
-    void setChannel() {
+    public void getLastNamesCount() {
     }
 
     @Test
-    void setInitialModes() {
+    public void setLastNamesCount() {
     }
 
     @Test
-    void getChannel() {
+    public void setChannel() {
     }
 
     @Test
-    void getInitialModes() {
+    public void setInitialModes() {
     }
 
     @Test
-    void getChannelUsers() {
+    public void getChannel() {
     }
 
     @Test
-    void getChannelUser() {
+    public void getInitialModes() {
     }
 
     @Test
-    void setChannelUsers() {
+    public void getChannelUsers() {
     }
 
     @Test
-    void addChannelUser() {
+    public void getChannelUser() {
     }
 
     @Test
-    void changeChannelUserNick() {
+    public void setChannelUsers() {
     }
 
     @Test
-    void ignoreUser() {
+    public void addChannelUser() {
     }
 
     @Test
-    void unignoreUser() {
+    public void changeChannelUserNick() {
     }
 
     @Test
-    void removeChannelUser() {
+    public void ignoreUser() {
     }
 
     @Test
-    void removeChannelUserByNick() {
+    public void unignoreUser() {
     }
 
     @Test
-    void removeAllChannelUsers() {
+    public void removeChannelUser() {
     }
 
     @Test
-    void limitChannel() {
+    public void removeChannelUserByNick() {
     }
 
     @Test
-    void getMaxHits() {
+    public void removeAllChannelUsers() {
     }
 
     @Test
-    void getMaxTime() {
+    public void limitChannel() {
     }
 
     @Test
-    void join() {
+    public void getMaxHits() {
     }
 
     @Test
-    void part() {
+    public void getMaxTime() {
     }
 
     @Test
-    void setModes() {
+    public void join() {
     }
 
     @Test
-    void testSetModes() {
+    public void part() {
     }
 
     @Test
-    void unsetModes() {
+    public void setModes() {
     }
 
     @Test
-    void killTimer() {
+    public void testSetModes() {
     }
 
     @Test
-    void notifyEvent() {
+    public void unsetModes() {
     }
 
     @Test
-    void testNotifyEvent() {
+    public void killTimer() {
     }
 
-    @Test
-    void testNotifyEvent1() {
-    }
 }

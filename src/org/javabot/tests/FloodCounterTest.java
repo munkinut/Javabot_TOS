@@ -1,98 +1,103 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.javabot.security.FloodCounter;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FloodCounterTest {
+public class FloodCounterTest {
 
-    @BeforeEach
-    void setUp() {
+    public FloodCounterTest() {
+
     }
 
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
     }
 
-    @Test
-    void increment() {
-    }
-
-    @Test
-    void reset() {
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void resetAll() {
+    public void increment() {
     }
 
     @Test
-    void get() {
+    public void reset() {
     }
 
     @Test
-    void incrementFloods() {
+    public void resetAll() {
     }
 
     @Test
-    void getFloods() {
+    public void get() {
     }
 
     @Test
-    void resetFloods() {
+    public void incrementFloods() {
     }
 
     @Test
-    void kill() {
+    public void getFloods() {
     }
 
     @Test
-    void getPrivmsg() {
+    public void resetFloods() {
     }
 
     @Test
-    void getChanmsg() {
+    public void kill() {
     }
 
     @Test
-    void getCtcp() {
+    public void getPrivmsg() {
     }
 
     @Test
-    void getColour() {
+    public void getChanmsg() {
     }
 
     @Test
-    void getDcc() {
+    public void getCtcp() {
     }
 
     @Test
-    void getJoin() {
+    public void getColour() {
     }
 
     @Test
-    void setPrivmsg() {
+    public void getDcc() {
     }
 
     @Test
-    void setChanmsg() {
+    public void getJoin() {
     }
 
     @Test
-    void setCtcp() {
+    public void setPrivmsg() {
     }
 
     @Test
-    void setColour() {
+    public void setChanmsg() {
     }
 
     @Test
-    void setDcc() {
+    public void setCtcp() {
     }
 
     @Test
-    void setJoin() {
+    public void setColour() {
+    }
+
+    @Test
+    public void setDcc() {
+    }
+
+    @Test
+    public void setJoin() {
     }
 }

@@ -1,130 +1,134 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserManagerTest {
+public class UserManagerTest {
 
-    @BeforeEach
-    void setUp() {
+    public UserManagerTest() {
+
     }
 
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
     }
 
-    @Test
-    void auth() {
-    }
-
-    @Test
-    void pass() {
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void greet() {
+    public void auth() {
     }
 
     @Test
-    void addUser() {
+    public void pass() {
     }
 
     @Test
-    void testAddUser() {
+    public void greet() {
     }
 
     @Test
-    void delUser() {
+    public void addUser() {
     }
 
     @Test
-    void addOp() {
+    public void testAddUser() {
     }
 
     @Test
-    void delOp() {
+    public void delUser() {
     }
 
     @Test
-    void delFriend() {
+    public void addOp() {
     }
 
     @Test
-    void delVoice() {
+    public void delOp() {
     }
 
     @Test
-    void delMaster() {
+    public void delFriend() {
     }
 
     @Test
-    void delOwner() {
+    public void delVoice() {
     }
 
     @Test
-    void addVoice() {
+    public void delMaster() {
     }
 
     @Test
-    void addMaster() {
+    public void delOwner() {
     }
 
     @Test
-    void addFriend() {
+    public void addVoice() {
     }
 
     @Test
-    void addOwner() {
+    public void addMaster() {
     }
 
     @Test
-    void getUsers() {
+    public void addFriend() {
     }
 
     @Test
-    void getUserByBotnick() {
+    public void addOwner() {
     }
 
     @Test
-    void userExists() {
+    public void getUsers() {
     }
 
     @Test
-    void userBotnickExists() {
+    public void getUserByBotnick() {
     }
 
     @Test
-    void userIsFriend() {
+    public void userExists() {
     }
 
     @Test
-    void userIsOp() {
+    public void userBotnickExists() {
     }
 
     @Test
-    void userIsMaster() {
+    public void userIsFriend() {
     }
 
     @Test
-    void userIsOwner() {
+    public void userIsOp() {
     }
 
     @Test
-    void userIsVoice() {
+    public void userIsMaster() {
     }
 
     @Test
-    void getGreet() {
+    public void userIsOwner() {
     }
 
     @Test
-    void reloadUsers() {
+    public void userIsVoice() {
     }
 
     @Test
-    void saveUsers() {
+    public void getGreet() {
+    }
+
+    @Test
+    public void reloadUsers() {
+    }
+
+    @Test
+    public void saveUsers() {
     }
 }

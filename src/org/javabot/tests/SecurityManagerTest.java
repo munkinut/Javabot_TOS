@@ -1,46 +1,50 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SecurityManagerTest {
+public class SecurityManagerTest {
 
-    @BeforeEach
-    void setUp() {
+    public SecurityManagerTest() {
+
     }
 
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
     }
 
-    @Test
-    void addFlooder() {
-    }
-
-    @Test
-    void removeFlooder() {
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void addIgnore() {
+    public void addFlooder() {
     }
 
     @Test
-    void removeIgnore() {
+    public void removeFlooder() {
     }
 
     @Test
-    void isIgnored() {
+    public void addIgnore() {
     }
 
     @Test
-    void hitFloodCounter() {
+    public void removeIgnore() {
     }
 
     @Test
-    void getMaxHits() {
+    public void isIgnored() {
+    }
+
+    @Test
+    public void hitFloodCounter() {
+    }
+
+    @Test
+    public void getMaxHits() {
     }
 }

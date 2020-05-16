@@ -1,62 +1,66 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BanPagerTest {
+public class BanPagerTest {
 
-    @BeforeEach
-    void setUp() {
+    public BanPagerTest() {
+
     }
 
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
     }
 
-    @Test
-    void numberOfResults() {
-    }
-
-    @Test
-    void next() {
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void hasNext() {
+    public void numberOfResults() {
     }
 
     @Test
-    void previous() {
+    public void next() {
     }
 
     @Test
-    void hasPrevious() {
+    public void hasNext() {
     }
 
     @Test
-    void pageBy() {
+    public void previous() {
     }
 
     @Test
-    void numberOfPages() {
+    public void hasPrevious() {
     }
 
     @Test
-    void getAllPages() {
+    public void pageBy() {
     }
 
     @Test
-    void getPage() {
+    public void numberOfPages() {
     }
 
     @Test
-    void getPages() {
+    public void getAllPages() {
     }
 
     @Test
-    void getPageNumbers() {
+    public void getPage() {
+    }
+
+    @Test
+    public void getPages() {
+    }
+
+    @Test
+    public void getPageNumbers() {
     }
 }

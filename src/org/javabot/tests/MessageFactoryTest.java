@@ -1,22 +1,26 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MessageFactoryTest {
+public class MessageFactoryTest {
 
-    @BeforeEach
-    void setUp() {
+    public MessageFactoryTest() {
+
     }
 
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void getMessage() {
+    public void getMessage() {
     }
 }

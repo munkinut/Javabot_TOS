@@ -1,38 +1,42 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BanManagerTest {
+public class BanManagerTest {
 
-    @BeforeEach
-    void setUp() {
+    public BanManagerTest() {
+
     }
 
-    @AfterEach
-    void tearDown() {
+    @Before
+    public void setUp() {
     }
 
-    @Test
-    void addBan() {
-    }
-
-    @Test
-    void delBan() {
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void matches() {
+    public void addBan() {
     }
 
     @Test
-    void getBans() {
+    public void delBan() {
     }
 
     @Test
-    void saveBans() {
+    public void matches() {
+    }
+
+    @Test
+    public void getBans() {
+    }
+
+    @Test
+    public void saveBans() {
     }
 }

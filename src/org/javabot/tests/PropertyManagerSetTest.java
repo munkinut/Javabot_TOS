@@ -1,29 +1,33 @@
 package org.javabot.tests;
 
 import org.javabot.configuration.PropertyManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PropertyManagerSetTest {
+public class PropertyManagerSetTest {
 
     private PropertyManager pm;
 
-    @BeforeEach
-    void setUp() {
+    public PropertyManagerSetTest() {
+
+    }
+
+    @Before
+    public void setUp() {
         pm = PropertyManager.getInstance();
     }
 
-    @AfterEach
-    void tearDown() {
+    @After
+    public void tearDown() {
         pm.resetFromConfigBackup();
         pm = null;
     }
 
     @Test
-    void setServer() {
+    public void setServer() {
         String newServer = "irc.ircnet.org";
         pm.setServer(newServer);
         String server = pm.getServer();
@@ -31,7 +35,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setName() {
+    public void setName() {
         String newName = "munkinut";
         pm.setName(newName);
         String name = pm.getName();
@@ -39,7 +43,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setNickname() {
+    public void setNickname() {
         String newNickname = "munkinut";
         pm.setNickname(newNickname);
         String nickName = pm.getNickname();
@@ -47,7 +51,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setChannel() {
+    public void setChannel() {
         String newChannel = "#munkinut";
         pm.setChannel(newChannel);
         String channel = pm.getChannel();
@@ -55,7 +59,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setChannelModes() {
+    public void setChannelModes() {
         String newChannelModes = "snt";
         pm.setChannelModes(newChannelModes);
         String channelModes = pm.getChannelModes();
@@ -63,7 +67,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setJoinRatio() {
+    public void setJoinRatio() {
         String newJoinRatio = "15:40";
         pm.setJoinRatio(newJoinRatio);
         String joinRatio = pm.getJoinRatio();
@@ -71,7 +75,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setPrivmsgRatio() {
+    public void setPrivmsgRatio() {
         String newPrivmsgRatio = "15:40";
         pm.setPrivmsgRatio(newPrivmsgRatio);
         String privmsgRatio = pm.getPrivmsgRatio();
@@ -79,7 +83,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setChanmsgRatio() {
+    public void setChanmsgRatio() {
         String newChanmsgRatio = "15:40";
         pm.setChanmsgRatio(newChanmsgRatio);
         String chanmsgRatio = pm.getChanmsgRatio();
@@ -87,7 +91,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setColourRatio() {
+    public void setColourRatio() {
         String newColourRatio = "15:40";
         pm.setColourRatio(newColourRatio);
         String colourRatio = pm.getColourRatio();
@@ -95,7 +99,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setCtcpRatio() {
+    public void setCtcpRatio() {
         String newCtcpRatio = "15:40";
         pm.setCtcpRatio(newCtcpRatio);
         String ctcpRatio = pm.getCtcpRatio();
@@ -103,7 +107,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setDccRatio() {
+    public void setDccRatio() {
         String newDccRatio = "15:40";
         pm.setDccRatio(newDccRatio);
         String dccRatio = pm.getDccRatio();
@@ -111,7 +115,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setPort() {
+    public void setPort() {
         int newPort = 6665;
         pm.setPort(newPort);
         int port = pm.getPort();
@@ -119,7 +123,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setAutovoice() {
+    public void setAutovoice() {
         boolean newAutovoice = false;
         pm.setAutovoice(newAutovoice);
         boolean autovoice = pm.getAutovoice();
@@ -127,7 +131,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setAutogreet() {
+    public void setAutogreet() {
         boolean newAutogreet = false;
         pm.setAutogreet(newAutogreet);
         boolean autogreet = pm.getAutogreet();
@@ -135,7 +139,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setFloodProtection() {
+    public void setFloodProtection() {
         boolean newFlood = false;
         pm.setFloodProtection(newFlood);
         boolean flood = pm.getFloodProtection();
@@ -143,7 +147,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setOpme() {
+    public void setOpme() {
         boolean newOpme = false;
         pm.setOpme(newOpme);
         boolean opme = pm.getOpme();
@@ -151,7 +155,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setCycleForOps() {
+    public void setCycleForOps() {
         boolean newCycle = false;
         pm.setCycleForOps(newCycle);
         boolean cycle = pm.getCycleForOps();
@@ -159,7 +163,7 @@ class PropertyManagerSetTest {
     }
 
     @Test
-    void setDynamicLimit() {
+    public void setDynamicLimit() {
         boolean newDynamic = false;
         pm.setDynamicLimit(newDynamic);
         boolean dynamic = pm.getDynamicLimit();

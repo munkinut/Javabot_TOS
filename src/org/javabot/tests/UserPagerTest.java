@@ -1,62 +1,62 @@
 package org.javabot.tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserPagerTest {
+public class UserPagerTest {
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void numberOfResults() {
+    @After
+    public void tearDown() {
     }
 
     @Test
-    void next() {
+    public void numberOfResults() {
     }
 
     @Test
-    void hasNext() {
+    public void next() {
     }
 
     @Test
-    void previous() {
+    public void hasNext() {
     }
 
     @Test
-    void hasPrevious() {
+    public void previous() {
     }
 
     @Test
-    void pageBy() {
+    public void hasPrevious() {
     }
 
     @Test
-    void numberOfPages() {
+    public void pageBy() {
     }
 
     @Test
-    void getAllPages() {
+    public void numberOfPages() {
     }
 
     @Test
-    void getPage() {
+    public void getAllPages() {
     }
 
     @Test
-    void getPages() {
+    public void getPage() {
     }
 
     @Test
-    void getPageNumbers() {
+    public void getPages() {
+    }
+
+    @Test
+    public void getPageNumbers() {
     }
 }
