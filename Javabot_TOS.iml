@@ -25,5 +25,6 @@
     <orderEntry type="library" name="snakeyaml-1.26" level="project" />
     <orderEntry type="library" name="spring-core-5.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="xml-resolver-1.2" level="project" />
+    <orderEntry type="library" name="commons-io-2.6" level="project" />
   </component>
 </module>
