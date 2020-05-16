@@ -3,5 +3,5 @@
 //
 // invoked using !<botnick> version
 
-message = "JavaBot TOS Version 2";
+message = "JavaBot TOS Version 3 devel";
 scriptResource.msgChannel(message);
