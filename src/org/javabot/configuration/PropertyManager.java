@@ -25,7 +25,10 @@ import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 /** Manages the properties object and file
@@ -879,6 +882,38 @@ public class PropertyManager {
         }
         busy = false;
         notifyAll();
+    }
+
+    public synchronized void resetFromConfigBackup() {
+        log.info("resetFromConfigBackup() called");
+        while (busy) {
+            try {
+                log.info("waiting");
+                wait();
+            }
+            catch (InterruptedException ie) {
+                log.warning("Thread interrupted " + ie.getMessage());
+            }
+        }
+        busy = true;
+        String srcDir = properties.getString("SrcDir");
+        String srcFile = srcDir + "javabot.properties";
+        log.info(srcFile);
+        String destFile = srcDir + "javabot.properties.bak";
+        log.info(destFile);
+        File src = new File(srcFile);
+        File dest = new File(destFile);
+        String backupsLocation = properties.getString("Backups_Location");
+        File source = new File(backupsLocation + "javabot.properties");
+
+        try {
+            FileUtils.copyFile(src, dest);
+            FileUtils.copyFileToDirectory(source, new File(srcDir));
+        } catch (IOException e) {
+            log.info(e.getMessage());
+            busy = false;
+        }
+        busy = false;
     }
     
     /** Log an error and return false
