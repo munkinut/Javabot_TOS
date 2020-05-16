@@ -26,5 +26,7 @@
     <orderEntry type="library" name="spring-core-5.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="xml-resolver-1.2" level="project" />
     <orderEntry type="library" name="commons-io-2.6" level="project" />
+    <orderEntry type="library" name="junit-4.13" level="project" />
+    <orderEntry type="library" name="hamcrest-core-1.3" level="project" />
   </component>
 </module>
