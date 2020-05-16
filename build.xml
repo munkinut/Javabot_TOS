@@ -19,12 +19,12 @@
     </path>
 
     <path id="test.class.path">
-        <fileset dir="${lib}" includes="*.jar"/>
-        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar" excludes="ant-1.10.7.jar"/>
+        <fileset dir="${dist}/lib" includes="*.jar"/>
+        <!--fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar" excludes="ant-1.10.7.jar"/>-->
         <pathelement location="${build}"/>
     </path>
 
-    <target name="run_tests" depends="dist">
+    <target name="run_tests" description="Runs the Junit tests." depends="dist">
         <junit printsummary="on" haltonfailure="yes" fork="true">
             <classpath>
                 <path refid="test.class.path"/>
@@ -63,7 +63,7 @@
         <mkdir dir="${dist}/lib"/>
 
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/javabot_tos.jar" manifest="Manifest.txt">
+        <jar jarfile="${dist}/lib/javabot_tos.jar"  manifest="Manifest.mf">
             <!-- <fileset dir="${images}"/> -->
             <fileset dir="${build}"/>
         </jar>
@@ -89,14 +89,14 @@
         <fileset dir="${dist}/lib" includes="*.jar"/>
     </path>
 
-    <target name="run_jar">
+    <target name="run_jar" description="Runs Javabot from the generated jar file." depends="dist">
         <java fork="true" classpathref="run.class.path" jar="${dist}/lib/javabot_tos.jar">
             <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
             <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>
         </java>
     </target>
 
-    <target name="run">
+    <target name="run" description="Runs Javabot from the compiled classes" depends="dist">
         <java fork="true" classpathref="run.class.path" classname="org.javabot.gui.javabot">
             <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
             <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>
