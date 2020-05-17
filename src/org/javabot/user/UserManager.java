@@ -28,7 +28,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 public class UserManager {
@@ -40,9 +39,9 @@ public class UserManager {
 
     public UserManager() {
         //String fs = java.io.File.separator;
-        Properties properties = PropertyManager.getInstance().getProperties();
-        usersPath = properties.getProperty("Users_Location");
-        log.info("[UM] : userfile = " + usersPath);
+        PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
+        usersPath = pm.getUsersLocation();
+        log.info("userfile = " + usersPath);
         users = this.loadUsers();
         ArrayList<User> userList = users.getUsers();
         for(User user:userList) {
@@ -374,6 +373,8 @@ public class UserManager {
                     success = testFlag(flags,flagStr);
                     log.info("success is + " + success);
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + flagStr);
             }
         }
         else {
@@ -406,12 +407,12 @@ public class UserManager {
 
             ArrayList<User> userList = users.getUsers();
             for(User user:userList) {
-                System.out.println("User: " + user.getNick() + " aged " + user.getHostmask());
+                log.info("User: " + user.getNick() + " aged " + user.getHostmask());
             }
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not unmarshal xml file : " + e.getMessage());
         }
         return users;
     }
@@ -438,7 +439,7 @@ public class UserManager {
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not marshal xml file : " + e.getMessage());
         }
 
 

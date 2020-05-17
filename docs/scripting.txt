@@ -1,0 +1,67 @@
+JavaBot Scripting
+
+JavaBot scripting is implemented in BeanShell and Groovy, which are
+essentially interpretted Java with some convenience commands, a pre-imported
+classpath and the option to code in a "looser" syntax.  Details about
+BeanShell scripting can be found at http://www.beanshell.org.
+
+Scripts
+
+Scripts are put in the scripts directory (compiled/org/javabot/scripts) 
+and are named thusly :
+
+    <command>.bsh
+
+    E.g.
+
+    wibble.bsh
+
+To invoke a script, do :
+
+    !<bot's nick> <command>
+
+    E.g.
+
+    !javamunk wibble
+
+To invoke a script with parameters, do :
+
+    !<bot's nick> <command> <parameters>
+
+    E.g.
+
+    !javamunk wibble wobble wobble
+
+Script API
+
+JavaBot BeanShell scripts have access to a resource created for them 
+by JavaBot called "scriptResource".  The essentially provides a simple 
+API with the following public methods : 
+
+    getChannel()    -   returns the bot's current channel
+    getNick()       -   returns the nick who invoked the script
+    getHostmask()   -   returns the hostmask who invoked the script, 
+                        in the form <ident>@<host domain>
+    getParams()     -   returns a Vector of parameters passed to the script
+
+    msgNick(String message)     -   sends a message to (getNick())
+    msgChannel(String message)  -   sends a message to (getChannel())
+
+The example script wibble.bsh gives a basic example.
+
+    // wibble.bsh
+    nick = scriptResource.getNick();
+    scriptResource.msgChannel("hi " + nick + ".  wibble wibble :)");
+    //
+
+This script will be invoked (assuming the bot's nick is javamunk) when 
+someone types:
+
+    !javamunk wibble
+
+And will result in (assuming the invoking nick was munki):
+
+    > hi munki. wibble wibble :)
+
+Of course this is a very simple example for illustration, but BeanShell is 
+powerful little beast with lots of possibilities.

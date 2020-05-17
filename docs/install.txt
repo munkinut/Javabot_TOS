@@ -1,2 +1,2 @@
-See the quickstart guide in README at the top level for now.
+See the userguide.txt file for now.
 

@@ -23,7 +23,6 @@ package org.javabot.security;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import gnu.regexp.*;
@@ -42,8 +41,8 @@ public class BanManager {
 
     public BanManager() {
         //String fs = java.io.File.separator;
-        Properties properties = PropertyManager.getInstance().getProperties();
-        banfile = properties.getProperty("Bans_Location");
+        PropertyManager pm = PropertyManager.getInstance();
+        banfile = pm.getBansLocation();
         log.info("banfile = " + banfile);
         bans = this.loadBans();
     }
@@ -64,8 +63,8 @@ public class BanManager {
         boolean matches = false;
         String banmask;
         RE exp;
-        for (Object ban : bans.getBans()) {
-            banmask = ((Ban)ban).getHostmask();
+        for (Ban ban : bans.getBans()) {
+            banmask = ban.getHostmask();
             try {
                 exp = new RE(this.regThis(banmask));
                 if (exp.isMatch(hostmask)) {
@@ -83,7 +82,7 @@ public class BanManager {
             RE nickReg = new RE("\\*");
             hostmask = nickReg.substituteAll(hostmask, "\\S*");
         }
-        catch (gnu.regexp.REException ignored) {
+        catch (REException ignored) {
         }
         return hostmask;
     }
@@ -108,16 +107,17 @@ public class BanManager {
             File XMLfile = new File(banfile);
 
             // this will create Java object - Users from the XML file
-            bans = (Bans) jaxbUnmarshaller.unmarshal(XMLfile);
+            bans = (Bans)jaxbUnmarshaller.unmarshal(XMLfile);
+            if (bans == null) log.warning("bans was NULL");
 
             ArrayList<Ban> banList = bans.getBans();
             for(Ban ban:banList) {
-                System.out.println("User: " + ban.getHostmask());
+                log.info("User: " + ban.getHostmask());
             }
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not unmarshal xml file : " + e.getMessage());
         }
         return bans;
     }
@@ -143,7 +143,7 @@ public class BanManager {
 
         } catch (JAXBException e) {
             // some exception occured
-            e.printStackTrace();
+            log.warning("Could not marshal xml file : " + e.getMessage());
         }
 
 

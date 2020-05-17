@@ -21,9 +21,12 @@
 
 package org.javabot.gui;
 
+import org.javabot.configuration.PropertyManager;
+import org.javabot.engine.inbound;
+
 import java.util.logging.Logger;
 
-public class JavaBotActivator {
+class JavaBotActivator {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
@@ -32,8 +35,9 @@ public class JavaBotActivator {
     private boolean connected;
     private final javax.swing.JTextArea consoleOutput;
     private java.net.Socket ircsocket;
-    private final org.javabot.configuration.PropertyManager propertyManager;
-    private org.javabot.engine.inbound in;
+    private final PropertyManager propertyManager;
+    //private org.javabot.engine.inbound in;
+    private inbound in;
 
     /** Creates new JavaBotActivator */
     public JavaBotActivator(javax.swing.JTextArea consoleOutput) {
@@ -54,27 +58,38 @@ public class JavaBotActivator {
                 String server = propertyManager.getServer();
                 int port = propertyManager.getPort();
                 ircsocket = new java.net.Socket(server, port);
-                in = new org.javabot.engine.inbound(ircsocket, consoleOutput);
-                in.start();
+                //in = new org.javabot.engine.inbound(ircsocket, consoleOutput);
+                //in.start();
+                in = new inbound(ircsocket, consoleOutput);
+                in.t.start();
                 connected = true;
             }
         }
         catch (java.net.UnknownHostException uhe){
-            System.err.println("UnknownHostException: " + uhe);
+            log.warning("UnknownHostException: " + uhe);
             connected = false;
             // System.exit(1);
         }
         catch (java.io.IOException ioe){
-            System.err.println("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
             connected = false;
             // System.exit(1);
-        }
+        }// catch (InterruptedException e) {
+        //
+        //}
     }
     
     public boolean disconnect() {
         log.info("disconnect() called");
         if (connected && (in != null)) {
             in.quit();
+            try {
+                log.info("Thread alive is " + in.t.isAlive() + " ... calling join()");
+                in.t.join(5000);
+                log.info("Thread alive is " + in.t.isAlive());
+            } catch (InterruptedException e) {
+                log.warning("InterruptedException: " + e);
+            }
             try {
                 if (ircsocket != null) ircsocket.close();
                 String status = "Disconnected\n";
@@ -86,21 +101,10 @@ public class JavaBotActivator {
                 consoleOutput.append(status);
                 //consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + status.length());
             }
-            connected = false;
+
+          connected = false;
         }
         return connected;
     }
     
-    public boolean exit() {
-        log.info("exit() called");
-        //noinspection StatementWithEmptyBody
-        if (this.disconnect()) {
-            // tell us we disconnected ok
-        }
-        else {
-            // tell us we did not disconnect ok
-        }
-        return connected;
-    }
-
 }

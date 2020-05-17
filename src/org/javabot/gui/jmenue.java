@@ -137,12 +137,12 @@ public class jmenue extends javax.swing.JFrame {
           getContentPane().add(consoleScrollPane, java.awt.BorderLayout.CENTER);
           
           getContentPane().add(consoleInput, java.awt.BorderLayout.SOUTH);
-          
-          conDisconButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/javabot/images/disconnected.gif")));
-          conDisconButton.setToolTipText("Click to Connect");
+
+            conDisconButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("disconnected.gif")));
+        conDisconButton.setToolTipText("Click to Connect");
           conDisconButton.setBorder(new javax.swing.border.EtchedBorder());
-          conDisconButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/org/javabot/images/connected.gif")));
-          conDisconButton.setName("");
+            conDisconButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("connected.gif")));
+        conDisconButton.setName("");
           conDisconButton.addActionListener(new java.awt.event.ActionListener() {
               public void actionPerformed(java.awt.event.ActionEvent evt) {
                   conDisconButtonActionPerformed(evt);
@@ -214,15 +214,16 @@ public class jmenue extends javax.swing.JFrame {
     /** Exit the Application */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         if (jba.isConnected()) jba.disconnect();
+        //this.setVisible(false);
         System.exit (0);
     }//GEN-LAST:event_exitForm
 
     /**
     * @param args the command line arguments
     */
-    @SuppressWarnings("deprecation")
+
     public static void main (String[] args) {
-        new jmenue ().show ();
+        new jmenue().setVisible(true);
     }
     
     public void write(String toWrite) {

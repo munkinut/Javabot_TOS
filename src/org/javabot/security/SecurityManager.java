@@ -21,6 +21,7 @@
 
 package org.javabot.security;
 
+import org.javabot.configuration.PropertyManager;
 import org.javabot.util.MyObserver;
 import java.util.Vector;
 import java.util.logging.Logger;
@@ -51,7 +52,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     /** Creates new SecurityManager */
     public SecurityManager() {
         log.info("[SM] : Security Manager created");
-        org.javabot.configuration.PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
+        PropertyManager pm = org.javabot.configuration.PropertyManager.getInstance();
         SecurityManager.privmsgRatio = pm.getPrivmsgRatio();
         SecurityManager.chanmsgRatio = pm.getChanmsgRatio();
         SecurityManager.ctcpRatio = pm.getCtcpRatio();
@@ -168,6 +169,7 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
                 log.info("[SM] : takeAction() chanmsg flood ... kicking");
                 this.kick(floodType, hostmask);
             }
+            default -> throw new IllegalStateException("Unexpected value: " + floodType);
         }
     }
     

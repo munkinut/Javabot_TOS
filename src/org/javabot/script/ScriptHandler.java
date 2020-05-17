@@ -22,6 +22,10 @@
 package org.javabot.script;
 
 import bsh.*;
+import groovy.lang.Binding;
+import groovy.util.GroovyScriptEngine;
+import groovy.util.ResourceException;
+import groovy.util.ScriptException;
 import org.javabot.configuration.PropertyManager;
 
 import java.io.*;
@@ -32,47 +36,136 @@ public class ScriptHandler {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
+    // For Beanshell scripts
     private final Interpreter interpreter;
     private final DataOutputStream outbound;
     private final String scriptPath;
+    //private String file;
+
+    // For Groovy scripts
+    GroovyScriptEngine gse;
+    //Binding binding;
 
     /** Creates new ScriptHandler */
     public ScriptHandler(DataOutputStream outbound) {
+        this.outbound = outbound;
+
         log.info("ScriptHandler() called");
-        Properties properties = PropertyManager.getInstance().getProperties();
-        scriptPath = properties.getProperty("Scripts_Location");
+        PropertyManager pm = PropertyManager.getInstance();
+        scriptPath = pm.getScriptsLocation();
         log.info("scriptPath = " + scriptPath);
 
+        // For Beanshell scripts
         this.interpreter = new Interpreter();
-        this.outbound = outbound;
+
+        // For Groovy scripts
+        //File tmpDir = new File(scriptPath);
+        //String[] roots = new String[]{tmpDir.getAbsolutePath()};
+        //try {
+        //     this.gse = new GroovyScriptEngine(roots);
+        //} catch (IOException e) {
+        //    log.warning("IOException thrown : " + e.getMessage());
+        //}
+        //binding = new Binding();
+
     }
     
     public void handlePublicCmd(String channel, String nick, String hostmask, ArrayList<String> cmd) {
         if (!cmd.isEmpty()) {
-            String command = cmd.get(0);
             ArrayList<String> params = this.parseParams(cmd);
-            String script = this.pathToScript(command);
-            ScriptResource scriptResource = new ScriptResource(
-                outbound, channel, nick, hostmask, params);
-            try {
-                interpreter.set("scriptResource", scriptResource);
-                interpreter.source(script);
+            String command = cmd.get(0);
+            if(isBeanshellScript(command)) {
+                String script = this.pathToScript(command, "bsh");
+                log.info(script);
+                ScriptResource scriptResource = new ScriptResource(
+                        outbound, channel, nick, hostmask, params);
+                try {
+                    interpreter.set("scriptResource", scriptResource);
+                    interpreter.source(script);
+                }
+                catch (EvalError e) {
+                    log.severe(e.getMessage());
+                }
+                catch (FileNotFoundException fnfe) {
+                    log.warning("Could not find script : " + script);
+                }
+                catch (IOException ioe) {
+                    log.warning("Could not read script : " + script);
+                }
+
             }
-            catch (EvalError e) {
-                e.printStackTrace();
+            else if(isGroovyScript(command)) {
+                String script = this.pathToScript(command, "groovy");
+                String scriptName = command + ".groovy";
+                log.info(script);
+                log.info(scriptName);
+                ScriptResource scriptResource = new ScriptResource(
+                        outbound, channel, nick, hostmask, params);
+                String[] roots = new String[]{scriptPath};
+                try {
+                    gse = new GroovyScriptEngine(roots);
+                } catch (IOException e) {
+                    log.warning("IOException thrown : " + e.getMessage());
+                }
+                Binding binding = new Binding();
+                binding.setProperty("scriptResource", scriptResource);
+                try {
+                    gse.run(scriptName, binding);
+                } catch (ResourceException e) {
+                    log.warning("ResourceException thrown : " + e.getMessage());
+                    e.printStackTrace();
+                } catch (ScriptException e) {
+                    log.warning("ScriptException thrown : " + e.getMessage());
+                }
             }
-            catch (FileNotFoundException fnfe) {
-                System.err.println("Could not find script : " + script);
-            }
-            catch (IOException ioe) {
-                System.err.println("Could not read script : " + script);
-                ioe.printStackTrace();
+            else {
+                log.warning("Script was neither Beanshell nor Groovy.");
             }
         }
     }
-    
-    private String pathToScript(String command) {
-        String totalPath = scriptPath + command + ".bsh";
+
+    // TODO : write this so we can have bsh scripts being properly identified
+    private boolean isBeanshellScript(String command) {
+        // Search for command in the scripts location
+        // If it ends with bsh, return true
+        String extension = "bsh";
+        File scriptDir = new File(scriptPath);
+        File[] scriptFiles = scriptDir.listFiles();
+        boolean success = false;
+        for (File scriptFile : Objects.requireNonNull(scriptFiles)) {
+            String filename = scriptFile.getName();
+            log.info("Script filename = " + filename);
+            if(filename.startsWith(command) && filename.endsWith(extension)) {
+                log.info("filename starts with " + command + " and ends with " + extension);
+                success = true;
+                break;
+            }
+        }
+        return success;
+    }
+
+    // TODO : write this so we can have groovy scripts being properly identified
+    private boolean isGroovyScript(String command) {
+        // Search for command in the scripts location
+        // If it ends with groovy, return true
+        String extension = "groovy";
+        File scriptDir = new File(scriptPath);
+        File[] scriptFiles = scriptDir.listFiles();
+        boolean success = false;
+        for (File scriptFile : Objects.requireNonNull(scriptFiles)) {
+            String filename = scriptFile.getName();
+            log.info("Script filename = " + filename);
+            if(filename.startsWith(command) && filename.endsWith(extension)) {
+                log.info("filename starts with " + command + " and ends with " + extension);
+                success = true;
+                break;
+            }
+        }
+        return success;
+    }
+
+    private String pathToScript(String command, String extension) {
+        String totalPath = scriptPath + command + "." + extension;
         log.info("Looking for script at " + totalPath);
         return totalPath;
     }

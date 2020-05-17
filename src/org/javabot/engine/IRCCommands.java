@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  */
 public class IRCCommands {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    static final Logger log = Logger.getLogger("IRCCommands");
 
     //Funktion PingPong by Torsten Born
     //********************************************************************
@@ -42,7 +42,7 @@ public class IRCCommands {
         
         try {
             String ret = "PONG :" + response + "\r\n";
-            print("Sending " + ret);
+            print(ret);
             outbound.writeBytes(ret);
         }
         catch (IOException ioe) {
@@ -67,9 +67,9 @@ public class IRCCommands {
         try {
             String userRet = "user "+name+" 0 0 We will rock you\n";
             String nickRet = "nick "+nick+"\n";
-            print("Sending : " + userRet);
+            print(userRet);
             outbound.writeBytes(userRet);
-            print("Sending : " + nickRet);
+            print(nickRet);
             outbound.writeBytes(nickRet);
         }
         catch (IOException ioe) {
@@ -91,7 +91,7 @@ public class IRCCommands {
     public static void writeBytes(String all, DataOutputStream outbound) {
         
         try {
-            print("Sending : " + all);
+            print(all);
             outbound.writeBytes(all);
         }
         catch (IOException ioe) {
@@ -114,7 +114,7 @@ public class IRCCommands {
         
         try {
             String quitRet = "QUIT :" + quitMessage +"\r\n";
-            print("Sending : " + quitRet);
+            print(quitRet);
             outbound.writeBytes(quitRet);
         }
         catch (IOException ioe) {
@@ -137,7 +137,7 @@ public class IRCCommands {
     public static void privmsg(String to, String message,DataOutputStream outbound) {
         try {
             String msgRet = "PRIVMSG "+to+" :"+message+"\r\n";
-            print("Sending : " + msgRet);
+            print(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe){
@@ -160,7 +160,7 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +v " + nick + "\r\n";
-            print("Sending : " + msgRet);
+            print(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
@@ -183,7 +183,7 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +b " + banmask + "\r\n";
-            print("Sending : " + msgRet);
+            print(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
@@ -213,14 +213,16 @@ public class IRCCommands {
             print("IOException: " + ioe);
         }
     }
-
-    private static void print(String msg) {
-        System.out.println("Sending + " + msg);
-    }
     //**
     //********************************************************************
     //Ende der Funktion UnBan
-    
+
+
+    private static void print(String msg) {
+        if (msg.startsWith("IOException")) log.warning(msg);
+        else log.info(msg);
+    }
+
     //Funktion Kick by Warren Milburn
     //********************************************************************
     //**
@@ -566,6 +568,7 @@ public class IRCCommands {
                 case Calendar.THURSDAY -> day += "Thursday";
                 case Calendar.FRIDAY -> day += "Friday";
                 case Calendar.SATURDAY -> day += "Saturday";
+                default -> throw new IllegalStateException("Unexpected value: " + value);
             }
             
             int     year = cal.get(Calendar.YEAR);

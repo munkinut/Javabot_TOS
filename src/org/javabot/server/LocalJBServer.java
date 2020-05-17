@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 public class LocalJBServer implements JBotnetInterface {
 
-    Logger log = Logger.getLogger(this.getClass().getName());
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final java.util.ArrayList<JBotnetInterface> clients;
 
@@ -44,7 +44,7 @@ public class LocalJBServer implements JBotnetInterface {
     
     public void register(JBotnetInterface client) {
         clients.add(client);
-        System.out.println("Client registered");
+        log.info("Client registered");
     }
     
 }

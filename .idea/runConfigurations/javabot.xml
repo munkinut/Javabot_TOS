@@ -2,7 +2,7 @@
   <configuration default="false" name="javabot" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="org.javabot.gui.javabot" />
     <module name="Javabot_TOS" />
-    <option name="VM_PARAMETERS" value="-Djava.util.logging.config.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties" />
+    <option name="VM_PARAMETERS" value="-Djava.util.logging.config.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties -Djavabot.properties.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.javabot.gui.*" />

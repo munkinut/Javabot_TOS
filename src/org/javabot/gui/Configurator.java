@@ -281,7 +281,6 @@ public class Configurator {
         pm.setChanmsgRatio(this.getChanmsgHits() + ":" + this.getChanmsgLimit());
         pm.setColourRatio(this.getColourHits() + ":" + this.getColourLimit());
         pm.setDccRatio(this.getDccHits() + ":" + this.getDccLimit());
-        pm.writeProperties();
     }
 
     public void load() {
