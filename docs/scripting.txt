@@ -7,8 +7,7 @@ BeanShell scripting can be found at http://www.beanshell.org.
 
 Scripts
 
-Scripts are put in the scripts directory (compiled/org/javabot/scripts) 
-and are named thusly :
+Scripts are put in the scripts directory and are named thusly :
 
     <command>.bsh
 
