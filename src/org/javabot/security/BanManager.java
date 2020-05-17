@@ -63,8 +63,8 @@ public class BanManager {
         boolean matches = false;
         String banmask;
         RE exp;
-        for (Object ban : bans.getBans()) {
-            banmask = ((Ban)ban).getHostmask();
+        for (Ban ban : bans.getBans()) {
+            banmask = ban.getHostmask();
             try {
                 exp = new RE(this.regThis(banmask));
                 if (exp.isMatch(hostmask)) {
@@ -107,7 +107,8 @@ public class BanManager {
             File XMLfile = new File(banfile);
 
             // this will create Java object - Users from the XML file
-            bans = (Bans) jaxbUnmarshaller.unmarshal(XMLfile);
+            bans = (Bans)jaxbUnmarshaller.unmarshal(XMLfile);
+            if (bans == null) log.warning("bans was NULL");
 
             ArrayList<Ban> banList = bans.getBans();
             for(Ban ban:banList) {
