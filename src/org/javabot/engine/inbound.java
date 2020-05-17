@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 
 /** Inbound message handler
  */
-public class inboundRunnable implements Runnable {
+public class inbound implements Runnable {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
@@ -56,7 +56,7 @@ public class inboundRunnable implements Runnable {
      * @param ircsocket Socket connection to server
      * @param consoleOutput Console for output messages
      */
-    public inboundRunnable(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
+    public inbound(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
         log.info("inboundRunnable() called");
         name = "inboundRunnableT";
         t = new Thread(this, name);

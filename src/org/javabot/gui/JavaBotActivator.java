@@ -22,6 +22,7 @@
 package org.javabot.gui;
 
 import org.javabot.configuration.PropertyManager;
+import org.javabot.engine.inbound;
 
 import java.util.logging.Logger;
 
@@ -36,7 +37,7 @@ class JavaBotActivator {
     private java.net.Socket ircsocket;
     private final PropertyManager propertyManager;
     //private org.javabot.engine.inbound in;
-    private org.javabot.engine.inboundRunnable in;
+    private inbound in;
 
     /** Creates new JavaBotActivator */
     public JavaBotActivator(javax.swing.JTextArea consoleOutput) {
@@ -59,7 +60,7 @@ class JavaBotActivator {
                 ircsocket = new java.net.Socket(server, port);
                 //in = new org.javabot.engine.inbound(ircsocket, consoleOutput);
                 //in.start();
-                in = new org.javabot.engine.inboundRunnable(ircsocket, consoleOutput);
+                in = new inbound(ircsocket, consoleOutput);
                 in.t.start();
                 connected = true;
             }
