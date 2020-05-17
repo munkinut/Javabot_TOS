@@ -25,7 +25,7 @@ import org.javabot.configuration.PropertyManager;
 
 import java.util.logging.Logger;
 
-public class JavaBotActivator {
+class JavaBotActivator {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
@@ -88,22 +88,10 @@ public class JavaBotActivator {
                 consoleOutput.append(status);
                 //consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + status.length());
             }
-            connected = false;
+
+          connected = false;
         }
         return connected;
     }
     
-    public boolean exit() {
-        log.info("exit() called");
-        if (this.disconnect()) {
-            // tell us we disconnected ok
-            log.info("Disconnected OK");
-        }
-        else {
-            // tell us we did not disconnect ok
-            log.info("Disconnected NOT OK");
-        }
-        return connected;
-    }
-
 }
