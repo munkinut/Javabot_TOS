@@ -214,15 +214,16 @@ public class jmenue extends javax.swing.JFrame {
     /** Exit the Application */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         if (jba.isConnected()) jba.disconnect();
+        //this.setVisible(false);
         System.exit (0);
     }//GEN-LAST:event_exitForm
 
     /**
     * @param args the command line arguments
     */
-    @SuppressWarnings("deprecation")
+
     public static void main (String[] args) {
-        new jmenue ().show ();
+        new jmenue().setVisible(true);
     }
     
     public void write(String toWrite) {
