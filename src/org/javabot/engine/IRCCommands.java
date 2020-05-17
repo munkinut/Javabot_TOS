@@ -33,7 +33,7 @@ public class IRCCommands {
 
     private static IRCCommands ircCommands;
 
-    final Logger log = Logger.getLogger("IRCCommands");
+    final Logger log = Logger.getLogger(this.getClass().getName());
 
     public static synchronized IRCCommands getInstance() {
         if (ircCommands == null) ircCommands = new IRCCommands();
@@ -55,11 +55,11 @@ public class IRCCommands {
         
         try {
             String ret = "PONG :" + response + "\r\n";
-            print(ret);
+            log.info(ret);
             outbound.writeBytes(ret);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
         
     }
@@ -80,13 +80,13 @@ public class IRCCommands {
         try {
             String userRet = "user "+name+" 0 0 We will rock you\n";
             String nickRet = "nick "+nick+"\n";
-            print(userRet);
+            log.info(userRet);
             outbound.writeBytes(userRet);
-            print(nickRet);
+            log.info(nickRet);
             outbound.writeBytes(nickRet);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
         
     }
@@ -104,11 +104,11 @@ public class IRCCommands {
     public void writeBytes(String all, DataOutputStream outbound) {
         
         try {
-            print(all);
+            log.info(all);
             outbound.writeBytes(all);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
         
     }
@@ -127,11 +127,11 @@ public class IRCCommands {
         
         try {
             String quitRet = "QUIT :" + quitMessage +"\r\n";
-            print(quitRet);
+            log.info(quitRet);
             outbound.writeBytes(quitRet);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
         
     }
@@ -150,11 +150,11 @@ public class IRCCommands {
     public void privmsg(String to, String message,DataOutputStream outbound) {
         try {
             String msgRet = "PRIVMSG "+to+" :"+message+"\r\n";
-            print(msgRet);
+            log.info(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe){
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     //**
@@ -173,11 +173,11 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +v " + nick + "\r\n";
-            print(msgRet);
+            log.info(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     //**
@@ -196,11 +196,11 @@ public class IRCCommands {
         
         try {
             String msgRet = "mode " + channel + " +b " + banmask + "\r\n";
-            print(msgRet);
+            log.info(msgRet);
             outbound.writeBytes(msgRet);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     //**
@@ -219,22 +219,17 @@ public class IRCCommands {
         
         try {
             String msg = "mode " + channel + " -b " + banmask + "\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     //**
     //********************************************************************
     //Ende der Funktion UnBan
 
-
-    private void print(String msg) {
-        if (msg.startsWith("IOException")) log.warning(msg);
-        else log.info(msg);
-    }
 
     //Funktion Kick by Warren Milburn
     //********************************************************************
@@ -248,11 +243,11 @@ public class IRCCommands {
         
         try {
             String msg = "kick " + channel + " " + nick + "\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     //**
@@ -271,11 +266,11 @@ public class IRCCommands {
         
         try {
             String msg = "invite " + nick + " " + channel + "\r\n";
-            print (msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     //**
@@ -291,14 +286,14 @@ public class IRCCommands {
      * @param outbound Outbound stream to IRC server
      */    
     public void opme(String channel, String nick, DataOutputStream outbound) {
-        print("opme called for channel " + channel + " by " + nick);
+        log.info("opme called for channel " + channel + " by " + nick);
         try {
             String msg = "mode "+channel+" +o "+ nick +"\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -317,11 +312,11 @@ public class IRCCommands {
         
         try {
             String msg = "names "+channel+"\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -341,11 +336,11 @@ public class IRCCommands {
         
         try {
             String msg = "mode "+channel+" +l " + channelLimit +"\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -365,11 +360,11 @@ public class IRCCommands {
         
         try {
             String msg = "mode "+channel+" " + modes +"\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -385,7 +380,7 @@ public class IRCCommands {
      * @param outbound Outbound stream to IRC server
      */    
     public void cycle(String channel, DataOutputStream outbound) {
-        print("cycle() called");
+        log.info("cycle() called");
         part(channel, outbound);
         join(channel, outbound);
     }
@@ -405,11 +400,11 @@ public class IRCCommands {
         
         try {
             String msg = "part "+channel+"\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -428,11 +423,11 @@ public class IRCCommands {
         
         try {
             String msg = "join "+channel+"\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -451,11 +446,11 @@ public class IRCCommands {
         
         try {
             String msg = "mode "+channel+" +mi \r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -474,11 +469,11 @@ public class IRCCommands {
         
         try {
             String msg = "mode "+channel+" -mi \r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -497,11 +492,11 @@ public class IRCCommands {
         
         try {
             String msg = "PRIVMSG "+channel+" :JavaBot Version 0.2 by Torsten Born\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -521,11 +516,11 @@ public class IRCCommands {
         
         try {
             String msg = "PRIVMSG " + channel + " :" + greet + "\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -543,13 +538,13 @@ public class IRCCommands {
     public void help(String channel,DataOutputStream outbound) {
         
         try {
-            print("Sending Help reply messages");
+            log.info("Sending Help reply messages");
             outbound.writeBytes("PRIVMSG "+channel+" :JavaBot TOS Version 3 commands:\r\n");
             outbound.writeBytes("PRIVMSG "+channel+" :!version = shows the current Javabot version\r\n");
             outbound.writeBytes("PRIVMSG "+channel+" :!date    = shows the current time and date of the JavaBot Server\r\n");
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
     }
     
@@ -601,12 +596,12 @@ public class IRCCommands {
                 case 1 -> ap = "PM";
             }
             String msg = "PRIVMSG "+channel+" :Today is "+day+" "+today+". "+month[cal.get(Calendar.MONTH)]+" "+year+"; "+houre+":"+minute+" "+ap+"\r\n";
-            print(msg);
+            log.info(msg);
             outbound.writeBytes(msg);
             
         }
         catch (IOException ioe) {
-            print("IOException: " + ioe);
+            log.warning("IOException: " + ioe);
         }
         
     }
