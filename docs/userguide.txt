@@ -1,45 +1,52 @@
 JavaBot User Guide (c) Warren Milburn 2001
+Revised 2020
 
 Introduction
 
-Quick Start (assumes that you have a compiled bot and are in the compiled directory)
+Quick Start
 
-1) Run InitUsersXML to create a default userfile containing an entry for the bot owner.
+1) Download a release from Github (https://github.org/munkinut/Javabot_TOS).
 
-    java org.javabot.user.InitUsersXML <username> <password>
+2) Download the dependencies and put them in a "lib" directory.
 
-    Eg. > java org.javabot.user.InitUsersXML wibble wobble
+3) Edit the users.xml file in the config directory and replace my defaults with your own.
 
-    Will create a userfile called newusers.xml
-    with the username "wibble" and password "wobble".
-
-    This file needs to be renamed to users.xml and placed in the config directory
-    (org/javabot/config).
-
-    This user has their bot owner flag set to true and can then add more flags for 
-    themselves and create more users once the bot is running.
-
-2) Edit the javabot.properties file (org/javabot/config/javabot.properties)
+4) Edit the javabot.properties file in the config directory and change the settings there:
 
     This contains directives for the server and port, channel and the bots name.
-    Please ensure you specify the channel name in lowercase.
-    The file also contains switches for various options such as autovoice and flood protection.
+    Please ensure you specify the channel name in lowercase and starting with a '#'.
+    The file also contains switches for various options such as autovoice and flood protection,
+    some of which work, and some don't yet. There are also some hard-coded paths that
+    will need to be edited to suit your own system.
 
-3) Run JavaBot.
+5) Edit the javabot.logging.properties file if you want to control the messsages you see on
+    the console.
 
-    Eg. > java org.javabot.gui.javabot
+6) Make sure you have ant installed and compile Javabot using:
 
-4) Start JavaBot.
+    ant dist
+
+7) Run Javabot using ant:
+
+    ant run
+     or
+    ant run_jar
+     or
+    run.bat
+
+8) Start Javabot.
 
     Click the "Connect" button or choose "Connect" from the "File" menu.
 
-5) Once connected JavaBot will enter the channel on the network you specified 
+9) Once connected JavaBot will enter the channel on the network you specified
    in the javabot.properties file and set some default flags.
 
-6) You may then enter the channel on which the bot is sitting.
+10) You may then enter the channel on which the bot is sitting.
    It is obviously best to send the bot to a channel on which it can gain ops.
 
-7) Authenticate yourself with the bot
+11) You will be met with the greet message which you can change in the users.xml file.
+
+12) Authenticate yourself with the bot  // THIS DOES NOT WORK RIGHT NOW
 
     /msg <botname> auth <username> <password>
 
@@ -49,14 +56,11 @@ Quick Start (assumes that you have a compiled bot and are in the compiled direct
 
     Eg. /msg javabot auth wibble wobble
 
-8) You will be met with a default greet message which you can change later.
+13) That's it!
 
-9) That's it!
+14) Okay so you want it to do more things?  Read the command list below :))
 
-10) Okay so you want it to do more things?  Read the command list below :))
-
-
-Command list
+// SOME OF THESE WORK, AND MOST DON'T RIGHT NOW
 
 auth    -   authenticates a user with the bot
 
@@ -161,4 +165,14 @@ bans - allows an op to list the current banmasks in the bot
 !date   -    triggers the bot to recite the current date
 !lc -   allows a user with +o flag to lock the channel (sets channel mode to +mi)
 !uc -   allows a user with +o flag to unlock the channel (sets channel mode to -mi)
+
+There are also scripts in the scripts directory (THESE DO WORK RIGHT NOW). To invoke a script:
+
+    !<botname> <script>   (without the script's file extension)
+
+    Eg:
+
+    !<botname> date
+    !<botname> version
+    !<botname> google <query>
 

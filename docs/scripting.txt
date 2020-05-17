@@ -1,7 +1,7 @@
 JavaBot Scripting
 
-JavaBot scripting is implemented in BeanShell, which is essentially 
-interpretted Java with some convenience commands, a pre-imported 
+JavaBot scripting is implemented in BeanShell and Groovy, which are
+essentially interpretted Java with some convenience commands, a pre-imported
 classpath and the option to code in a "looser" syntax.  Details about
 BeanShell scripting can be found at http://www.beanshell.org.
 
