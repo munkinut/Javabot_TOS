@@ -35,7 +35,8 @@ class JavaBotActivator {
     private final javax.swing.JTextArea consoleOutput;
     private java.net.Socket ircsocket;
     private final PropertyManager propertyManager;
-    private org.javabot.engine.inbound in;
+    //private org.javabot.engine.inbound in;
+    private org.javabot.engine.inboundRunnable in;
 
     /** Creates new JavaBotActivator */
     public JavaBotActivator(javax.swing.JTextArea consoleOutput) {
@@ -56,8 +57,10 @@ class JavaBotActivator {
                 String server = propertyManager.getServer();
                 int port = propertyManager.getPort();
                 ircsocket = new java.net.Socket(server, port);
-                in = new org.javabot.engine.inbound(ircsocket, consoleOutput);
-                in.start();
+                //in = new org.javabot.engine.inbound(ircsocket, consoleOutput);
+                //in.start();
+                in = new org.javabot.engine.inboundRunnable(ircsocket, consoleOutput);
+                in.t.start();
                 connected = true;
             }
         }
@@ -70,13 +73,20 @@ class JavaBotActivator {
             log.warning("IOException: " + ioe);
             connected = false;
             // System.exit(1);
-        }
+        }// catch (InterruptedException e) {
+        //
+        //}
     }
     
     public boolean disconnect() {
         log.info("disconnect() called");
         if (connected && (in != null)) {
             in.quit();
+            try {
+                in.t.join(5000);
+            } catch (InterruptedException e) {
+                log.warning("InterruptedException: " + e);
+            }
             try {
                 if (ircsocket != null) ircsocket.close();
                 String status = "Disconnected\n";

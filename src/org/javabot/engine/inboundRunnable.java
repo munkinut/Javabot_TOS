@@ -26,35 +26,40 @@ import java.util.logging.Logger;
 
 /** Inbound message handler
  */
-public class inbound extends Thread {
+public class inboundRunnable implements Runnable {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
     /** Indicates connection status
-     */    
+     */
     private boolean connected = false;
 
     final LowLevelCmdHandler llch;
 
     /** Network socket to the server
-     */    
+     */
     private final java.net.Socket ircsocket;
     /** Output stream to the server
-     */    
+     */
     private DataOutputStream outbound;
     /** Input stream from server
-     */    
+     */
     private BufferedReader inbound;
     /** Console for output messages
-     */    
+     */
     private final javax.swing.JTextArea consoleOutput;
+
+    String name;
+    public Thread t;
 
     /** Creates an inbound handler thread
      * @param ircsocket Socket connection to server
      * @param consoleOutput Console for output messages
-     */    
-    public inbound(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
-        log.info("inbound() called");
+     */
+    public inboundRunnable(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
+        log.info("inboundRunnable() called");
+        name = "inboundRunnableT";
+        t = new Thread(this, name);
         this.ircsocket = ircsocket;
         try {
             outbound = new DataOutputStream(ircsocket.getOutputStream());
@@ -131,7 +136,7 @@ public class inbound extends Thread {
                     this.connected = true;
                 }
             }
-            catch (java.io.IOException ioe){
+            catch (IOException ioe){
                 log.warning("IOException caught : " + ioe.getMessage());
                 this.connected = false;
             }
@@ -162,7 +167,7 @@ public class inbound extends Thread {
                     llch.getMessage(responseLine);
                 }
             }
-            catch (java.io.IOException ioe){
+            catch (IOException ioe){
                 log.info("IOException caught : " + ioe.getMessage());
                 this.connected = false;
             }
