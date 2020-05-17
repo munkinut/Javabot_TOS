@@ -1,7 +1,7 @@
 /*
- * Pager.java - pages ArrayLists into pages of smaller ArrayLists
+ * UserPager.java - pages Users
  *
- * Copyright (C) 2001 by Warren Milburn
+ * Copyright (C) 2020 by Warren Milburn
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
