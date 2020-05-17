@@ -20,6 +20,8 @@
 
 package org.javabot.engine;
 
+import org.javabot.configuration.PropertyManager;
+
 import java.io.IOException;
 import java.io.DataOutputStream;
 import java.util.Calendar;
@@ -29,7 +31,18 @@ import java.util.logging.Logger;
  */
 public class IRCCommands {
 
-    static final Logger log = Logger.getLogger("IRCCommands");
+    private static IRCCommands ircCommands;
+
+    final Logger log = Logger.getLogger("IRCCommands");
+
+    public static synchronized IRCCommands getInstance() {
+        if (ircCommands == null) ircCommands = new IRCCommands();
+        return ircCommands;
+    }
+
+    private IRCCommands() {
+
+    }
 
     //Funktion PingPong by Torsten Born
     //********************************************************************
@@ -38,7 +51,7 @@ public class IRCCommands {
      * @param response PONG response message
      * @param outbound Outbound stream to IRC server
      */    
-    public static void pingpong(String response,DataOutputStream outbound) {
+    public void pingpong(String response,DataOutputStream outbound) {
         
         try {
             String ret = "PONG :" + response + "\r\n";
@@ -62,7 +75,7 @@ public class IRCCommands {
      * @param nick Bots nickname
      * @param outbound Outbound stream to IRC server
      */    
-    public static void identify(String name, String nick, DataOutputStream outbound) {
+    public void identify(String name, String nick, DataOutputStream outbound) {
         
         try {
             String userRet = "user "+name+" 0 0 We will rock you\n";
@@ -88,7 +101,7 @@ public class IRCCommands {
      * @param all String to send
      * @param outbound Outbound stream to IRC server
      */    
-    public static void writeBytes(String all, DataOutputStream outbound) {
+    public void writeBytes(String all, DataOutputStream outbound) {
         
         try {
             print(all);
@@ -110,7 +123,7 @@ public class IRCCommands {
      * @param outbound Outbound stream to IRC server
      * @param quitMessage Quit message
      */    
-    public static void quit(DataOutputStream outbound, String quitMessage) {
+    public void quit(DataOutputStream outbound, String quitMessage) {
         
         try {
             String quitRet = "QUIT :" + quitMessage +"\r\n";
@@ -134,7 +147,7 @@ public class IRCCommands {
      * @param message Message String
      * @param outbound Outbound stream to IRC server
      */    
-    public static void privmsg(String to, String message,DataOutputStream outbound) {
+    public void privmsg(String to, String message,DataOutputStream outbound) {
         try {
             String msgRet = "PRIVMSG "+to+" :"+message+"\r\n";
             print(msgRet);
@@ -156,7 +169,7 @@ public class IRCCommands {
      * @param nick Nick to voice
      * @param outbound Outbound stream to IRC server
      */    
-    public static void autovoice(String channel, String nick, DataOutputStream outbound) {
+    public void autovoice(String channel, String nick, DataOutputStream outbound) {
         
         try {
             String msgRet = "mode " + channel + " +v " + nick + "\r\n";
@@ -179,7 +192,7 @@ public class IRCCommands {
      * @param banmask Banmask to apply
      * @param outbound Outbound stream to IRC server
      */    
-    public static void ban(String channel, String banmask, DataOutputStream outbound) {
+    public void ban(String channel, String banmask, DataOutputStream outbound) {
         
         try {
             String msgRet = "mode " + channel + " +b " + banmask + "\r\n";
@@ -202,7 +215,7 @@ public class IRCCommands {
      * @param banmask Banmask to apply
      * @param outbound Outbound stream to IRC server
      */    
-    public static void unban(String channel, String banmask, DataOutputStream outbound) {
+    public void unban(String channel, String banmask, DataOutputStream outbound) {
         
         try {
             String msg = "mode " + channel + " -b " + banmask + "\r\n";
@@ -218,7 +231,7 @@ public class IRCCommands {
     //Ende der Funktion UnBan
 
 
-    private static void print(String msg) {
+    private void print(String msg) {
         if (msg.startsWith("IOException")) log.warning(msg);
         else log.info(msg);
     }
@@ -231,7 +244,7 @@ public class IRCCommands {
      * @param nick Nick to kick
      * @param outbound Outbound stream to IRC server
      */    
-    public static void kick(String channel, String nick, DataOutputStream outbound) {
+    public void kick(String channel, String nick, DataOutputStream outbound) {
         
         try {
             String msg = "kick " + channel + " " + nick + "\r\n";
@@ -254,7 +267,7 @@ public class IRCCommands {
      * @param nick Nick to invite
      * @param outbound Outbound stream to IRC server
      */    
-    public static void invite(String channel, String nick, DataOutputStream outbound) {
+    public void invite(String channel, String nick, DataOutputStream outbound) {
         
         try {
             String msg = "invite " + nick + " " + channel + "\r\n";
@@ -277,7 +290,7 @@ public class IRCCommands {
      * @param nick Nick to op
      * @param outbound Outbound stream to IRC server
      */    
-    public static void opme(String channel, String nick, DataOutputStream outbound) {
+    public void opme(String channel, String nick, DataOutputStream outbound) {
         print("opme called for channel " + channel + " by " + nick);
         try {
             String msg = "mode "+channel+" +o "+ nick +"\r\n";
@@ -300,7 +313,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void names(String channel, DataOutputStream outbound) {
+    public void names(String channel, DataOutputStream outbound) {
         
         try {
             String msg = "names "+channel+"\r\n";
@@ -324,7 +337,7 @@ public class IRCCommands {
      * @param channelLimit Maximum channel users
      * @param outbound Outbound stream to IRC server
      */    
-    public static void changeChannelLimit(String channel, int channelLimit, DataOutputStream outbound) {
+    public void changeChannelLimit(String channel, int channelLimit, DataOutputStream outbound) {
         
         try {
             String msg = "mode "+channel+" +l " + channelLimit +"\r\n";
@@ -348,7 +361,7 @@ public class IRCCommands {
      * @param modes Channel modes
      * @param outbound Outbound stream to IRC server
      */    
-    public static void changeChannelModes(String channel, String modes, DataOutputStream outbound) {
+    public void changeChannelModes(String channel, String modes, DataOutputStream outbound) {
         
         try {
             String msg = "mode "+channel+" " + modes +"\r\n";
@@ -371,10 +384,10 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void cycle(String channel, DataOutputStream outbound) {
+    public void cycle(String channel, DataOutputStream outbound) {
         print("cycle() called");
-        IRCCommands.part(channel, outbound);
-        IRCCommands.join(channel, outbound);
+        part(channel, outbound);
+        join(channel, outbound);
     }
     
     //**
@@ -388,7 +401,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void part(String channel, DataOutputStream outbound) {
+    public void part(String channel, DataOutputStream outbound) {
         
         try {
             String msg = "part "+channel+"\n";
@@ -411,7 +424,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void join(String channel, DataOutputStream outbound) {
+    public void join(String channel, DataOutputStream outbound) {
         
         try {
             String msg = "join "+channel+"\n";
@@ -434,7 +447,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void lockChannel(String channel,DataOutputStream outbound) {
+    public void lockChannel(String channel,DataOutputStream outbound) {
         
         try {
             String msg = "mode "+channel+" +mi \r\n";
@@ -457,7 +470,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void unlockChannel(String channel,DataOutputStream outbound) {
+    public void unlockChannel(String channel,DataOutputStream outbound) {
         
         try {
             String msg = "mode "+channel+" -mi \r\n";
@@ -480,7 +493,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void versionreplay(String channel,DataOutputStream outbound) {
+    public void versionreplay(String channel,DataOutputStream outbound) {
         
         try {
             String msg = "PRIVMSG "+channel+" :JavaBot Version 0.2 by Torsten Born\r\n";
@@ -504,7 +517,7 @@ public class IRCCommands {
      * @param outbound Outbound stream to IRC server
      * @param greet Greet message
      */    
-    public static void playGreet(String channel, DataOutputStream outbound, String greet) {
+    public void playGreet(String channel, DataOutputStream outbound, String greet) {
         
         try {
             String msg = "PRIVMSG " + channel + " :" + greet + "\r\n";
@@ -527,7 +540,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void help(String channel,DataOutputStream outbound) {
+    public void help(String channel,DataOutputStream outbound) {
         
         try {
             print("Sending Help reply messages");
@@ -551,7 +564,7 @@ public class IRCCommands {
      * @param channel Channel
      * @param outbound Outbound stream to IRC server
      */    
-    public static void datereplay(String channel,DataOutputStream outbound) {
+    public void datereplay(String channel,DataOutputStream outbound) {
         
         try {
             Calendar cal = Calendar.getInstance();

@@ -33,6 +33,8 @@ public class ChannelManager implements org.javabot.util.MyObserver {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
+    final IRCCommands ircCommands = IRCCommands.getInstance();
+
     /** Channel users keyed by hostmask.
      */    
     private Hashtable<String, ChannelUser> channelUsers;
@@ -340,33 +342,33 @@ public class ChannelManager implements org.javabot.util.MyObserver {
     /** Join the channel to be managed.
      */    
     public void join() {
-        IRCCommands.join(channel, outbound);
+        ircCommands.join(channel, outbound);
     }
     
     /** Part the channel being managed.
      */    
     public void part() {
-        IRCCommands.part(channel, outbound);
+        ircCommands.part(channel, outbound);
     }
     
     /** Set the channel modes to the default initial modes.
      */    
     public void setModes() {
-        if (!initialModes.equals("")) IRCCommands.changeChannelModes(channel, "+"+initialModes, outbound);
+        if (!initialModes.equals("")) ircCommands.changeChannelModes(channel, "+"+initialModes, outbound);
     }
 
     /** Set the channel modes.
      * @param modes Channel modes.
      */    
     public void setModes(String modes) {
-        if (!modes.equals("")) IRCCommands.changeChannelModes(channel, "+"+modes, outbound);
+        if (!modes.equals("")) ircCommands.changeChannelModes(channel, "+"+modes, outbound);
     }
     
     /** Unset channel modes.
      * @param modes Channel modes to unset.
      */    
     public void unsetModes(String modes) {
-        if (!modes.equals("")) IRCCommands.changeChannelModes(channel, "-"+modes, outbound);
+        if (!modes.equals("")) ircCommands.changeChannelModes(channel, "-"+modes, outbound);
     }
     
     /** Kill the timer associated with this object.  Called by the owner of this object on shutdown of JavaBot.
@@ -387,7 +389,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
                 log.info("notifyEvent() lastNamesCount does not equal namesCount or namesCount is 0 ... changing channel limit");
                 log.info("notifyEvent() namesCount is " + namesCount);
                 log.info("notifyEvent() lastNamesCount is " + lastNamesCount);
-                IRCCommands.changeChannelLimit(channel, namesCount + this.getMaxHits(org.javabot.security.FloodCounter.JOIN), outbound);
+                ircCommands.changeChannelLimit(channel, namesCount + this.getMaxHits(org.javabot.security.FloodCounter.JOIN), outbound);
                 lastNamesCount = namesCount;
                 log.info("notifyEvent() lastNamesCount set to " + lastNamesCount);
             }
@@ -399,7 +401,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      */    
     private void kickUser(ChannelUser channelUser) {
         if (channelUser != null) {
-            IRCCommands.kick(channel, channelUser.getNick(), outbound);
+            ircCommands.kick(channel, channelUser.getNick(), outbound);
         }
     }
     
@@ -407,7 +409,7 @@ public class ChannelManager implements org.javabot.util.MyObserver {
      * @param hostmask Hostmask of channel user to ban.
      */    
     private void banUser(String hostmask) {
-        IRCCommands.ban(channel, hostmask, outbound);
+        ircCommands.ban(channel, hostmask, outbound);
     }
     
     /** Observer method allowing a TimerTask object to trigger events for ChannelManager to respond to.

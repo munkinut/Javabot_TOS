@@ -36,6 +36,8 @@ public class inbound implements Runnable {
 
     final LowLevelCmdHandler llch;
 
+    final IRCCommands ircCommands = IRCCommands.getInstance();
+
     /** Network socket to the server
      */
     private final java.net.Socket ircsocket;
@@ -82,7 +84,7 @@ public class inbound implements Runnable {
         if (outbound != null) {
             llch.removeAllChannelUsers();
             llch.killTimer();
-            IRCCommands.quit(outbound, "Boing Boing!");
+            ircCommands.quit(outbound, "Boing Boing!");
             if (this.connected) this.connected = false;
         }
     }
@@ -124,7 +126,7 @@ public class inbound implements Runnable {
                             log.info("Sending " + all);
                             consoleOutput.append(all);
                             consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + all.length());
-                            IRCCommands.writeBytes(all, outbound);
+                            ircCommands.writeBytes(all, outbound);
                         }
 
                         if (!identSent) {

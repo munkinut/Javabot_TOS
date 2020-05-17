@@ -45,6 +45,8 @@ class LowLevelCmdHandler {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
+    final IRCCommands ircCommands = IRCCommands.getInstance();
+
     /** Output stream to the server
      */
     private final DataOutputStream outbound;
@@ -133,7 +135,7 @@ class LowLevelCmdHandler {
     }
 
     protected void identify() {
-        IRCCommands.identify(name, nick, outbound);
+        ircCommands.identify(name, nick, outbound);
     }
 
     /** Generic message handler; examines messages and
@@ -172,7 +174,7 @@ class LowLevelCmdHandler {
         log.info("handlePing() called");
         String params = pingMessage.getParams();
         log.info(params);
-        IRCCommands.pingpong(params, outbound);
+        ircCommands.pingpong(params, outbound);
     }
 
     /** Handle join message
@@ -185,19 +187,19 @@ class LowLevelCmdHandler {
         String chan = joinMessage.getChannel();
         String fullMask = nickFrom + "!" + hostmask;
         if (bm.matches(fullMask)) {
-            IRCCommands.ban(chan, hostmask, outbound);
-            IRCCommands.kick(chan, nickFrom, outbound);
+            ircCommands.ban(chan, hostmask, outbound);
+            ircCommands.kick(chan, nickFrom, outbound);
         }
         else {
             cm.addChannelUser(hostmask, nickFrom);
             if (!nickFrom.equals(nick)) {
-                IRCCommands.names(chan, outbound);
+                ircCommands.names(chan, outbound);
             }
-            if (autovoice && um.userIsVoice(hostmask)) IRCCommands.autovoice(chan, nickFrom, outbound);
+            if (autovoice && um.userIsVoice(hostmask)) ircCommands.autovoice(chan, nickFrom, outbound);
             if (autogreet) {
                 String greet = um.getGreet(hostmask);
                 if (greet != null) {
-                    IRCCommands.playGreet(chan, outbound, greet);
+                    ircCommands.playGreet(chan, outbound, greet);
                 }
             }
         }
@@ -211,7 +213,7 @@ class LowLevelCmdHandler {
         String chan = partMessage.getChannel();
         String hostmask = partMessage.getHostmask();
         cm.removeChannelUser(hostmask);
-        IRCCommands.names(chan, outbound);
+        ircCommands.names(chan, outbound);
     }
 
     /** Handle quit message
@@ -222,7 +224,7 @@ class LowLevelCmdHandler {
         String chan = quitMessage.getChannel();
         String hostmask = quitMessage.getHostmask();
         cm.removeChannelUser(hostmask);
-        IRCCommands.names(chan, outbound);
+        ircCommands.names(chan, outbound);
     }
 
     /** Handle kick message
@@ -234,7 +236,7 @@ class LowLevelCmdHandler {
         String hostmask = kickMessage.getHostmask();
         String msgTo = kickMessage.getMsgTo();
         cm.removeChannelUserByNick(msgTo);
-        IRCCommands.names(chan, outbound);
+        ircCommands.names(chan, outbound);
     }
 
     /** Handle namesreply message
@@ -248,7 +250,7 @@ class LowLevelCmdHandler {
         if (st.countTokens() == 1) {
             String token = st.nextToken();
             if (!token.startsWith("@") && (token.equals(nick) || token.equals("+" + nick))) {
-                IRCCommands.cycle(channel, outbound);
+                ircCommands.cycle(channel, outbound);
             }
         }
     }
@@ -406,12 +408,12 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         String botpass = params.get(2);
         if (um.auth(botnick, hostmask, botpass)) {
-            IRCCommands.privmsg(nickFrom, "User " + botnick + " authorised", outbound);
-            if (autovoice && um.userIsVoice(hostmask)) IRCCommands.autovoice(channel, nickFrom, outbound);
+            ircCommands.privmsg(nickFrom, "User " + botnick + " authorised", outbound);
+            if (autovoice && um.userIsVoice(hostmask)) ircCommands.autovoice(channel, nickFrom, outbound);
             if (autogreet) {
                 String greet = um.getGreet(hostmask);
                 if (greet != null) {
-                    IRCCommands.playGreet(channel, outbound, greet);
+                    ircCommands.playGreet(channel, outbound, greet);
                 }
             }
         }
@@ -427,7 +429,7 @@ class LowLevelCmdHandler {
         String oldpass = params.get(1);
         String newpass = params.get(2);
         if (um.pass(hostmask, oldpass, newpass)) {
-            IRCCommands.privmsg(nickFrom, "Password changed for "+nickFrom+" ("+hostmask+")", outbound);
+            ircCommands.privmsg(nickFrom, "Password changed for "+nickFrom+" ("+hostmask+")", outbound);
         }
     }
 
@@ -445,7 +447,7 @@ class LowLevelCmdHandler {
         greet = new StringBuilder(greet.toString().trim());
         if (um.userIsFriend(hostmask)) {
             if (um.greet(hostmask, greet.toString())) {
-                IRCCommands.privmsg(nickFrom, "Greet changed to '"+ greet + "'", outbound);
+                ircCommands.privmsg(nickFrom, "Greet changed to '"+ greet + "'", outbound);
             }
         }
     }
@@ -466,48 +468,48 @@ class LowLevelCmdHandler {
                 if (flag == 'f' && um.userIsOp(hostmask)) {
                     if (changer == '+') {
                         if (um.addFriend(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Friend flag added for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Friend flag added for "+botnick, outbound);
                         }
                     }
                     else {
                         if (um.delFriend(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Friend flag deleted for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Friend flag deleted for "+botnick, outbound);
                         }
                     }
                 }
                 if (flag == 'v' && um.userIsOp(hostmask)) {
                     if (changer == '+') {
                         if (um.addVoice(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Voice flag added for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Voice flag added for "+botnick, outbound);
                         }
                     }
                     else {
                         if (um.delVoice(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Voice flag deleted for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Voice flag deleted for "+botnick, outbound);
                         }
                     }
                 }
                 if (flag == 'o' && um.userIsOwner(hostmask)) {
                     if (changer == '+') {
                         if (um.addOp(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Op flag added for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Op flag added for "+botnick, outbound);
                         }
                     }
                     else {
                         if (um.delOp(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Op flag deleted for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Op flag deleted for "+botnick, outbound);
                         }
                     }
                 }
                 if (flag == 'm' && um.userIsOwner(hostmask)) {
                     if (changer == '+') {
                         if (um.addMaster(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Master flag added for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Master flag added for "+botnick, outbound);
                         }
                     }
                     else {
                         if (um.delMaster(botnick)) {
-                            IRCCommands.privmsg(nickFrom, "Master flag deleted for "+botnick, outbound);
+                            ircCommands.privmsg(nickFrom, "Master flag deleted for "+botnick, outbound);
                         }
                     }
                 }
@@ -525,7 +527,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.addUser(botnick)) {
-                IRCCommands.privmsg(nickFrom, "User "+botnick+ " added", outbound);
+                ircCommands.privmsg(nickFrom, "User "+botnick+ " added", outbound);
             }
         }
     }
@@ -540,7 +542,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.delUser(botnick)) {
-                IRCCommands.privmsg(nickFrom, "User "+botnick+ " deleted", outbound);
+                ircCommands.privmsg(nickFrom, "User "+botnick+ " deleted", outbound);
             }
         }
     }
@@ -554,7 +556,7 @@ class LowLevelCmdHandler {
         if (um.userIsOp(hostmask)) {
             Users users = um.getUsers();
             if (users.getUsers().isEmpty()) {
-                IRCCommands.privmsg(nickFrom, "User list empty", outbound);
+                ircCommands.privmsg(nickFrom, "User list empty", outbound);
             }
             else {
                 UserPager pager = new UserPager(users.getUsers(),2);
@@ -566,7 +568,7 @@ class LowLevelCmdHandler {
                     for (Object o : userPage) {
                         user = (User) o;
                         msg = user.getNick() + " : " + user.getHostmask();
-                        IRCCommands.privmsg(nickFrom, msg, outbound);
+                        ircCommands.privmsg(nickFrom, msg, outbound);
                     }
                 }
             }
@@ -583,7 +585,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.addFriend(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Friend flag added for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Friend flag added for "+botnick, outbound);
             }
         }
     }
@@ -598,7 +600,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.addVoice(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Voice flag added for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Voice flag added for "+botnick, outbound);
             }
         }
     }
@@ -613,7 +615,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsMaster(hostmask)) {
             if (um.addOp(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Op flag added for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Op flag added for "+botnick, outbound);
             }
         }
     }
@@ -628,7 +630,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.addMaster(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Master flag added for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Master flag added for "+botnick, outbound);
             }
         }
     }
@@ -643,7 +645,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.delFriend(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Friend flag deleted for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Friend flag deleted for "+botnick, outbound);
             }
         }
     }
@@ -658,7 +660,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOp(hostmask)) {
             if (um.delVoice(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Voice flag deleted for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Voice flag deleted for "+botnick, outbound);
             }
         }
     }
@@ -673,7 +675,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsMaster(hostmask)) {
             if (um.delOp(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Op flag deleted for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Op flag deleted for "+botnick, outbound);
             }
         }
     }
@@ -688,7 +690,7 @@ class LowLevelCmdHandler {
         String botnick = params.get(1);
         if (um.userIsOwner(hostmask)) {
             if (um.delMaster(botnick)) {
-                IRCCommands.privmsg(nickFrom, "Master flag deleted for "+botnick, outbound);
+                ircCommands.privmsg(nickFrom, "Master flag deleted for "+botnick, outbound);
             }
         }
     }
@@ -702,7 +704,7 @@ class LowLevelCmdHandler {
         String nickToKick = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
-            IRCCommands.kick(chan, nickToKick, outbound);
+            ircCommands.kick(chan, nickToKick, outbound);
         }
     }
 
@@ -715,7 +717,7 @@ class LowLevelCmdHandler {
         String banMask = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
-            IRCCommands.ban(chan, banMask, outbound);
+            ircCommands.ban(chan, banMask, outbound);
         }
     }
 
@@ -729,8 +731,8 @@ class LowLevelCmdHandler {
         String banMask = params.get(2);
         String chan = params.get(3);
         if (um.userIsOp(hostmask)) {
-            IRCCommands.ban(chan, banMask, outbound);
-            IRCCommands.kick(chan, nickToKick, outbound);
+            ircCommands.ban(chan, banMask, outbound);
+            ircCommands.kick(chan, nickToKick, outbound);
         }
     }
 
@@ -745,9 +747,9 @@ class LowLevelCmdHandler {
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             if (bm.addBan(banMask)) {
-                IRCCommands.ban(chan, hostmask, outbound);
-                IRCCommands.kick(chan, nickFrom, outbound);
-                IRCCommands.privmsg(nickFrom, "Ban added : " + banMask, outbound);
+                ircCommands.ban(chan, hostmask, outbound);
+                ircCommands.kick(chan, nickFrom, outbound);
+                ircCommands.privmsg(nickFrom, "Ban added : " + banMask, outbound);
             }
         }
     }
@@ -763,8 +765,8 @@ class LowLevelCmdHandler {
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
             if (bm.delBan(banMask)) {
-                IRCCommands.unban(chan, banMask, outbound);
-                IRCCommands.privmsg(nickFrom, "Ban deleted : " + banMask, outbound);
+                ircCommands.unban(chan, banMask, outbound);
+                ircCommands.privmsg(nickFrom, "Ban deleted : " + banMask, outbound);
             }
         }
     }
@@ -778,7 +780,7 @@ class LowLevelCmdHandler {
         String nickname = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
-            IRCCommands.invite(chan, nickname, outbound);
+            ircCommands.invite(chan, nickname, outbound);
         }
     }
 
@@ -790,7 +792,7 @@ class LowLevelCmdHandler {
         log.info("handleUserfileCmd() called");
         if (um.userIsOwner(hostmask)) {
             um.reloadUsers();
-            IRCCommands.privmsg(nickFrom, "Userfile reloaded", outbound);
+            ircCommands.privmsg(nickFrom, "Userfile reloaded", outbound);
         }
     }
 
@@ -804,7 +806,7 @@ class LowLevelCmdHandler {
             Bans bans = bm.getBans();
             ArrayList<Ban> banList = bans.getBans();
             if (banList.isEmpty()) {
-                IRCCommands.privmsg(nickFrom, "Banlist empty", outbound);
+                ircCommands.privmsg(nickFrom, "Banlist empty", outbound);
             }
             else {
                 BanPager pager = new BanPager(bans,2);
@@ -815,7 +817,7 @@ class LowLevelCmdHandler {
                     for (Object s : banPage) {
                         if (s instanceof String) {
                             msg = (String)s;
-                            IRCCommands.privmsg(nickFrom, msg, outbound);
+                            ircCommands.privmsg(nickFrom, msg, outbound);
                         }
                         else log.warning("Object was not an instance of String");
                     }
@@ -833,7 +835,7 @@ class LowLevelCmdHandler {
         String banMask = params.get(1);
         String chan = params.get(2);
         if (um.userIsOp(hostmask)) {
-            IRCCommands.unban(chan, banMask, outbound);
+            ircCommands.unban(chan, banMask, outbound);
         }
     }
 
@@ -845,7 +847,7 @@ class LowLevelCmdHandler {
         log.info("handleVoiceMeCmd() called");
         if (!autovoice && um.userIsVoice(hostmask)) {
             //if (um.userIsVoice(hostmask)) {
-            IRCCommands.autovoice(channel, nickFrom, outbound);
+            ircCommands.autovoice(channel, nickFrom, outbound);
         }
     }
 
@@ -857,7 +859,7 @@ class LowLevelCmdHandler {
         log.info("handleOpMeCmd() called with nick = " + nickFrom + " hostmask = " + hostmask);
         if (um.userIsOp(hostmask)) {
             log.info("user is an op");
-            IRCCommands.opme(channel, nickFrom, outbound);
+            ircCommands.opme(channel, nickFrom, outbound);
         }
         else log.info("user is not an op");
     }
@@ -869,7 +871,7 @@ class LowLevelCmdHandler {
     private void handlePubVoiceMeCmd(String nickFrom, String hostmask) {
         log.info("handlePubVoiceCmd() called");
         if (!autovoice && um.userIsVoice(hostmask)) {
-            IRCCommands.autovoice(channel,nickFrom,outbound);
+            ircCommands.autovoice(channel,nickFrom,outbound);
         }
     }
 
@@ -880,7 +882,7 @@ class LowLevelCmdHandler {
     private void handlePubOpMeCmd(String nickFrom, String hostmask) {
         log.info("handlePubOpMeCmd() called");
         if (opme && um.userIsOp(hostmask)) {
-            IRCCommands.opme(channel,nickFrom,outbound);
+            ircCommands.opme(channel,nickFrom,outbound);
         }
     }
 
@@ -890,7 +892,7 @@ class LowLevelCmdHandler {
     private void handlePubLcCmd(String hostmask) {
         log.info("handlePubLcCmd() called");
         if (um.userIsOp(hostmask)) {
-            IRCCommands.lockChannel(channel,outbound);
+            ircCommands.lockChannel(channel,outbound);
         }
     }
 
@@ -900,7 +902,7 @@ class LowLevelCmdHandler {
     private void handlePubUcCmd(String hostmask) {
         log.info("handlePubUcCmd() called");
         if (um.userIsOp(hostmask)) {
-            IRCCommands.unlockChannel(channel,outbound);
+            ircCommands.unlockChannel(channel,outbound);
         }
     }
 
