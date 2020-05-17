@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class TestResetJavabotProps {
 
-    static Logger log = Logger.getLogger("TestResetJavabotProps");
+    static final Logger log = Logger.getLogger("TestResetJavabotProps");
 
     public static void main(String[] args) {
         log.info("resetFromConfigBackup() called");

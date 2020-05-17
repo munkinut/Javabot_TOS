@@ -22,10 +22,6 @@
 package org.javabot.gui;
 
 import java.awt.*;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 import java.util.logging.Logger;
 
 public class jmenue extends javax.swing.JFrame {

@@ -111,32 +111,32 @@ public class PropertyManagerGetTest {
 
     @Test
     public void getAutovoice() {
-        assertEquals(pm.getAutovoice(), true);
+        assertTrue(pm.getAutovoice());
     }
 
     @Test
     public void getAutogreet() {
-        assertEquals(pm.getAutogreet(), true);
+        assertTrue(pm.getAutogreet());
     }
 
     @Test
     public void getFloodProtection() {
-        assertEquals(pm.getFloodProtection(), false);
+        assertFalse(pm.getFloodProtection());
     }
 
     @Test
     public void getOpme() {
-        assertEquals(pm.getOpme(), true);
+        assertTrue(pm.getOpme());
     }
 
     @Test
     public void getCycleForOps() {
-        assertEquals(pm.getCycleForOps(), false);
+        assertFalse(pm.getCycleForOps());
     }
 
     @Test
     public void getDynamicLimit() {
-        assertEquals(pm.getDynamicLimit(), true);
+        assertTrue(pm.getDynamicLimit());
     }
 
 }

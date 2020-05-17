@@ -95,7 +95,6 @@ public class JavaBotActivator {
     
     public boolean exit() {
         log.info("exit() called");
-        //noinspection StatementWithEmptyBody
         if (this.disconnect()) {
             // tell us we disconnected ok
             log.info("Disconnected OK");

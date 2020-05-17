@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  */
 public class IRCCommands {
 
-    static Logger log = Logger.getLogger("IRCCommands");
+    static final Logger log = Logger.getLogger("IRCCommands");
 
     //Funktion PingPong by Torsten Born
     //********************************************************************

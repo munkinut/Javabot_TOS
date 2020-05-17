@@ -96,7 +96,7 @@ public class ScriptHandler {
             }
             else if(isGroovyScript(command)) {
                 String script = this.pathToScript(command, "groovy");
-                String scriptName = new StringBuilder(command).append(".groovy").toString() ;
+                String scriptName = command + ".groovy";
                 log.info(script);
                 log.info(scriptName);
                 ScriptResource scriptResource = new ScriptResource(
@@ -132,7 +132,7 @@ public class ScriptHandler {
         File scriptDir = new File(scriptPath);
         File[] scriptFiles = scriptDir.listFiles();
         boolean success = false;
-        for (File scriptFile : scriptFiles) {
+        for (File scriptFile : Objects.requireNonNull(scriptFiles)) {
             String filename = scriptFile.getName();
             log.info("Script filename = " + filename);
             if(filename.startsWith(command) && filename.endsWith(extension)) {
@@ -152,7 +152,7 @@ public class ScriptHandler {
         File scriptDir = new File(scriptPath);
         File[] scriptFiles = scriptDir.listFiles();
         boolean success = false;
-        for (File scriptFile : scriptFiles) {
+        for (File scriptFile : Objects.requireNonNull(scriptFiles)) {
             String filename = scriptFile.getName();
             log.info("Script filename = " + filename);
             if(filename.startsWith(command) && filename.endsWith(extension)) {
@@ -165,7 +165,7 @@ public class ScriptHandler {
     }
 
     private String pathToScript(String command, String extension) {
-        String totalPath = new StringBuilder(scriptPath).append(command).append(".").append(extension).toString();
+        String totalPath = scriptPath + command + "." + extension;
         log.info("Looking for script at " + totalPath);
         return totalPath;
     }

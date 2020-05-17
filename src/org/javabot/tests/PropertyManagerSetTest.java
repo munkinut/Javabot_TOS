@@ -125,48 +125,48 @@ public class PropertyManagerSetTest {
     @Test
     public void setAutovoice() {
         boolean newAutovoice = false;
-        pm.setAutovoice(newAutovoice);
+        pm.setAutovoice(false);
         boolean autovoice = pm.getAutovoice();
-        assertEquals(newAutovoice, autovoice);
+        assertEquals(false, autovoice);
     }
 
     @Test
     public void setAutogreet() {
         boolean newAutogreet = false;
-        pm.setAutogreet(newAutogreet);
+        pm.setAutogreet(false);
         boolean autogreet = pm.getAutogreet();
-        assertEquals(newAutogreet, autogreet);
+        assertEquals(false, autogreet);
     }
 
     @Test
     public void setFloodProtection() {
         boolean newFlood = false;
-        pm.setFloodProtection(newFlood);
+        pm.setFloodProtection(false);
         boolean flood = pm.getFloodProtection();
-        assertEquals(newFlood, flood);
+        assertEquals(false, flood);
     }
 
     @Test
     public void setOpme() {
         boolean newOpme = false;
-        pm.setOpme(newOpme);
+        pm.setOpme(false);
         boolean opme = pm.getOpme();
-        assertEquals(newOpme, opme);
+        assertEquals(false, opme);
     }
 
     @Test
     public void setCycleForOps() {
         boolean newCycle = false;
-        pm.setCycleForOps(newCycle);
+        pm.setCycleForOps(false);
         boolean cycle = pm.getCycleForOps();
-        assertEquals(newCycle, cycle);
+        assertEquals(false, cycle);
     }
 
     @Test
     public void setDynamicLimit() {
         boolean newDynamic = false;
-        pm.setDynamicLimit(newDynamic);
+        pm.setDynamicLimit(false);
         boolean dynamic = pm.getDynamicLimit();
-        assertEquals(newDynamic, dynamic);
+        assertEquals(false, dynamic);
     }
 }

@@ -34,7 +34,7 @@ public class inbound extends Thread {
      */    
     private boolean connected = false;
 
-    LowLevelCmdHandler llch;
+    final LowLevelCmdHandler llch;
 
     /** Network socket to the server
      */    

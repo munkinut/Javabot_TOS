@@ -27,13 +27,7 @@ class LowLevelCmdHandler {
 
     /** Output stream to the server
      */
-    private DataOutputStream outbound;
-    /** Input stream from server
-     */
-
-    /** Console for output messages
-     */
-    private final JTextArea consoleOutput;
+    private final DataOutputStream outbound;
 
     /** Manages bot users
      */
@@ -52,7 +46,7 @@ class LowLevelCmdHandler {
     private final MessageFactory mf;
     /** Handles script commands
      */
-    private ScriptHandler sh;
+    private final ScriptHandler sh;
     /** Bots real name
      */
     private final String name;
@@ -80,7 +74,8 @@ class LowLevelCmdHandler {
     public LowLevelCmdHandler(JTextArea consoleOutput, DataOutputStream outbound) {
         // TODO if (outbound == null) throw JavabotException
         this.outbound = outbound;
-        this.consoleOutput = consoleOutput;
+        /** Console for output messages
+         */
         this.cm = new ChannelManager(outbound);
 
         /* Manages the properties file
