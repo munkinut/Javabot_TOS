@@ -84,7 +84,9 @@ class JavaBotActivator {
         if (connected && (in != null)) {
             in.quit();
             try {
+                log.info("Thread alive is " + in.t.isAlive() + " ... calling join()");
                 in.t.join(5000);
+                log.info("Thread alive is " + in.t.isAlive());
             } catch (InterruptedException e) {
                 log.warning("InterruptedException: " + e);
             }
