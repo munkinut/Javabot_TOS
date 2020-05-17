@@ -5,7 +5,7 @@ Introduction
 
 Quick Start
 
-1) Download a release from Github (https://github.org/munkinut/Javabot_TOS).
+1) Download a release from Github (https://github.com/munkinut/Javabot_TOS).
 
 2) Download the dependencies and put them in a "lib" directory.
 
