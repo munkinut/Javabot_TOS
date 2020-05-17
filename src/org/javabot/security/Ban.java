@@ -9,6 +9,9 @@ public class Ban {
 
     private String hostmask;
 
+    public Ban() {
+    }
+
     public Ban(String hostmask) {
         this.hostmask = hostmask;
     }
