@@ -3,11 +3,13 @@
         Build file for Javabot_TOS
     </description>
 
+    <property name="version" value="3"/>
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
     <property name="build" location="out/production/Javabot_TOS"/>
     <property name="dist" location="dist"/>
     <property name="lib" location="lib"/>
+    <property name="config" location="config"/>
     <property name="images" location="images"/>
     <property name="loggingConfig" value="${user.dir}\\config\\javabot.logging.properties"/>
     <property name="javabotConfig" value="${user.dir}\\config\\javabot.properties"/>
@@ -63,7 +65,7 @@
         <mkdir dir="${dist}/lib"/>
 
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/javabot_tos.jar"  manifest="Manifest.mf">
+        <jar jarfile="${dist}/lib/javabot_tos_${version}.jar"  manifest="Manifest.mf">
             <!-- <fileset dir="${images}"/> -->
             <fileset dir="${build}"/>
         </jar>
@@ -90,7 +92,7 @@
     </path>
 
     <target name="run_jar" description="Runs Javabot from the generated jar file." depends="dist">
-        <java fork="true" classpathref="run.class.path" jar="${dist}/lib/javabot_tos.jar">
+        <java fork="true" classpathref="run.class.path" jar="${dist}/lib/javabot_tos_${version}.jar">
             <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
             <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>
         </java>
