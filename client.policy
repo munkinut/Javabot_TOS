@@ -1,0 +1,14 @@
+grant {
+  permission java.net.SocketPermission
+               "*:1024-65535",
+               "connect,accept,resolve";
+  permission java.net.SocketPermission
+               "*:80", "connect";
+  permission java.net.SocketPermission
+               "127.0.0.1:1099", "connect,resolve";
+};
+
+grant codeBase "file:/c:/users/warren/ideaprojects/jbotnet/serve/" {
+    permission java.security.AllPermission;
+};
+

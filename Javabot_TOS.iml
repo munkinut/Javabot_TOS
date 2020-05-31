@@ -28,5 +28,6 @@
     <orderEntry type="library" name="commons-io-2.6" level="project" />
     <orderEntry type="library" name="junit-4.13" level="project" />
     <orderEntry type="library" name="hamcrest-core-1.3" level="project" />
+    <orderEntry type="library" name="JBotNetClient_0.3_devel" level="project" />
   </component>
 </module>
