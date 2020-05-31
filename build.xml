@@ -9,6 +9,7 @@
     <property name="build" location="out/production/Javabot_TOS"/>
     <property name="dist" location="dist"/>
     <property name="lib" location="lib"/>
+    <property name="groovy" location="C:\Program Files (x86)\Groovy"/>
     <property name="config" location="config"/>
     <property name="images" location="images"/>
     <property name="loggingConfig" value="${user.dir}\\config\\javabot.logging.properties"/>
@@ -16,7 +17,7 @@
 
     <path id="project.class.path">
         <fileset dir="${lib}" includes="*.jar"/>
-        <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib" includes="*.jar" excludes=""/>
+        <fileset dir="${groovy}\lib" includes="*.jar" excludes=""/>
         <pathelement location="${build}"/>
     </path>
 
@@ -47,7 +48,7 @@
             description="compile the source">
         <!-- Compile the Java code from ${src} into ${build} -->
         <javac includeantruntime="false" srcdir="${src}" destdir="${build}" classpathref="project.class.path">
-            <compilerarg value="-Xlint:unchecked" />
+            <!-- <compilerarg value="-Xlint:unchecked" /> -->
         </javac>
         <copy todir="${build}/org/javabot/gui">
             <fileset dir="${src}/org/javabot/gui/">
@@ -74,7 +75,7 @@
             <fileset dir="${lib}">
                 <include name="*.jar"/>
             </fileset>
-            <fileset dir="C:\apache-groovy-sdk-3.0.3\groovy-3.0.3\lib">
+            <fileset dir="${groovy}\lib">
                 <include name="*.jar"/>
             </fileset>
         </copy>
