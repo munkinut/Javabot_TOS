@@ -1,4 +1,4 @@
-package org.javabot.botnet.example;
+package org.javabot.botnet.clientserver.example;
 
 import net.munki.jbotnet.client.JBot;
 import net.munki.jbotnet.client.JBotNetClient;

@@ -1,4 +1,4 @@
-package org.javabot.botnet.client;
+package org.javabot.botnet.clientserver.client;
 
 import net.munki.jbotnet.client.JBot;
 import net.munki.jbotnet.client.JBotNetClient;
@@ -10,14 +10,11 @@ import java.rmi.RemoteException;
 
 public class JavaBotNet {
 
-    private static int waitFor = 60000;
+    private static int waitFor = Integer.MAX_VALUE;
     JBotNetClient jbnc = null;
     private PropertyManager pm = PropertyManager.getInstance();
 
     public JavaBotNet() {
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
     }
 
     public JBotNetClient start() {
@@ -37,12 +34,12 @@ public class JavaBotNet {
     }
 
     public void stop() {
-        try {
-            System.out.println("Waiting for " + jbnc.getName() + " to finish...");
-            jbnc.getT().join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //try {
+        //    System.out.println("Waiting for " + jbnc.getName() + " to finish...");
+        //    jbnc.getT().join();
+        //} catch (InterruptedException e) {
+        //    e.printStackTrace();
+        //}
     }
 }
 

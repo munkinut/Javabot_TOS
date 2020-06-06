@@ -1,16 +1,16 @@
-package org.javabot.botnet.client;
+package org.javabot.botnet.clientserver.client;
 
-import net.munki.jbotnet.client.JBot;
 import net.munki.jbotnet.client.JBotNetClient;
 import net.munki.jbotnet.client.JBotNetClientException;
 import net.munki.jbotnet.interfaces.JBotInterface;
 
-import java.rmi.RemoteException;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public class JBotNetClientRunner {
 
     public static void main(String[] args) {
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
         JavaBotNet jbn = new JavaBotNet();
         JBotNetClient jbnc = jbn.start();
         JBotInterface jb = jbnc.getjBot();
