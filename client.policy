@@ -8,6 +8,10 @@ grant {
                "127.0.0.1:1099", "connect,resolve";
 };
 
+grant codeBase "file:/c:/users/warren/ideaprojects/javabot_tos/-" {
+   permission java.security.AllPermission;
+};
+
 grant codeBase "file:/c:/users/warren/ideaprojects/jbotnet/serve/" {
     permission java.security.AllPermission;
 };
