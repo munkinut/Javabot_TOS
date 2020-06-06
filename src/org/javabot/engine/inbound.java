@@ -84,6 +84,7 @@ public class inbound implements Runnable {
         if (outbound != null) {
             llch.removeAllChannelUsers();
             llch.killTimer();
+            llch.stopBotNet();
             ircCommands.quit(outbound, "Boing Boing!");
             if (this.connected) this.connected = false;
         }
