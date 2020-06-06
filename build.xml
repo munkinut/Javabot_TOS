@@ -94,15 +94,19 @@
 
     <target name="run_jar" description="Runs Javabot from the generated jar file." depends="dist">
         <java fork="true" classpathref="run.class.path" jar="${dist}/lib/javabot_tos_${version}.jar">
+            <jvmarg value="-Djava.security.policy=client.policy"/>
             <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
             <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>
+            <jvmarg value="-Djava.rmi.server.codebase=http://localhost:8000/"/>
         </java>
     </target>
 
     <target name="run" description="Runs Javabot from the compiled classes" depends="dist">
         <java fork="true" classpathref="run.class.path" classname="org.javabot.gui.javabot">
+            <jvmarg value="-Djava.security.policy=client.policy"/>
             <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
             <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>
+            <jvmarg value="-Djava.rmi.server.codebase=http://localhost:8000/"/>
         </java>
     </target>
 
