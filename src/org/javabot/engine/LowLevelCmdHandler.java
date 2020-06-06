@@ -20,6 +20,8 @@
 
 package org.javabot.engine;
 
+import net.munki.jbotnet.client.JBotNetClient;
+import org.javabot.botnet.clientserver.client.JavaBotNet;
 import org.javabot.message.MessageInterface;
 import org.javabot.security.SecurityManager;
 import org.javabot.channel.ChannelManager;
@@ -66,6 +68,8 @@ class LowLevelCmdHandler {
     /** Parses message strings into message objects
      */
     private final MessageFactory mf;
+
+    private final JavaBotNet jbn;
     /** Handles script commands
      */
     private final ScriptHandler sh;
@@ -121,6 +125,11 @@ class LowLevelCmdHandler {
         this.bm = new org.javabot.security.BanManager();
         this.sh = new ScriptHandler(outbound);
         this.mf = new org.javabot.message.MessageFactory();
+        this.jbn = new org.javabot.botnet.clientserver.client.JavaBotNet();
+        JBotNetClient jbnc = jbn.start();
+        //jbn.stop();
+
+
         this.sm.registerInterest(cm);
 
 
@@ -965,5 +974,11 @@ class LowLevelCmdHandler {
     public void getMessage(String responseLine) {
         MessageInterface messageT = mf.getMessage(responseLine);
         handleMessage(messageT);
+    }
+
+    public void stopBotNet() {
+        if (jbn != null) {
+            jbn.stop();
+        }
     }
 }
