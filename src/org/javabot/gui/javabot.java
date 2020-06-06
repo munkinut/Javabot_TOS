@@ -28,7 +28,10 @@ public class javabot{
     Logger log = Logger.getLogger(this.getClass().getName());
 
     public static void main(String[] args){
-        
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
         jmenue.main(new String [0]);
         
     }
