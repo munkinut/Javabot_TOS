@@ -23,10 +23,11 @@ package org.javabot.security;
 
 import org.javabot.configuration.PropertyManager;
 import org.javabot.util.MyObserver;
-import java.util.Vector;
+import org.javabot.util.MyObservable;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
-public class SecurityManager implements MyObserver, org.javabot.util.MyObservable {
+public class SecurityManager implements MyObserver, MyObservable {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
@@ -35,12 +36,12 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     public static final int IGNORE = 2;
     public static final int SKIM_FLOODERS = 3;
 
-    private final Vector<MyObserver> observers;
+    private final CopyOnWriteArrayList<MyObserver> observers;
 
     private final boolean debug = false;
 
     private final java.util.Hashtable<String, FloodCounter> flooders;
-    private final Vector<String> ignoreList;
+    private final CopyOnWriteArrayList<String> ignoreList;
     private final java.util.Timer timer;
 
     public static String privmsgRatio;
@@ -59,8 +60,8 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
         SecurityManager.colourRatio = pm.getColourRatio();
         SecurityManager.dccRatio = pm.getDccRatio();
         this.flooders = new java.util.Hashtable<>();
-        this.ignoreList = new Vector<>();
-        this.observers = new Vector<>();
+        this.ignoreList = new CopyOnWriteArrayList<>();
+        this.observers = new CopyOnWriteArrayList<>();
         timer = new java.util.Timer(true);
         org.javabot.task.SkimmerTask st = new org.javabot.task.SkimmerTask();
         st.registerInterest(this);
@@ -175,15 +176,15 @@ public class SecurityManager implements MyObserver, org.javabot.util.MyObservabl
     
     private void kick(int floodType, String hostmask) {
         log.info("[SM] : kick() for floodType = " + floodType + " against user " + hostmask);
-        for (int i = 0; i < observers.size(); i++) {
-            observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
+        for (MyObserver obs : observers) {
+            obs.notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
         }
     }
     
     private void ban(int floodType, String hostmask) {
         log.info("[SM] : ban() for floodType = " + floodType + " against user " + hostmask);
-        for (int i = 0; i < observers.size(); i++) {
-            observers.elementAt(i).notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
+        for (MyObserver obs : observers) {
+            obs.notifyEvent(org.javabot.security.SecurityManager.FLOOD, floodType, hostmask);
         }
     }
     
