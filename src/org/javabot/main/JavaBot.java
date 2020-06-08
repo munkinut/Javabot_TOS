@@ -19,34 +19,57 @@
  *
  */
 
-package org.javabot.gui;
+package org.javabot.main;
 
 import org.javabot.configuration.PropertyManager;
 import org.javabot.engine.inbound;
 
+import java.io.PrintStream;
 import java.util.logging.Logger;
 
-class JavaBotActivator {
+class JavaBot extends Thread  {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 
     private final boolean debug = false;
 
     private boolean connected;
-    private final javax.swing.JTextArea consoleOutput;
+    private final PrintStream consoleOutput;
     private java.net.Socket ircsocket;
     private final PropertyManager propertyManager;
     //private org.javabot.engine.inbound in;
     private inbound in;
 
+    public static void main(String[] args){
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
+        // Create a thread, initialize it but don't start it
+        // Add it as a shutdown hook to the VM via Runtime
+
+
+        //jmenue.main(new String [0]);
+        JavaBot jb = new JavaBot(System.out);
+        jb.connect();
+    }
+
     /** Creates new JavaBotActivator */
-    public JavaBotActivator(javax.swing.JTextArea consoleOutput) {
+    public JavaBot(PrintStream consoleOutput) {
         log.info("JavaBotActivator() called");
+        Runtime runtime = Runtime.getRuntime();
+        runtime.addShutdownHook(this);
         this.consoleOutput = consoleOutput;
         this.connected = false;
         this.propertyManager = org.javabot.configuration.PropertyManager.getInstance();
     }
-    
+
+    @Override
+    public void run() {
+        log.info("Shutdown hook called");
+        this.disconnect();
+    }
+
     public boolean isConnected() {
         return connected;
     }
@@ -58,8 +81,6 @@ class JavaBotActivator {
                 String server = propertyManager.getServer();
                 int port = propertyManager.getPort();
                 ircsocket = new java.net.Socket(server, port);
-                //in = new org.javabot.engine.inbound(ircsocket, consoleOutput);
-                //in.start();
                 in = new inbound(ircsocket, consoleOutput);
                 in.t.start();
                 connected = true;
@@ -73,10 +94,7 @@ class JavaBotActivator {
         catch (java.io.IOException ioe){
             log.warning("IOException: " + ioe);
             connected = false;
-            // System.exit(1);
-        }// catch (InterruptedException e) {
-        //
-        //}
+        }
     }
     
     public boolean disconnect() {
@@ -94,12 +112,10 @@ class JavaBotActivator {
                 if (ircsocket != null) ircsocket.close();
                 String status = "Disconnected\n";
                 consoleOutput.append(status);
-                //consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + status.length());
             }
             catch (java.io.IOException ioe) {
                 String status = "Failed to disconnect successfully\n";
                 consoleOutput.append(status);
-                //consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + status.length());
             }
 
           connected = false;
