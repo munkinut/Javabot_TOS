@@ -50,14 +50,6 @@
         <javac includeantruntime="false" srcdir="${src}" destdir="${build}" classpathref="project.class.path">
             <!-- <compilerarg value="-Xlint:unchecked" /> -->
         </javac>
-        <copy todir="${build}/org/javabot/gui">
-            <fileset dir="${src}/org/javabot/gui/">
-                <exclude name="**/*.java"/>
-                <include name="**/*.form"/>
-                <include name="**/*.gif"/>
-                <include name="**/*.ico"/>
-            </fileset>
-        </copy>
     </target>
 
     <target name="dist" depends="compile"
@@ -102,7 +94,7 @@
     </target>
 
     <target name="run" description="Runs Javabot from the compiled classes" depends="dist">
-        <java fork="true" classpathref="run.class.path" classname="org.javabot.gui.javabot">
+        <java fork="true" classpathref="run.class.path" classname="org.javabot.main.JavaBot">
             <jvmarg value="-Djava.security.policy=client.policy"/>
             <jvmarg value="-Djava.util.logging.config.file=${loggingConfig}"/>
             <jvmarg value="-Djavabot.properties.file=${javabotConfig}"/>

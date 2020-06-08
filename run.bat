@@ -1,1 +1,1 @@
-java -Djava.util.logging.config.file=%CD%\config\javabot.logging.properties -Djavabot.properties.file=%CD%\config\javabot.properties -jar dist\lib\javabot_tos.jar
+java -Djava.util.logging.config.file=%CD%\config\javabot.logging.properties -Djavabot.properties.file=%CD%\config\javabot.properties -Djava.rmi.server.codebase=http://localhost:8000/ -Djava.security.policy=%CD%\client.policy -jar dist\lib\javabot_tos_3_devel.jar

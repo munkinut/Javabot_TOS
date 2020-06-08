@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="javabot" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="org.javabot.gui.javabot" />
+    <option name="MAIN_CLASS_NAME" value="org.javabot.main.javabot" />
     <module name="Javabot_TOS" />
-    <option name="VM_PARAMETERS" value="-Djava.util.logging.config.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties -Djavabot.properties.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties" />
+    <option name="VM_PARAMETERS" value="-Djava.util.logging.config.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.logging.properties -Djavabot.properties.file=C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties -Djava.security.policy=client.policy -Djava.rmi.server.codebase=http://localhost:8000/" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="org.javabot.gui.*" />
+        <option name="PATTERN" value="org.javabot.main.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>

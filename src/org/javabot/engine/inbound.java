@@ -49,7 +49,7 @@ public class inbound implements Runnable {
     private BufferedReader inbound;
     /** Console for output messages
      */
-    private final javax.swing.JTextArea consoleOutput;
+    private final PrintStream consoleOutput;
 
     String name;
     public Thread t;
@@ -58,7 +58,7 @@ public class inbound implements Runnable {
      * @param ircsocket Socket connection to server
      * @param consoleOutput Console for output messages
      */
-    public inbound(java.net.Socket ircsocket, javax.swing.JTextArea consoleOutput){
+    public inbound(java.net.Socket ircsocket, PrintStream consoleOutput){
         log.info("inboundRunnable() called");
         name = "inboundRunnableT";
         t = new Thread(this, name);
@@ -70,8 +70,8 @@ public class inbound implements Runnable {
             e.printStackTrace();
         }
 
-        this.consoleOutput = consoleOutput;
-        llch = new LowLevelCmdHandler(consoleOutput, outbound);
+        this.consoleOutput = System.out;
+        llch = new LowLevelCmdHandler(outbound);
         /* Timer for timed events
          */
         Timer timer = new Timer(true);
@@ -82,10 +82,10 @@ public class inbound implements Runnable {
     public void quit() {
         log.info("quit() called");
         if (outbound != null) {
+            ircCommands.quit(outbound, "Boing Boing!");
             llch.removeAllChannelUsers();
             llch.killTimer();
             llch.stopBotNet();
-            ircCommands.quit(outbound, "Boing Boing!");
             if (this.connected) this.connected = false;
         }
     }
@@ -113,7 +113,6 @@ public class inbound implements Runnable {
                     for(int i=0;i<6;i++){
                         lineToWrite = inbound.readLine() + "\n";
                         consoleOutput.append(lineToWrite);
-                        consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + lineToWrite.length());
 
                         //IRCCommands.identify(name, nick, outbound);
                         if(lineToWrite.contains("NOTICE *")){
@@ -126,7 +125,6 @@ public class inbound implements Runnable {
                             String all = "PONG :"+quote+"\n";
                             log.info("Sending " + all);
                             consoleOutput.append(all);
-                            consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + all.length());
                             ircCommands.writeBytes(all, outbound);
                         }
 
@@ -165,9 +163,10 @@ public class inbound implements Runnable {
                 
                 while ((responseLine = inbound.readLine()) != null) {
                     lineToWrite = responseLine + "\n";
-                    consoleOutput.append(lineToWrite);
-                    consoleOutput.setCaretPosition(consoleOutput.getCaretPosition() + lineToWrite.length());
-                    llch.getMessage(responseLine);
+                    if (!lineToWrite.startsWith("ERROR :Closing Link:")) {
+                        consoleOutput.append(lineToWrite);
+                        llch.getMessage(responseLine);
+                    }
                 }
             }
             catch (IOException ioe){

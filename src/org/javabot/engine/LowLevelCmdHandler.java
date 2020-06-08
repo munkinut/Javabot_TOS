@@ -97,7 +97,7 @@ class LowLevelCmdHandler {
     private final boolean dynamicLimit;
 
 
-    public LowLevelCmdHandler(JTextArea consoleOutput, DataOutputStream outbound) {
+    public LowLevelCmdHandler(DataOutputStream outbound) {
         // TODO if (outbound == null) throw JavabotException
         this.outbound = outbound;
         /** Console for output messages
