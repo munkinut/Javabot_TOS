@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Javabot_TOS.iml" filepath="$PROJECT_DIR$/Javabot_TOS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Javabot_TOS_MVN.iml" filepath="$PROJECT_DIR$/Javabot_TOS_MVN.iml" />
     </modules>
   </component>
 </project>

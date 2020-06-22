@@ -1,7 +1,9 @@
 /lib/
 /old_libs/
+/old_tests/
 /out/
 /logs/
 *.class
 /dist/lib/
 /temp/
+/target/
