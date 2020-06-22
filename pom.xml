@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.munki</groupId>
+    <artifactId>Javabot_TOS</artifactId>
+    <version>5.0-devel</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.release>14</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.jupiter.version>5.6.2</junit.jupiter.version>
+        <groovy.version>3.0.4</groovy.version>
+        <bsh.version>1.3.0</bsh.version>
+        <commons.beanutils.version>1.9.4</commons.beanutils.version>
+        <commons.codec.version>1.14</commons.codec.version>
+        <commons.configuration2.version>2.7</commons.configuration2.version>
+        <commons.io.version>2.7</commons.io.version>
+        <commons.jexl3.version>3.1</commons.jexl3.version>
+        <commons.jxpath.version>1.3</commons.jxpath.version>
+        <commons.lang3.version>3.10</commons.lang3.version>
+        <commons.logging.version>1.2</commons.logging.version>
+        <commons.text.version>1.8</commons.text.version>
+        <commons.vfs2.version>2.6.0</commons.vfs2.version>
+        <gnu.regexp.version>1.1.4</gnu.regexp.version>
+        <hamcrest.core.version>2.2</hamcrest.core.version>
+        <jackson.databind.version>2.11.0</jackson.databind.version>
+        <javax.servlet.api.version>4.0.1</javax.servlet.api.version>
+        <snakeyaml.version>1.26</snakeyaml.version>
+        <spring.core.version>5.2.7.RELEASE</spring.core.version>
+        <xml.resolver.version>1.2</xml.resolver.version>
+        <codemodel.version>2.6</codemodel.version>
+        <dtdparser.version>1.4.3</dtdparser.version>
+        <fastinfoset.version>1.2.18</fastinfoset.version>
+        <istack.commons.runtime.version>3.0.11</istack.commons.runtime.version>
+        <istack.commons.tools.version>3.0.11</istack.commons.tools.version>
+        <javax.activation.api.version>1.2.0</javax.activation.api.version>
+        <jaxb.api.version>2.3.1</jaxb.api.version>
+        <jaxb.jxc.version>2.3.3</jaxb.jxc.version>
+        <jaxb.impl.version>2.3.3</jaxb.impl.version>
+        <relaxng.datatype.version>2.3.3</relaxng.datatype.version>
+        <rngom.version>2.3.3</rngom.version>
+        <stax.ex.version>1.8.3</stax.ex.version>
+        <txw2.version>20110809</txw2.version>
+        <xsom.version>20140925</xsom.version>
+        <JBotNetClient.version>0.3_devel</JBotNetClient.version>
+        <JBotNetInterfaces.version>0.3_devel</JBotNetInterfaces.version>
+    </properties>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <mainClass>
+                                org.javabot.main.JavaBot
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.9.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M4</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-configuration2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${commons.configuration2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+            <type>pom</type>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons.beanutils.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.beanshell/bsh -->
+        <dependency>
+            <groupId>org.beanshell</groupId>
+            <artifactId>bsh</artifactId>
+            <version>${bsh.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons.codec.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-jexl3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-jexl3</artifactId>
+            <version>${commons.jexl3.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-jxpath/commons-jxpath -->
+        <dependency>
+            <groupId>commons-jxpath</groupId>
+            <artifactId>commons-jxpath</artifactId>
+            <version>${commons.jxpath.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang3.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons.logging.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons.text.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-vfs2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-vfs2</artifactId>
+            <version>${commmons.vfs2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/gnu-regexp/gnu-regexp -->
+        <dependency>
+            <groupId>gnu-regexp</groupId>
+            <artifactId>gnu-regexp</artifactId>
+            <version>${gnu.regexp.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>${hamcrest.core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.databind.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax.servlet.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.core.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/xml-resolver/xml-resolver -->
+        <dependency>
+            <groupId>xml-resolver</groupId>
+            <artifactId>xml-resolver</artifactId>
+            <version>${xml.resolver.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.codemodel/codemodel -->
+        <dependency>
+            <groupId>com.sun.codemodel</groupId>
+            <artifactId>codemodel</artifactId>
+            <version>${codemodel.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.fastinfoset/FastInfoset -->
+        <dependency>
+            <groupId>com.sun.xml.fastinfoset</groupId>
+            <artifactId>FastInfoset</artifactId>
+            <version>${fastinfoset.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.dtd-parser/dtd-parser -->
+        <dependency>
+            <groupId>com.sun.xml.dtd-parser</groupId>
+            <artifactId>dtd-parser</artifactId>
+            <version>${dtd.parser.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.istack/istack-commons-runtime -->
+        <dependency>
+            <groupId>com.sun.istack</groupId>
+            <artifactId>istack-commons-runtime</artifactId>
+            <version>${istack.commons.runtime.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.istack/istack-commons-tools -->
+        <dependency>
+            <groupId>com.sun.istack</groupId>
+            <artifactId>istack-commons-tools</artifactId>
+            <version>${istack.commons.tools.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.activation/javax.activation-api -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation-api</artifactId>
+            <version>${javax.activation.api.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.api.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-jxc -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-jxc</artifactId>
+            <version>${jaxb.jxc.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.impl.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind.external/relaxng-datatype -->
+        <dependency>
+            <groupId>com.sun.xml.bind.external</groupId>
+            <artifactId>relaxng-datatype</artifactId>
+            <version>${relaxng.datatype.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind.external/rngom -->
+        <dependency>
+            <groupId>com.sun.xml.bind.external</groupId>
+            <artifactId>rngom</artifactId>
+            <version>${rngom.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jvnet.staxex/stax-ex -->
+        <dependency>
+            <groupId>org.jvnet.staxex</groupId>
+            <artifactId>stax-ex</artifactId>
+            <version>${stax.ex.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.txw2/txw2 -->
+        <dependency>
+            <groupId>com.sun.xml.txw2</groupId>
+            <artifactId>txw2</artifactId>
+            <version>${txw2.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.xsom/xsom -->
+        <dependency>
+            <groupId>com.sun.xsom</groupId>
+            <artifactId>xsom</artifactId>
+            <version>${xsom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.munki.jbotnet</groupId>
+            <artifactId>JBotNetClient</artifactId>
+            <version>${JBotNetClient.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.munki.jbotnet</groupId>
+            <artifactId>JBotNetInterfaces</artifactId>
+            <version>${JBotNetInterfaces.version}</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
