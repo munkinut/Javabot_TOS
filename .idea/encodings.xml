@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/BotNet/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/BotNet/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Engine/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Engine/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JBotNetClient/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JBotNetClient/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Message/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Message/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Play/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Play/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/PropertyManager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/PropertyManager/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Runner/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Runner/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ScriptHandler/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ScriptHandler/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SecurityManager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/SecurityManager/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/UserManager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/UserManager/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Util/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Util/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="bsh-1.2b5">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/bsh-1.2b5.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

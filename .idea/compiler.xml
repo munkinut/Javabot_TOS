@@ -6,11 +6,32 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Javabot_TOS_MVN" />
+        <module name="Play" />
+        <module name="Util" />
+        <module name="JBotNetClient" />
+        <module name="SecurityManager" />
+        <module name="PropertyManager" />
+        <module name="Engine" />
+        <module name="BotNet" />
+        <module name="Runner" />
+        <module name="Message" />
+        <module name="UserManager" />
+        <module name="ScriptHandler" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="14">
-      <module name="Javabot_TOS_MVN" target="14" />
+    <bytecodeTargetLevel target="11">
+      <module name="BotNet" target="11" />
+      <module name="Engine" target="11" />
+      <module name="Javabot_TOS" target="11" />
+      <module name="JBotNetClient" target="11" />
+      <module name="Message" target="11" />
+      <module name="Play" target="11" />
+      <module name="PropertyManager" target="11" />
+      <module name="Runner" target="11" />
+      <module name="ScriptHandler" target="11" />
+      <module name="SecurityManager" target="11" />
+      <module name="UserManager" target="11" />
+      <module name="Util" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

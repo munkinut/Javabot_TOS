@@ -10,13 +10,24 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/Property_Manager/pom.xml" />
+        <option value="$PROJECT_DIR$/PropertyManager/pom.xml" />
+        <option value="$PROJECT_DIR$/SecurityManager/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/ChannelManager/pom.xml" />
+        <option value="$PROJECT_DIR$/IRCCommands/pom.xml" />
+        <option value="$PROJECT_DIR$/JBotNetInterfaces/pom.xml" />
+        <option value="$PROJECT_DIR$/Task/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectResources">
     <resource url="org.javabot.jaxb.Users" location="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="false" project-jdk-name="14" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

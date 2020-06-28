@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Javabot_TOS_MVN.iml" filepath="$PROJECT_DIR$/Javabot_TOS_MVN.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BotNet/BotNet.iml" filepath="$PROJECT_DIR$/BotNet/BotNet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Engine/Engine.iml" filepath="$PROJECT_DIR$/Engine/Engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JBotNetClient/JBotNetClient.iml" filepath="$PROJECT_DIR$/JBotNetClient/JBotNetClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Javabot_TOS.iml" filepath="$PROJECT_DIR$/Javabot_TOS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Message/Message.iml" filepath="$PROJECT_DIR$/Message/Message.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Play/Play.iml" filepath="$PROJECT_DIR$/Play/Play.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PropertyManager/PropertyManager.iml" filepath="$PROJECT_DIR$/PropertyManager/PropertyManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Runner/Runner.iml" filepath="$PROJECT_DIR$/Runner/Runner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScriptHandler/ScriptHandler.iml" filepath="$PROJECT_DIR$/ScriptHandler/ScriptHandler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SecurityManager/SecurityManager.iml" filepath="$PROJECT_DIR$/SecurityManager/SecurityManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UserManager/UserManager.iml" filepath="$PROJECT_DIR$/UserManager/UserManager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Util/Util.iml" filepath="$PROJECT_DIR$/Util/Util.iml" />
     </modules>
   </component>
 </project>
