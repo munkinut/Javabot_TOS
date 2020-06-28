@@ -25,24 +25,24 @@ package org.javabot.security;
 
 import org.javabot.util.MyObserver;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class ChanLimitTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    private final Vector<MyObserver> observers;
+    private final ArrayList<MyObserver> observers;
 
     /** Creates new ChanLimitTask */
     public ChanLimitTask() {
         super();
-        observers = new Vector<>();
+        observers = new ArrayList<>();
     }
     
     public void run() {
-        for (int i = 0; i < observers.size(); i++)
-            observers.elementAt(i).notifyEvent(SecurityManager.CHAN_LIMIT);
+        for (MyObserver observer : observers)
+            observer.notifyEvent(SecurityManager.CHAN_LIMIT);
     }
     
     public void registerInterest(MyObserver observer) {

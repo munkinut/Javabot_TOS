@@ -27,20 +27,20 @@ import org.javabot.util.MyObservable;
 import org.javabot.util.MyObserver;
 
 import java.util.TimerTask;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class FloodTask extends TimerTask implements MyObservable {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    private final Vector<MyObserver> observers;
+    private final ArrayList<MyObserver> observers;
     private final int floodType;
 
     /** Creates new ChanLimitTask */
     public FloodTask(int floodType) {
         super();
-        observers = new Vector<>();
+        observers = new ArrayList<>();
         this.floodType = floodType;
     }
     
@@ -49,8 +49,8 @@ public class FloodTask extends TimerTask implements MyObservable {
     }
     
     public void run() {
-        for (int i = 0; i < observers.size(); i++)
-            observers.elementAt(i).notifyEvent(SecurityManager.FLOOD, this.floodType);
+        for (MyObserver observer : observers)
+            observer.notifyEvent(SecurityManager.FLOOD, this.floodType);
     }
     
     public void registerInterest(MyObserver observer) {

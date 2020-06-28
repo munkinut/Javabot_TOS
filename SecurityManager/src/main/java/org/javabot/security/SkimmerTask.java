@@ -25,23 +25,24 @@ package org.javabot.security;
 
 import org.javabot.util.MyObserver;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class SkimmerTask extends java.util.TimerTask implements org.javabot.util.MyObservable {
 
     Logger log = Logger.getLogger(this.getClass().getName());
 
-    private final java.util.ArrayList<MyObserver> observers;
+    private final ArrayList<MyObserver> observers;
 
     /** Creates new ChanLimitTask */
     public SkimmerTask() {
         super();
-        observers = new java.util.ArrayList<>();
+        observers = new ArrayList<>();
     }
     
     public void run() {
-        for (int i = 0; i < observers.size(); i++) {
-            observers.get(i).notifyEvent(SecurityManager.SKIM_FLOODERS);
+        for (MyObserver observer : observers) {
+            observer.notifyEvent(SecurityManager.SKIM_FLOODERS);
         }
     }
     
