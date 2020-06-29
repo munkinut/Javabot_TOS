@@ -1,5 +1,13 @@
 /lib/
-/libs/
+/BotNet/target/
+/Engine/target/
+/JBotNetClient/target/
+/Message/target/
+/Play/target/
+/Runner/target/
+/ScriptHandler/target/
+/UserManager/target/
+/Util/target/
 /old_libs/
 /old_tests/
 /out/
