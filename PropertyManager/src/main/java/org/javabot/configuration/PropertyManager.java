@@ -56,7 +56,6 @@ public class PropertyManager {
     /** Creates new PropertyManager */
     private PropertyManager() {
         log.info("PropertyManager() called");
-        System.out.println("****** PROPERTIES FILE : " + PROPERTIES_FILE);
         busy = false;
         Configurations configs = new Configurations();
         builder = configs.propertiesBuilder(PROPERTIES_FILE);
