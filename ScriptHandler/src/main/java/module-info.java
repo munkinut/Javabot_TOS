@@ -1,7 +1,8 @@
 module ScriptHandler {
-    requires java.logging;
+    exports org.javabot.script;
     requires bsh;
     requires org.codehaus.groovy;
     requires PropertyManager;
-    exports org.javabot.script;
+    requires java.logging;
+
 }

@@ -24,6 +24,7 @@ package org.javabot.channel;
 import org.javabot.configuration.PropertyManager;
 import org.javabot.engine.Commands;
 import org.javabot.security.ChanLimitTask;
+import org.javabot.util.MyObserver;
 
 import java.util.Hashtable;
 import java.util.logging.Logger;
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 
 /** Provides channel management functionality.
  */
-public class ChannelManager implements org.javabot.util.MyObserver {
+public class ChannelManager implements MyObserver {
 
     final Logger log = Logger.getLogger(this.getClass().getName());
 

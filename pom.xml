@@ -25,6 +25,11 @@
 
     <repositories>
         <repository>
+            <id>central</id>
+            <name>central</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+        <repository>
             <id>mulesoft</id>
             <name>mulesoft</name>
             <url>https://repository.mulesoft.org/nexus/content/repositories/public</url>
@@ -64,7 +69,6 @@
         <fastinfoset.version>1.2.18</fastinfoset.version>
         <istack.commons.runtime.version>3.0.11</istack.commons.runtime.version>
         <istack.commons.tools.version>3.0.11</istack.commons.tools.version>
-        <javax.activation.api.version>1.2.0</javax.activation.api.version>
         <jaxb.api.version>2.3.1</jaxb.api.version>
         <jaxb.jxc.version>2.3.3</jaxb.jxc.version>
         <jaxb.impl.version>2.3.3</jaxb.impl.version>
@@ -424,17 +428,17 @@
             <artifactId>istack-commons-tools</artifactId>
             <version>${istack.commons.tools.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/javax.activation/javax.activation-api -->
+        <!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
         <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>javax.activation-api</artifactId>
-            <version>${javax.activation.api.version}</version>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.0-RC3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>${jaxb.api.version}</version>
+            <version>2.4.0-b180830.0359</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-jxc -->
         <dependency>
