@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.munki.jbotnet:JBotNetClient:5.0-devel">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/munki/jbotnet/JBotNetClient/5.0-devel/JBotNetClient-5.0-devel.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/munki/jbotnet/JBotNetClient/5.0-devel/JBotNetClient-5.0-devel-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/munki/jbotnet/JBotNetClient/5.0-devel/JBotNetClient-5.0-devel-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
