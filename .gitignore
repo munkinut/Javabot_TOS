@@ -7,6 +7,8 @@
 /Runner/target/
 /ScriptHandler/target/
 /UserManager/target/
+/SecurityManager/target/
+/PropertyManager/target/
 /Util/target/
 /old_libs/
 /old_tests/
