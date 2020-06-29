@@ -9,22 +9,5 @@ grant {
 };
 
 grant {
-    permission java.io.FilePermission "C:\\Users\\Warren\\IdeaProjects\\Javabot_TOS\\config\\javabot.properties", "read";
-};
-
-grant {
-    permission java.util.PropertyPermission "user.home", "read";
-};
-
-grant {
-    permission java.util.PropertyPermission "javabot.properties.file", "read";
-};
-
-grant {
-    permission java.lang.RuntimePermission "shutdownHooks";
-};
-
-grant codeBase "file:/c:/users/warren/ideaprojects/jbotnet/serve/" {
     permission java.security.AllPermission;
 };
-
