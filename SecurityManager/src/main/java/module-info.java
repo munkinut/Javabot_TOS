@@ -1,9 +1,8 @@
 module SecurityManager {
-    requires gnu.regexp;
     requires PropertyManager;
-    requires java.xml.bind;
-    requires java.logging;
     requires Util;
+    requires java.logging;
+    requires gnu.regexp;
+    requires java.xml.bind;
     exports org.javabot.security;
-
 }

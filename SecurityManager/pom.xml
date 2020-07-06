@@ -4,9 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.munki</groupId>
+    <parent>
+        <artifactId>Javabot_TOS</artifactId>
+        <groupId>net.munki</groupId>
+        <version>5.0-devel</version>
+    </parent>
+
     <artifactId>SecurityManager</artifactId>
-    <version>5.0-devel</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -17,46 +21,18 @@
         <jaxb.impl.version>2.3.3</jaxb.impl.version>
         <relaxng.datatype.version>2.3.3</relaxng.datatype.version>
         <rngom.version>2.3.3</rngom.version>
+        <gnu.regexp.version>1.1.4</gnu.regexp.version>
         <javabot.version>5.0-devel</javabot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.0.0-M3</version>
-                    <executions>
-                        <execution>
-                            <id>enforce-maven</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <requireMavenVersion>
-                                        <version>3.6</version>
-                                    </requireMavenVersion>
-                                </rules>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <release>11</release>  <!--or <release>10</release>-->
-                </configuration>
-            </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/gnu-regexp/gnu-regexp -->
+        <dependency>
+            <groupId>gnu-regexp</groupId>
+            <artifactId>gnu-regexp</artifactId>
+            <version>${gnu.regexp.version}</version>
+        </dependency>
         <dependency>
             <groupId>net.munki</groupId>
             <artifactId>PropertyManager</artifactId>
@@ -93,11 +69,77 @@
             <version>${rngom.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
             <groupId>net.munki</groupId>
             <artifactId>Util</artifactId>
             <version>5.0-devel</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/libs
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-artifact</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.munki</groupId>
+                                    <artifactId>SecurityManager</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>../target/libs</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
