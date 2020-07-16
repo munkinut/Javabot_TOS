@@ -4,5 +4,6 @@ module SecurityManager {
     requires java.logging;
     requires gnu.regexp;
     requires java.xml.bind;
+    requires transitive java.activation;
     exports org.javabot.security;
 }
