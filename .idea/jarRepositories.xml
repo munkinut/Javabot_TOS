@@ -2,24 +2,14 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
-      <option name="id" value="net.munki.jbotnet.interfaces" />
-      <option name="name" value="net.munki.jbotnet.interfaces" />
-      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetInterfaces/JBotNetInterfaces_0.3.jar" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="JBotNetInterfaces" />
-      <option name="name" value="JBotNetInterfaces" />
-      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetInterfaces/" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="central" />
-      <option name="name" value="central" />
-      <option name="url" value="https://repo1.maven.org/maven2/" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="JBotNetClient" />
       <option name="name" value="JBotNetClient" />
-      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetClient/" />
+      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetClient" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="JBotNetInterfaces" />
@@ -28,13 +18,8 @@
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
-      <option name="name" value="Central Repository" />
-      <option name="url" value="https://repo.maven.apache.org/maven2" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="mulesoft" />
-      <option name="name" value="mulesoft" />
-      <option name="url" value="https://repository.mulesoft.org/nexus/content/repositories/public" />
+      <option name="name" value="central" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
@@ -42,19 +27,34 @@
       <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="net.munki.jbotnet.interfaces" />
+      <option name="name" value="net.munki.jbotnet.interfaces" />
+      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetInterfaces/JBotNetInterfaces_0.3.jar" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mulesoft" />
+      <option name="name" value="mulesoft" />
+      <option name="url" value="https://repository.mulesoft.org/nexus/content/repositories/public" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="net.munki.jbotnet.client" />
       <option name="name" value="net.munki.jbotnet.client" />
       <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetClient/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="JBotNetClient" />
-      <option name="name" value="JBotNetClient" />
-      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetClient" />
+      <option name="id" value="JBotNetInterfaces" />
+      <option name="name" value="JBotNetInterfaces" />
+      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetInterfaces/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="jboss.community" />
-      <option name="name" value="JBoss Community repository" />
-      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+      <option name="id" value="JBotNetClient" />
+      <option name="name" value="JBotNetClient" />
+      <option name="url" value="file://$PROJECT_DIR$/../jBotNet/out/artifacts/JBotNetClient/" />
     </remote-repository>
   </component>
 </project>
