@@ -38,6 +38,11 @@
             <artifactId>PropertyManager</artifactId>
             <version>${javabot.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.2.0</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
@@ -67,11 +72,6 @@
             <groupId>com.sun.xml.bind.external</groupId>
             <artifactId>rngom</artifactId>
             <version>${rngom.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>javax.activation</artifactId>
-            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>net.munki</groupId>
